@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zk xmlns:x="xhtml" xmlns:zk="zk">
+<window id = "win_tratarPeticao"  mode="modal"  border="none" closable="true" apply="mz.ciuem.inamar.expediente.controller.TratarPeticaoGeralCtrl" width="85%" height="70%">
+<custom-attributes composerName="win" />
+
+<div class="row" id="div_content_out"  style="overflow:auto" vflex="true">
+			<div zclass="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+				<div zclass="box box-default">
+				<div class="modal-header">
+						<x:button type="button" class="close"
+							data-dismiss="modal" aria-label="Close" forward="onClick=onClickClose()">
+							x
+						</x:button>
+						<x:h4 class="modal-title" id="">
+							TRATAR PETIÇÃO 
+						</x:h4>
+					</div>
+					<div zclass="box-body">
+					
+					<div zclass="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+					<vlayout>
+					    <button
+							   	         	zclass="btn btn-primary btn-sm" type="button"
+							   	         	id="btn_validar" width="100%" forward="onClick=onClickValidar()" visible="${win._peticao.preValidado=='true' and win._peticao.validado=='false' or win._peticao.recusado=='false'}">
+							   	         	Validar
+							   	         </button>
+							   	         
+							   	         <button
+							   	         	zclass="btn btn-primary btn-sm" type="button"
+							   	         	id="btn_recusar" width="100%" forward="onClick=onClickRecusar()" visible="${win._peticao.preValidado=='true' and win._peticao.validado=='false' or win._peticao.recusado=='false'}">
+							   	         	Recusar
+							   	         </button>
+							   	             <button
+							   	         	zclass="btn btn-primary btn-sm" type="button"
+							   	         	forward="onClick=onClickDarParecer()" width="100%" visible="${win._peticao.chefeSecretariaParecer=='true'}">
+							   	         	Dar Parecer
+							   	         </button>
+							   	         <button
+							   	         	zclass="btn btn-primary btn-sm" visible="false" type="button"
+							   	         	forward="onClick=onClickVerTramitacao()" width="100%">
+							   	         	Ver Tamitação
+							   	         </button>
+							   	         <button visible="${win._peticao.pago=='true'}"
+							   	         	zclass="btn btn-primary btn-sm" type="button"
+							   	         	width="100%"   forward="onClick=onClickVerRecibo()">
+							   	         	Ver Recibo
+							   	         </button>
+							   	            <button
+							   	         	zclass="btn btn-primary btn-sm" type="button"
+							   	         	forward="onClick=onClickEncaminhar()" width="100%" visible="${win._peticao.terminada=='true' and win._peticao.realizada=='false'}">
+							   	         	Confirmar Levantamento
+							   	         </button>
+							   	             <button
+							   	         	zclass="btn btn-primary btn-sm" type="button"
+							   	         	forward="onClick=onClickNotificarUtente()" width="100%" visible="${win._peticao.recusado=='true'}">
+							   	         	Notificar Utente
+							   	         </button>
+							   	         <button
+							   	         	zclass="btn btn-primary btn-sm" type="button"
+							   	         	id="btn_requerimento" width="100%" visible="false">
+							   	         	Ver Requerimento
+							   	         </button>
+							   	     
+					
+					</vlayout>
+		                
+					</div>
+					
+					
+					<div zclass="col-lg-10 col-md-10 col-sm-10 col-xs-10" >
+					  <x:header class="header">
+                  
+                      </x:header>
+          
+						<div class="row">
+							
+							<div zclass="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+							    <groupbox>
+							    <caption>Utente</caption>
+							   	 
+							   	      <div zclass="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+							   	      <label id="lbl_nome" width="100%" value="asdasdasd"/>
+							   	      </div>
+							   	      
+							   	        <div zclass="col-lg-4 col-md-6 col-sm-12 col-xs-12">
+								            <div zclass="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="background-color:">
+								            
+								            </div>
+								            <div zclass="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+								            
+								            </div>
+								     </div>
+									
+	                        	</groupbox>
+							</div>
+							
+							
+							
+						</div>
+                        
+                        <x:hr/>
+
+								<div zclass="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+							    <groupbox>
+							    <caption>Pedido</caption>
+							   	 
+							   	      <div zclass="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+							   	      <x:label>Pedido:</x:label>
+							   	      <label id="lbl_pedido" width="100%" value="asdasdasda asdasdasd adsasdasda"/>
+							   	      </div>
+							   	      
+							   	     <div zclass="col-lg-4 col-md-4 col-sm-12 col-xs-12" align="left">
+							   	     <x:label>Data de Entrada:</x:label>
+							   	      <label id="lbl_dataentrada" width="100%" value="12/02/2018"/>
+							   	      </div>
+							   	      
+							   	       <div zclass="col-lg-4 col-md-4 col-sm-12 col-xs-12" align="left">
+							   	     <x:label>Data Prevista Saída:</x:label>
+							   	      <label id="lbl_datasaida" width="100%" value=""/>
+							   	      </div>
+									
+	                        	</groupbox>
+							</div>
+							
+							<x:hr/>
+						
+						  <div zclass="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+							    <groupbox>
+							    <caption>Accoes Registadas</caption>
+							   	 
+							   	   	<x:label>Accoes</x:label>
+								<combobox width="50%"
+													id="cbx_subArea"
+													placeholder="Selecione uma Sub-Área"
+													constraint="no empty:Selecione uma Sub-Área"
+													readonly="true">
+													<template
+														name="model">
+														<comboitem
+															label="${each.nome}" />
+													</template>
+												</combobox>
+											<button zclass="btn btn-info btn-sm pull-right" type="button"
+											id="btn_adicionar" iconSclass="fa fa-plus-square">
+											Adicionar
+											</button>
+	                        	</groupbox>
+	                        	
+							</div>
+							  <div zclass="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+							    <groupbox>
+							    <caption>Destino</caption>
+							   	 
+							   	   	<x:label>Perfil</x:label>
+								<combobox width="75%"
+													id="sasdd"
+													placeholder="Selecione uma Sub-Área"
+													constraint="no empty:Selecione uma Sub-Área"
+													readonly="true">
+													<template
+														name="model">
+														<comboitem
+															label="${each.nome}" />
+													</template>
+												</combobox>
+	                        	</groupbox>
+							</div>
+							
+							<div>
+								<div zclass="box-body">
+												<listbox id="lbx_taxas"
+									checkmark="true" rows="4">
+									<listhead>
+										<listheader label="#" width="5%" />
+										<listheader label="Nome"/>
+										<listheader label="Activo?" align="center" width="12%"/>
+										<listheader label="Remover" width="10%" align="center"/>
+									</listhead>
+									<template name="model">
+										<listitem>
+											<listcell></listcell>
+											<listcell label="${each.nome}" />
+									       <listcell>
+										   <div align="center">
+											<button zclass="btn btn-sm "
+												visible="${each.activo=='true'}">
+												Sim
+											</button>
+
+											<button
+												zclass="btn btn btn-sm "
+												visible="${each.activo=='false'}">
+												Não
+											</button>
+										  </div>
+
+									     </listcell>
+									<listcell>
+                                                             <button label = "Remover" 
+                                                             zclass ="btn btn-danger btn-xs" iconSclass="fa fa-trash-o" forward=" onClick = 'onRemover(${ each})'"></button>
+														    </listcell>
+												
+										</listitem>
+									</template>
+								</listbox>
+											</div>
+							
+							</div>
+							
+								<!-- 
+							
+							<x:hr/>
+							
+							
+							
+							
+						<div zclass="col-lg- col-md-12 col-sm-24 col-xs-24">
+							<div visible="true" class="form-group">
+									<x:label>Etapa</x:label>
+								  	<div class="input-group">
+									<textbox zclass="form-control"
+										placeholder="Etapa"
+										id="tbx_peticaoEtapa"  readonly="true"/>
+											<x:span class="input-group-addon">
+										<x:i class="fa  fa-edit"></x:i>
+									</x:span>
+								
+								</div>
+								</div>
+							    <groupbox>
+							    <caption>Tarefas da Etapa por Realizar</caption>
+							   	 		<listbox
+												id="lbx_peticaoTarefasEtapa" rows="2"
+													emptyMessage="Sem Dados Registados">
+														<listhead>
+														<listheader
+															label="Descrição"/>
+														<listheader
+															label="Realizada?" width="15%" align="center"/>
+													</listhead>
+													<template
+														name="model">
+														<listitem disabled="${each.realizada}">
+															<listcell
+																label="${each.tarefaNaEtapa.descricao}" />
+															<listcell>
+															<checkbox checked="${each.realizada}"></checkbox>
+															</listcell>
+
+														</listitem>
+													</template>
+												</listbox>
+												
+												<x:hr/>
+												
+												
+													<div visible="false" zclass="box-footer" align="center"
+						style="margin-right:10px; margin-top:20px">
+						<button zclass="btn btn-success btn-sm" visible="true"
+							autodisable="self,btn_actualizar" type="button" id="btn_gravar"
+							iconSclass="fa fa-check">
+
+							
+                      Confirmar
+						</button>
+						
+						</div>
+						
+	                        	</groupbox>
+							</div>
+							
+					<div visible="false" zclass="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+							    <groupbox>
+							    <caption>Tarefas Realizadas</caption>
+							   	 	<listbox
+												id="lbx_eventos" rows="3"
+													emptyMessage="Sem Dados Registados">
+													<template
+														name="model">
+														<listitem disabled="${each.realizada}">
+															<listcell
+																label="${each.id}" />
+															<listcell>
+															<checkbox checked="${each.realizada}"></checkbox>
+															</listcell>
+
+														</listitem>
+													</template>
+												</listbox>
+	                        	</groupbox>
+	                        	
+	                        	
+	                        	
+							</div>
+							-->
+							
+							
+							</div>
+							
+					</div>
+					
+					<x:hr/>
+					
+						<div zclass="box-footer" align="center"
+						style="margin-right:20px; margin-top:20px">
+					<x:hr/>
+						<label width="5%"></label>
+						<button zclass="btn btn-info btn-sm"
+							visible="false" autodisable="self,btn_gravar" type="button"
+							id="btn_actualizar" iconSclass="fa fa-refresh">
+
+							Actualizar
+						</button>
+						<x:hr/>
+						<label width="5%"></label>
+						<x:hr/>
+							<button visible="true" zclass="btn btn-danger btn-sm" forward="onClick=onClickClose()"
+											iconSclass="fa fa-ban" dir="reverse">
+							Fechar
+						</button>
+						
+							<button visible="true" zclass="btn btn-success btn-sm" forward="onClick=onClickClose()"
+											iconSclass="fa fa-ban" dir="reverse">
+							Submeter
+						</button>
+					</div>
+
+				</div>
+			</div>
+		</div>
+       <include id="inc_main"></include>
+       
+       
+	</window>
+
+</zk>
