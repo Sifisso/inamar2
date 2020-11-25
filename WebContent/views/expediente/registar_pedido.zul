@@ -437,21 +437,25 @@
 														zclass="btn btn-sm btn-success" width="37px"
 														height="20px" class="treeview-menu">
 														<menupopup>
-														
-														<menuitem visible="true"
-																label="Actos"  iconSclass="fa  fa-stethoscope pull-left"
-                                                          forward="onClick=onClickVerTramitacao(${each})">
-															         </menuitem>
-															         
-															         <menuitem visible="true"
-																label="Destino"  iconSclass="fa  fa-stethoscope pull-left"
-                                                          forward="onClick=onClickVerTramitacao(${each})">
-															         </menuitem>
 												
-															         	<menuitem
-																label="Tratar Petição"  iconSclass="fa  fa-stethoscope pull-left" forward="onClick=onClickTratar(${each})" >
-															         </menuitem>
-															     
+														<menuitem visible="false"
+																label="Ver Tramitação"  iconSclass="fa  fa-stethoscope pull-left"
+                                                          forward="onClick=onClickVerTramitacao(${each})">
+														 </menuitem>
+															         <!-- 
+															   <menuitem
+																	label="Accoes"  iconSclass="fa  fa-stethoscope pull-left" 
+																	forward="onClick=onClickTratar(${each})" >
+															   </menuitem>
+															     -->
+															   <menuitem
+																	label="Accoes"  iconSclass="fa  fa-stethoscope pull-left" 
+																	forward="onClick=onClickTratar(${each})" >
+															   </menuitem>
+															    <menuitem
+																	label="Destino"  iconSclass="fa  fa-stethoscope pull-left" 
+																	forward="onClick=onClickTratar(${each})" >
+															   </menuitem>
 													
 														</menupopup>
 													</menu>

@@ -292,7 +292,12 @@ public class GerirPeticaoCtrl extends GenericForwardComposer{
 		gravar();
 		Executions.getCurrent().getSession().removeAttribute("ss_utente");
 	}
-	
+	public void onClickTratar(ForwardEvent e){
+		Peticao _pet = (Peticao) e.getData();
+		Map<String, Object> mapContaReceber = new HashMap<String, Object>();
+		mapContaReceber.put("peticao", _pet);
+		Executions.createComponents("/views/expediente/tratar_peticaoGeral.zul", win_regPedidoExpediente, mapContaReceber);
+	}
 	private void gravar() {
 		if(utente==null)utente = (Utente)cbx_utente.getSelectedItem().getValue();
 		_peticaoService.gravarRedicionar((Pedido)cbx_pedido.getSelectedItem().getValue(), utente, 

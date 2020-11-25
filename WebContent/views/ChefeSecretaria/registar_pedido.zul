@@ -448,11 +448,12 @@
 														<menuitem visible="false"
 																label="Ver Tramitação"  iconSclass="fa  fa-stethoscope pull-left"
                                                           forward="onClick=onClickVerTramitacao(${each})">
-															         </menuitem>
+														 </menuitem>
 															         
-															         	<menuitem
-																label="Tratar Petição"  iconSclass="fa  fa-stethoscope pull-left" forward="onClick=onClickTratar(${each})" >
-															         </menuitem>
+															   <menuitem
+																	label="Tratar Petição"  iconSclass="fa  fa-stethoscope pull-left" 
+																	forward="onClick=onClickTratar(${each})" >
+															   </menuitem>
 															     
 													
 														</menupopup>
