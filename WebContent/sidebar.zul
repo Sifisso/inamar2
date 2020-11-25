@@ -37,6 +37,7 @@
 					    
 						<x:li if="${sec:isAnyGranted('PARAM_EMBARCACOES,E_SUPER_ADMINISTRADOR')}"><x:a href="#" onClick="@command('registarAparelhoGoverno')"><x:i class="fa fa-dot-circle-o"></x:i>Aparelho de Governo</x:a></x:li>
 						<x:li if="${sec:isAnyGranted('PARAM_PEDIDO,E_SUPER_ADMINISTRADOR')}"><x:a href="#" onClick="@command('registarArea')"><x:i class="fa fa-dot-circle-o"></x:i>Area</x:a></x:li>
+						<x:li if="${sec:isAnyGranted('PARAM_PEDIDO,E_SUPER_ADMINISTRADOR')}"><x:a href="#" onClick="@command('registarAreaPerfil')"><x:i class="fa fa-dot-circle-o"></x:i>Configurar Perfis de uma Área</x:a></x:li>
 						<x:li if="${sec:isAnyGranted('PARAM_PEDIDO,E_SUPER_ADMINISTRADOR')}"><x:a href="#" onClick="@command('registarCategoria')"><x:i class="fa fa-dot-circle-o"></x:i>Categoria</x:a></x:li>
 						<x:li if="${sec:isAnyGranted('PARAM_EMBARCACOES,E_SUPER_ADMINISTRADOR')}"><x:a href="#" onClick="@command('registarClasseEmbarcacao')"><x:i class="fa fa-dot-circle-o"></x:i>Classe de Embarcacao</x:a></x:li>
 						<x:li if="${sec:isAnyGranted('PARAM_LICENCA,E_SUPER_ADMINISTRADOR')}"><x:a href="#" onClick="@command('registarContagem')"><x:i class="fa fa-dot-circle-o"></x:i>Contagem</x:a></x:li>

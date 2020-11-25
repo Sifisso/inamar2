@@ -12,7 +12,7 @@ public class UserRoleArea extends IdEntity{
 
 	private static final long serialVersionUID = 1L;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "userRole_id", insertable = true, updatable = true)
 	private UserRole userRole;
 	

@@ -444,6 +444,22 @@ public class MainVM extends PagVM {
 	}
 	
 	@Command
+	public void registarAreaPerfil() {
+		final HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("target", target);
+		map.put("breadcrumb", ol);
+		target.getChildren().clear();
+		Executions.createComponents("views/Parametrizacao/area_perfil.zul", target, map);
+
+		links = new ArrayList<String>();
+		links.add("Inicio");
+		drawnBreadcrumb("fa fa-sort", "Mais", links);
+
+		menuReset();
+		setMorePage("active");
+	}
+	
+	@Command
 	public void registarSubArea() {
 		final HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("target", target);
