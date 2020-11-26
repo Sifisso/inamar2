@@ -7,6 +7,8 @@ import mz.ciuem.inamar.entity.UserRoleArea;
 
 public interface UserRoleAreaDao extends GenericDao<UserRoleArea>{
 
-	public List<UserRoleArea> findPerfilByArea(Area area);
+	public List<UserRoleArea> findPerfilByArea();
+
+	public List<UserRoleArea> findPerfilByAreaArea(Area area);
 
 }

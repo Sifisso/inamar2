@@ -1,20 +1,30 @@
 package mz.ciuem.inamar.expediente.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javafx.scene.control.ComboBox;
+import mz.ciuem.inamar.entity.Actos;
+import mz.ciuem.inamar.entity.Delegacao;
 import mz.ciuem.inamar.entity.EtapaFluxo;
 import mz.ciuem.inamar.entity.Peticao;
 import mz.ciuem.inamar.entity.PeticaoEtapa;
 import mz.ciuem.inamar.entity.PeticaoPedidoEtapaInstrumentoLegal;
 import mz.ciuem.inamar.entity.PeticaoTarefasNaEtapa;
+import mz.ciuem.inamar.entity.RoleActos;
 import mz.ciuem.inamar.entity.User;
+import mz.ciuem.inamar.entity.UserRole;
+import mz.ciuem.inamar.entity.UserRoleArea;
+import mz.ciuem.inamar.service.ActosService;
 import mz.ciuem.inamar.service.PeticaoEtapaService;
 import mz.ciuem.inamar.service.PeticaoPedidoEtapaInstrumentoLegalService;
 import mz.ciuem.inamar.service.PeticaoService;
 import mz.ciuem.inamar.service.PeticaoTarefasNaEtapaService;
+import mz.ciuem.inamar.service.RoleActosService;
+import mz.ciuem.inamar.service.UserRoleAreaService;
 import mz.ciuem.inamar.service.UserService;
 import net.sf.jasperreports.engine.JRException;
 
@@ -59,22 +69,34 @@ public class TratarPeticaoGeralCtrl extends GenericForwardComposer{
 	
 	private Button btn_gravar, btn_actualizar, btn_terminar;
 	private Button btn_validar, btn_recusar, btn_requerimento;
+	private Combobox cbx_roles, cbx_Actos;
 	
 	@WireVariable
 	private PeticaoService _peticaoService;
 	@WireVariable
+	private ActosService _actosService;
+	@WireVariable
 	private PeticaoEtapaService _peticaoEtapaService;
+	@WireVariable
+	private UserRoleAreaService _userRoleAreaService;
+	@WireVariable
+	private UserRole _userRole;
+	@WireVariable
+	private RoleActosService roleActosService;
 	@WireVariable
 	private PeticaoTarefasNaEtapaService _peticaoTarefasNaEtapaService;
 	@WireVariable
 	private PeticaoPedidoEtapaInstrumentoLegalService _peticaoPedidoEtapaInstrumentoLegalService;
 	
+	private List<UserRoleArea> list_Role= new ArrayList();
 	@WireVariable
     private UserService _userService;	
 	protected User loggeduser;
 	protected Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 	
 	private Peticao _peticao;
+	
+	private UserRoleArea _userRoleArea;
 	
 	@SuppressWarnings("unchecked")
 	@Override
@@ -84,10 +106,20 @@ public class TratarPeticaoGeralCtrl extends GenericForwardComposer{
 		
 		_userService = (UserService) SpringUtil.getBean("userService");
 		_peticaoService =(PeticaoService) SpringUtil.getBean("peticaoService");
+		
+		_userRoleAreaService =(UserRoleAreaService) SpringUtil.getBean("userRoleAreaService");
+		_userRoleArea = (UserRoleArea) Executions.getCurrent().getArg().get("_userRoleArea");
+		
 		_peticao = (Peticao) Executions.getCurrent().getArg().get("peticao");
 		_peticaoEtapaService = (PeticaoEtapaService) SpringUtil.getBean("peticaoEtapaService");
 		_peticaoTarefasNaEtapaService = (PeticaoTarefasNaEtapaService) SpringUtil.getBean("peticaoTarefasNaEtapaService");
 		_peticaoPedidoEtapaInstrumentoLegalService = (PeticaoPedidoEtapaInstrumentoLegalService) SpringUtil.getBean("peticaoPedidoEtapaInstrumentoLegalService");
+		
+		roleActosService=(RoleActosService) SpringUtil.getBean("roleActosService");
+		
+		_actosService=(ActosService) SpringUtil.getBean("actosService");
+		
+	
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -95,8 +127,27 @@ public class TratarPeticaoGeralCtrl extends GenericForwardComposer{
 	public void doAfterCompose(Component comp) throws Exception {
 		// TODO Auto-generated method stub
 		super.doAfterCompose(comp);
-		preencherCampos();
+		//preencherCampos();
+		listarPerfil();
+		listarActo();
 	}
+	private void listarPerfil(){
+		List<UserRoleArea> _listPerfil = _userRoleAreaService.findPerfilByArea();
+		//cbx_roles.setModel(new ListModelList<UserURole>(perfil));
+		cbx_roles.setModel(new ListModelList<UserRoleArea>(_listPerfil));
+		
+		
+	}
+	
+	private void listarActo(){
+		List<Actos> _listActos = _actosService.getAll();
+		//cbx_roles.setModel(new ListModelList<UserURole>(perfil));
+		cbx_Actos.setModel(new ListModelList<Actos>(_listActos));
+		
+		
+	}
+	
+	
 	
 	public void onClick$btn_gravar(){
 		if(_peticao!=null){

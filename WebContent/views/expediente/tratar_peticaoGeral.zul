@@ -16,9 +16,10 @@
 						</x:h4>
 					</div>
 					<div zclass="box-body">
-					
+					<!-- 
 					<div zclass="col-lg-2 col-md-2 col-sm-2 col-xs-2">
 					<vlayout>
+					
 					    <button
 							   	         	zclass="btn btn-primary btn-sm" type="button"
 							   	         	id="btn_validar" width="100%" forward="onClick=onClickValidar()" visible="${win._peticao.preValidado=='true' and win._peticao.validado=='false' or win._peticao.recusado=='false'}">
@@ -64,10 +65,10 @@
 					
 					</vlayout>
 		                
-					</div>
+					</div> -->
 					
 					
-					<div zclass="col-lg-10 col-md-10 col-sm-10 col-xs-10" >
+					<div zclass="col-lg-12 col-md-12 col-sm-12 col-xs-12" >
 					  <x:header class="header">
                   
                       </x:header>
@@ -93,13 +94,9 @@
 									
 	                        	</groupbox>
 							</div>
-							
-							
-							
 						</div>
-                        
+						
                         <x:hr/>
-
 								<div zclass="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 							    <groupbox>
 							    <caption>Pedido</caption>
@@ -128,16 +125,16 @@
 							    <groupbox>
 							    <caption>Accoes Registadas</caption>
 							   	 
-							   	   	<x:label>Accoes</x:label>
-								<combobox width="50%"
-													id="cbx_subArea"
-													placeholder="Selecione uma Sub-Área"
-													constraint="no empty:Selecione uma Sub-Área"
+							   	   	<x:label>Actos</x:label>
+								<combobox width="75%"
+													id="cbx_Actos"
+													placeholder="Selecione os actos"
+													constraint="no empty:Selecione os actos"
 													readonly="true">
 													<template
 														name="model">
 														<comboitem
-															label="${each.nome}" />
+															label="${each.descricaoActos}" />
 													</template>
 												</combobox>
 											<button zclass="btn btn-info btn-sm pull-right" type="button"
@@ -153,14 +150,14 @@
 							   	 
 							   	   	<x:label>Perfil</x:label>
 								<combobox width="75%"
-													id="sasdd"
-													placeholder="Selecione uma Sub-Área"
-													constraint="no empty:Selecione uma Sub-Área"
+													id="cbx_roles"
+													placeholder="Selecione o perfil dessa area"
+													constraint="no empty:Selecione o perfil dessa area"
 													readonly="true">
 													<template
 														name="model">
 														<comboitem
-															label="${each.nome}" />
+															label="${each.userRole.rolename}" />
 													</template>
 												</combobox>
 	                        	</groupbox>
@@ -173,29 +170,14 @@
 									<listhead>
 										<listheader label="#" width="5%" />
 										<listheader label="Nome"/>
-										<listheader label="Activo?" align="center" width="12%"/>
+										<!-- <listheader label="Activo?" align="center" width="12%"/> -->
 										<listheader label="Remover" width="10%" align="center"/>
 									</listhead>
 									<template name="model">
 										<listitem>
 											<listcell></listcell>
 											<listcell label="${each.nome}" />
-									       <listcell>
-										   <div align="center">
-											<button zclass="btn btn-sm "
-												visible="${each.activo=='true'}">
-												Sim
-											</button>
-
-											<button
-												zclass="btn btn btn-sm "
-												visible="${each.activo=='false'}">
-												Não
-											</button>
-										  </div>
-
-									     </listcell>
-									<listcell>
+									       								<listcell>
                                                              <button label = "Remover" 
                                                              zclass ="btn btn-danger btn-xs" iconSclass="fa fa-trash-o" forward=" onClick = 'onRemover(${ each})'"></button>
 														    </listcell>
@@ -320,7 +302,7 @@
 						</button>
 						
 							<button visible="true" zclass="btn btn-success btn-sm" forward="onClick=onClickClose()"
-											iconSclass="fa fa-ban" dir="reverse">
+											iconSclass="" dir="reverse">
 							Submeter
 						</button>
 					</div>

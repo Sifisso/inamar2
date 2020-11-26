@@ -7,5 +7,7 @@ import mz.ciuem.inamar.entity.UserRoleArea;
 
 public interface UserRoleAreaService extends GenericService<UserRoleArea>{
 
-	public List<UserRoleArea> findPerfilByArea(Area area);
+	public List<UserRoleArea> findPerfilByArea();
+
+	public List<UserRoleArea> findPerfilByAreaArea(Area area);
 }

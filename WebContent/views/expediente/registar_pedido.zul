@@ -450,7 +450,7 @@
 															     -->
 															   <menuitem
 																	label="Accoes"  iconSclass="fa  fa-stethoscope pull-left" 
-																	forward="onClick=onClickTratar(${each})" >
+																	forward="onClick=onClickTratar(${each})">
 															   </menuitem>
 															    <menuitem
 																	label="Destino"  iconSclass="fa  fa-stethoscope pull-left" 

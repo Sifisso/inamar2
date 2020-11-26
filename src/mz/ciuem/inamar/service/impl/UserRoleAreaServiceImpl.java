@@ -21,9 +21,15 @@ public class UserRoleAreaServiceImpl extends GenericServiceImpl<UserRoleArea> im
 	public UserRoleAreaDao _uraDao;
 	
 	@Override
-	public List<UserRoleArea> findPerfilByArea(Area area) {
+	public List<UserRoleArea> findPerfilByArea() {
 		// TODO Auto-generated method stub
-		return _uraDao.findPerfilByArea(area);
+		return _uraDao.findPerfilByArea();
+	}
+	
+	@Override
+	public List<UserRoleArea> findPerfilByAreaArea(Area area) {
+		// TODO Auto-generated method stub
+		return _uraDao.findPerfilByAreaArea(area);
 	}
 
 }

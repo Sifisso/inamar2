@@ -14,6 +14,7 @@ import mz.ciuem.inamar.entity.PedidoEtapa;
 import mz.ciuem.inamar.entity.SubArea;
 import mz.ciuem.inamar.entity.Taxa;
 import mz.ciuem.inamar.entity.TaxaPedido;
+import mz.ciuem.inamar.entity.UserRole;
 import mz.ciuem.inamar.entity.UserRoleArea;
 import mz.ciuem.inamar.service.AreaService;
 import mz.ciuem.inamar.service.InstrumentoLegalService;
@@ -45,7 +46,7 @@ public class AreaPerfilCtrl extends GenericForwardComposer{
 	
 	//Superior
 	private Window win_regArePerfil;
-	private Combobox cbx_taxas, cbx_subArea, cbx_area;
+	private Combobox cbx_taxas, cbx_subArea, cbx_area , cbx_perfil;
 	private Listbox lbx_taxas;
 	
 	private Button btn_cancelar;
@@ -72,6 +73,8 @@ public class AreaPerfilCtrl extends GenericForwardComposer{
 	
 	@WireVariable
 	private UserRoleAreaService _userRoleAreaService;
+	
+	private UserRoleService _userRoleService;
 	
 	@WireVariable
 	private AreaService _areaService;
@@ -125,6 +128,8 @@ public class AreaPerfilCtrl extends GenericForwardComposer{
 	public  void onSelect$cbx_area(){
 		cbx_area.setRawValue(null);
 		cbx_area.getItems().clear();
+		
+		cbx_perfil.setModel(new ListModelList<UserRoleArea>(_userRoleAreaService.findPerfilByAreaArea((Area)cbx_area.getSelectedItem().getValue())));
 		
 	}
 	
