@@ -11,6 +11,7 @@ import mz.ciuem.inamar.entity.Area;
 import mz.ciuem.inamar.entity.InstrumentoLegal;
 import mz.ciuem.inamar.entity.Pedido;
 import mz.ciuem.inamar.entity.PedidoEtapa;
+import mz.ciuem.inamar.entity.PeticaoMaritimoTaxaPedido;
 import mz.ciuem.inamar.entity.SubArea;
 import mz.ciuem.inamar.entity.Taxa;
 import mz.ciuem.inamar.entity.TaxaPedido;
@@ -31,6 +32,7 @@ import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Execution;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
+import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.event.ForwardEvent;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zk.ui.util.Clients;
@@ -40,6 +42,7 @@ import org.zkoss.zul.Combobox;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Listitem;
+import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
 public class AreaPerfilCtrl extends GenericForwardComposer{
@@ -56,11 +59,13 @@ public class AreaPerfilCtrl extends GenericForwardComposer{
 	private Button btn_imprimir;
 	
 	//Inferior
-	private Listbox lbx_taxasPedido, lbx_areaPerfil;
+	private Listbox lbx_taxasPedido, lbx_areaPerfil, lbx_perfis;
 	
 	private Execution ex = Executions.getCurrent();
 
-	private Taxa _selectedTaxa;
+	private UserRole _selectedUserRole;
+	private Area _selectedArea;
+	
 	private Pedido _pedido;
 	
 	@WireVariable
@@ -74,14 +79,17 @@ public class AreaPerfilCtrl extends GenericForwardComposer{
 	@WireVariable
 	private UserRoleAreaService _userRoleAreaService;
 	
+	@WireVariable
 	private UserRoleService _userRoleService;
 	
 	@WireVariable
 	private AreaService _areaService;
 	
-	private List<Taxa> listTaxa, listTaxaAdd = new ArrayList<Taxa>();
-	private ListModelList<Taxa> listModelTaxaAdd, listModelTaxa;
-	private List<TaxaPedido> _listTaxaPedido= new ArrayList<TaxaPedido>();
+	private List<UserRole> listUserRole, listUserRoleAdd = new ArrayList<UserRole>();
+	private ListModelList<UserRole> listModelUserRoleAdd, listModelUserRole;
+	private List<Area> listArea, listAreaAdd = new ArrayList<Area>();
+	private ListModelList<Area> listModelAreaAdd, listModelArea;
+	
 	
 	private List<UserRoleArea> _listUserRoleArea = new ArrayList<UserRoleArea>();
 	
@@ -97,6 +105,7 @@ public class AreaPerfilCtrl extends GenericForwardComposer{
 		_taxaPedidoService =  (TaxaPedidoService) SpringUtil.getBean("taxaPedidoService");
 		
 		_userRoleAreaService =  (UserRoleAreaService) SpringUtil.getBean("userRoleAreaService");
+		_userRoleService =  (UserRoleService) SpringUtil.getBean("userRoleService");
 		_areaService =  (AreaService) SpringUtil.getBean("areaService");
 		
 		_pedido = (Pedido) ex.getArg().get("_pedido");
@@ -111,6 +120,7 @@ public class AreaPerfilCtrl extends GenericForwardComposer{
 		//preencherTaxas(_pedido);
 		listarPerfisDasAreas();
 		preencherAreas();
+		preencherPerfis();
 		//listaLocalTaxasPedido(_pedido);
 		//preencherSubAreas();
 	}
@@ -125,16 +135,10 @@ public class AreaPerfilCtrl extends GenericForwardComposer{
 		cbx_area.setModel(new ListModelList<Area>(_listArea));
 	}
 	
-	public  void onSelect$cbx_area(){
-		cbx_area.setRawValue(null);
-		cbx_area.getItems().clear();
-		
-		cbx_perfil.setModel(new ListModelList<UserRoleArea>(_userRoleAreaService.findPerfilByAreaArea((Area)cbx_area.getSelectedItem().getValue())));
-		
-	}
 	
 	private void preencherPerfis() {
-		
+		List<UserRole> _listUserRoles = _userRoleService.getAll();
+		cbx_perfil.setModel(new ListModelList<UserRole>(_listUserRoles));
 	}
 	
    	public void onClick$btn_imprimir(Event e) throws JRException{
@@ -144,93 +148,82 @@ public class AreaPerfilCtrl extends GenericForwardComposer{
    		InputStream inputV= ex.getDesktop().getWebApp().getResourceAsStream("/img/inmr.png");       
            mapaParam.put("imagemLogo", inputV);
            mapaParam.put("listNome", _pedido.getDescricao());
-   		MasterRep.imprimir("/reportParam/reportLocalPraticaPedido.jrxml", _listTaxaPedido, mapaParam, win_regArePerfil);
+   		MasterRep.imprimir("/reportParam/reportLocalPraticaPedido.jrxml", _listUserRoleArea, mapaParam, win_regArePerfil);
    	}
 	
-	public void onSelect$cbx_taxas() {
-		_selectedTaxa = (Taxa) cbx_taxas.getSelectedItem().getValue();
+	public void onSelect$cbx_cbx_perfil() {
+		_selectedUserRole = (UserRole) cbx_perfil.getSelectedItem().getValue();
+		_selectedArea = (Area) cbx_area.getSelectedItem().getValue();	
     }
 
 	public void onClick$btn_adicionar() {
-		listTaxaAdd.add((Taxa)cbx_taxas.getSelectedItem().getValue());
+		listUserRoleAdd.add((UserRole)cbx_perfil.getSelectedItem().getValue());
+		listAreaAdd.add((Area)cbx_area.getSelectedItem().getValue());
 		
-		listModelTaxaAdd = new ListModelList<Taxa>(listTaxaAdd);
-		lbx_taxas.setModel(listModelTaxaAdd);
+		listModelUserRoleAdd = new ListModelList<UserRole>(listUserRoleAdd);
+		listModelAreaAdd = new ListModelList<Area>(listAreaAdd);
+		
+		//lbx_perfis.setModel(listModelUserRoleAdd, listModelAreaAdd);
+		lbx_perfis.setModel(listModelAreaAdd);
+		lbx_perfis.setModel(listModelUserRoleAdd);
 	
-		listTaxa.remove((Taxa)cbx_taxas.getSelectedItem().getValue());
-		cbx_taxas.removeChild(cbx_taxas.getSelectedItem());
+		//listUserRole.remove((UserRole)cbx_perfil.getSelectedItem().getValue());
+		//cbx_perfil.removeChild(cbx_perfil.getSelectedItem());
+		//cbx_area.removeChild(cbx_area.getSelectedItem());
 		btn_actualizar.setVisible(false);
 		btn_gravar.setVisible(true);
 		btn_cancelar.setVisible(true);		
-		_selectedTaxa = null;
-		cbx_taxas.setRawValue(null);
+		_selectedUserRole = null;
+		_selectedArea = null;
+		cbx_perfil.setRawValue(null);
 
 	}
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public void onRemover(ForwardEvent e){
-		Taxa txp = (Taxa) e.getData();
+	public void onRemover(final ForwardEvent e){
 		
-		listTaxaAdd.remove(txp);
-        listModelTaxaAdd = new ListModelList<Taxa>(listTaxaAdd);
-		lbx_taxas.setModel(listModelTaxaAdd);
+		Messagebox.show("Deseja remover o perfil da área selecionada?", "Remoção do perfil",Messagebox.YES|Messagebox.NO, Messagebox.QUESTION, new EventListener() {
 		
-		listTaxa.add(txp);
-		listModelTaxa = new ListModelList<Taxa>(listTaxa);
-		cbx_taxas.setModel(listModelTaxa);
-		
-	}
+			@Override
+			public void onEvent(Event event) throws Exception {
+				
+				if("onYes".equals(event.getName())){
+					UserRoleArea ip = (UserRoleArea) e.getData();
+					
+					if(_listUserRoleArea.contains(ip)){
+						
+						_userRoleAreaService.delete(ip);
+						
+						listarPerfisDasAreas();
+					}
+					showNotifications("Perfil Removido", "warning");
+				}
+			}
+		});
+	}	
 	
-//	public void onSelect$cbx_subArea(){
-//		preencherTaxas((SubArea)cbx_subArea.getSelectedItem().getValue(), _pedido);
-//	}
 	
-	public void onClick$btn_gravar() {
-
-		for (Listitem listItem : lbx_taxas.getItems()) {
-
-			Taxa tx = (Taxa) listItem.getValue();
-
-			TaxaPedido _txp = new TaxaPedido();
+public void onClick$btn_gravar() {
+		
+		UserRoleArea ura = new UserRoleArea();
+		
+		ura.setArea((Area)cbx_area.getSelectedItem().getValue());
+		ura.setUserRole((UserRole)cbx_perfil.getSelectedItem().getValue());
+		
+		
+			_userRoleAreaService.create(ura);
+			//cbx_area.removeChild(cbx_area.getSelectedItem());
+			//cbx_perfil.removeChild(cbx_perfil.getSelectedItem());
 			
-			_txp.setTaxa(tx);
-			_txp.setPedido(_pedido);
-
-			_taxaPedidoService.create(_txp);
-		}
-		
-		listaLocalTaxasPedido(_pedido);
-		//preencherTaxas(_pedido);
-		cbx_subArea.setRawValue(null);
-		cbx_taxas.setRawValue(null);
-		listTaxaAdd.clear();
-		listModelTaxa.clear();
-		btn_gravar.setVisible(false);
-		btn_cancelar.setVisible(false);
-		limparCampos();
-		showNotifications("Taxas Adicionadas com Sucesso", "info");
+			_selectedArea = null;
+			_selectedUserRole = null;
+			cbx_area.setRawValue(null);
+			cbx_perfil.setRawValue(null);
+			
+			limparCampos();
+			listarPerfisDasAreas();
+			showNotifications("Perfil Adicionado com Sucesso", "info");
 	}
-	
-	private void listaLocalTaxasPedido(Pedido pedido) {
-		//Filtrar
-		_listTaxaPedido = _taxaPedidoService.findByPedido(_pedido);
-		//System.out.println(">>>>>>>>>>>>>>>>>>>>>>"+_pedido);
-		lbx_taxasPedido.setModel(new ListModelList<TaxaPedido>(_listTaxaPedido));
-	}
-	
-	
-
-	/*
-	 * private void preencherTaxas(SubArea _subArea, Pedido _pedido) { listTaxa =
-	 * _taxaService.findNotInPedidoInSubSrea(_subArea, _pedido); listModelTaxa = new
-	 * ListModelList<Taxa>(listTaxa); cbx_taxas.setModel(listModelTaxa); }
-	 */
-	
-//	private void preencherSubAreas() {
-//		//Filtrar Atraves da Subarea selecionada
-//		List<SubArea> listSubArea = _subAreaService.findByArea(_pedido.getTipoPedido().getArea());
-//		cbx_subArea.setModel(new ListModelList<SubArea>(listSubArea));
-//	}
 	
 	public void showNotifications(String message, String type) {
 		Clients.showNotification(message, type, lbx_taxas, "before_center",
@@ -238,15 +231,8 @@ public class AreaPerfilCtrl extends GenericForwardComposer{
 	}
 	
 	private void limparCampos() {
-		lbx_taxas.getItems().clear();
-		btn_gravar.setVisible(false);
-		btn_cancelar.setVisible(false);
-		btn_actualizar.setVisible(false);
-		lbx_taxasPedido.clearSelection();
-		cbx_taxas.setRawValue(null);
-		_selectedTaxa = null;
-		listTaxa= new ArrayList<Taxa>();
-		listModelTaxaAdd = new ListModelList<Taxa>();
+		cbx_perfil.setRawValue(null);
+		cbx_area.setRawValue(null);
    }
 
 }
