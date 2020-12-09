@@ -1,0 +1,242 @@
+<zk xmlns:x="xhtml" xmlns:zk="zk">
+	<window apply="mz.ciuem.inamar.controller.UserRoleAreaActoCtrl" id="win_regUserRoleAreaActo">
+		<div class="row">
+			<div zclass="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+				<div zclass="box box-default">
+					<div zclass="box-header">
+									<div zclass="box-body">
+		                        <div zclass="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="background-color:#3c8dbc">
+		                            <div zclass="col-md-4">
+		                            </div>
+		                            <div zclass="col-md-4">
+		                            <div align="center">
+		                            <label id="lbl_descricaoActos" style="color:white" class="box-title"></label>
+		                            <label id="lbl_descricaoPerfil" style="color:white" class="box-title"></label>
+		                            </div>
+		                            </div>
+		                            <div zclass="col-md-4">
+		                          
+		                            	<x:li class="pull-right" style="color:white; margin-top:8px">
+		                            		<x:a href="#"
+		                            			onClick="@command('registarDestinoActo')"
+		                            			class="text-muted" style="color:white">Voltar
+		                            			<x:i
+		                            				class="fa fa-mail-reply-all" style="color:white">
+		                            			</x:i>
+		                            		</x:a>
+		                            	</x:li>
+		                            </div>
+								</div>
+								</div>
+													<x:label class="box-title"
+							style="font-family:Georgia,serif;color:#4E443C; font-variant: small-caps; text-transform: none; font-weight: 100; margin-bottom: 0;">
+							Actos de Perfis
+						</x:label>
+						
+					</div>
+					<div zclass="box-body">
+						<div class="row">
+							<div zclass="col-lg-10 col-md-10 col-sm-12 col-xs-12">
+							
+							
+							<groupbox> 
+							<caption>Pesquisa</caption>
+								<div zclass="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+								<div class="input-group">
+									<textbox zclass="form-control"
+										placeholder="Procurar pelo nome do acto"
+										id="txb_nomefind" />
+											<x:span class="input-group-addon" forward="onClick=onClickprcurar()">
+										<x:i class="fa  fa-search"></x:i>
+									</x:span>
+								
+								</div>
+							</div>
+							
+<!-- 								<div zclass="col-lg-6 col-md-6 col-sm-12 col-xs-12"> -->
+<!-- 								<div class="input-group"> -->
+<!-- 								<combobox width="100%" id="cbx_provinciaFind" -->
+<!-- 									placeholder="Selecione a Provincia" readonly="true" -->
+<!-- 									 forward="onSelect=onClickprcurar()"> -->
+<!-- 									<template name="model"> -->
+<!-- 										<comboitem -->
+<!-- 											label="${each.designacao}" /> -->
+<!-- 									</template> -->
+<!-- 								</combobox> -->
+								
+<!-- 								</div> -->
+<!-- 							</div> -->
+							
+							</groupbox>
+							
+							
+							<div zclass="col-lg-2 col-md-2 col-sm-12 col-xs-12" visible="false">
+								<button zclass="btn btn-info btn-sm "
+								type="button" id="btn_procurar" iconSclass="fa  fa-search" width="" forward="onClick=onClickprcurar()">
+								Procurar
+							</button>
+							</div>
+
+							</div>
+							
+							<div zclass="col-lg-2 col-md-2 col-sm-12 col-xs-12" align="left" style="margin-left:-20px; margin-top:16px">
+								<x:a class="btn btn-app"
+									data-toggle="modal" data-target="#myModal" style="width:100%">
+									<x:i class="fa fa-plus"></x:i>
+									Adicionar Novo
+								</x:a>
+							</div>
+						</div>
+                        
+                        <x:hr/>
+
+						<div class="row">
+							<div
+								zclass="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+								<listbox id="lbx_perfilActo"
+									checkmark="true" rows="10">
+									<listhead>
+										<listheader label="#"
+											width="5%" />
+										<listheader label="Codigo"
+											sort="auto(codigo)" />
+										<listheader label="Perfil"
+											sort="auto(entidade)"/>
+<!-- 										<listheader label="Área" -->
+<!-- 											sort="auto(entidade)"/> -->
+										<listheader label="Actos"
+											sort="auto(entidade)"/>
+									</listhead>
+									<template name="model">
+										<listitem>
+											<listcell></listcell>
+											<listcell label="${each.codigo}" />
+											<listcell label="${each.userRoleArea.userRole.rolename}"></listcell>
+<!-- 											<listcell label="${each.userRoleArea.area.nome}"></listcell> -->
+											<listcell label="${each.actos.descricaoActos}"></listcell>
+												
+										</listitem>
+									</template>
+								</listbox>
+							</div>
+						</div>
+
+
+					</div>
+					<div zclass="box-footer">
+					  <div align="center">
+	                     <button zclass="btn btn-warning btn-sm"
+							type="button" id="btn_imprimir" iconSclass="fa fa-print">
+
+							Imprimir PDF
+						</button>
+					  </div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+
+
+
+		<!-- Modal Candidato-->
+		<x:div class="modal fade" id="myModal" tabindex="-1"
+			role="dialog" aria-labelledby="myModalLabel">
+			<x:div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<x:button type="button" class="close"
+							data-dismiss="modal" aria-label="Close">
+							x
+						</x:button>
+						<x:h4 class="modal-title" id="myModalLabel">
+							Novo Acto de Perfil
+						</x:h4>
+					</div>
+					<div class="modal-body">
+								<div zclass="box-header">
+									<div zclass="box-body">
+		                        <div zclass="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="background-color:#3c8dbc">
+		                            <div zclass="col-md-2">
+		                            </div>
+		                            <div zclass="col-md-8">
+		                            <div align="center">
+		                            <label id="lbl_descricaoActos2" style="color:white" class="box-title"></label>
+		                            <label id="lbl_descricaoPerfil2" style="color:white" class="box-title"></label>
+		                            </div>
+		                            </div>
+		                            <div zclass="col-md-2">
+		                            </div>
+								</div>
+								</div>
+						
+					</div>
+
+						<div class="row">
+							
+							
+							<div
+								zclass="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+
+								<x:label>Código</x:label>
+								<div class="input-group">
+									<textbox zclass="form-control"
+										placeholder="Codigo do Perfil"
+										constraint="no empty : Não pode ser vazio nem conter apenas espaços em branco!"
+										id="txb_codigo" />
+									<x:span class="input-group-addon">
+										<x:i class="fa  fa-edit"></x:i>
+									</x:span>
+								</div>
+							</div>
+							
+							
+							<div zclass="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+								<x:label>Acto:</x:label>
+								<combobox width="100%" id="cbx_acto"
+									placeholder="Selecione o Acto" readonly="true"
+									constraint="no empty : Não pode ser vazio nem conter apenas espaços em branco!">
+									<template name="model">
+										<comboitem
+											label="${each.descricaoActos}" />
+									</template>
+								</combobox>
+							</div>
+
+						</div>
+
+
+					</div>
+
+					<div class="modal-footer">
+
+						<div align="center">
+
+							<button zclass="btn btn-success btn-sm "
+								type="button" id="btn_gravar" iconSclass="fa  fa-save">
+								Gravar
+							</button>
+							<label width="5%"></label>
+							<button zclass="btn btn-info btn-sm "
+								type="button" visible="false" id="btn_actualizar"
+								iconSclass="fa  fa-refresh">
+								Actualizar
+							</button>
+
+							<label width="5%"></label>
+							<button zclass="btn btn-danger btn-sm "
+								type="button" id="btn_cancelar" iconSclass="fa  fa-undo">
+								Cancelar
+							</button>
+
+						</div>
+
+					</div>
+				</div>
+			</x:div>
+		</x:div>
+
+	</window>
+</zk>

@@ -1,9 +1,12 @@
 package mz.ciuem.inamar.entity;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -19,6 +22,9 @@ public class UserRoleArea extends IdEntity{
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "area_id", insertable = true, updatable = true)
 	private Area area;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userRoleArea")
+	private List<AreaPerfilActo> areaPerfilActos;
 	
 	
 	private String descricao;

@@ -8,6 +8,8 @@ import java.util.Map;
 
 import mz.ciuem.inamar.comps.MasterRep;
 import mz.ciuem.inamar.entity.Area;
+import mz.ciuem.inamar.entity.AreaPerfilActo;
+import mz.ciuem.inamar.entity.Instituicao;
 import mz.ciuem.inamar.entity.InstrumentoLegal;
 import mz.ciuem.inamar.entity.Pedido;
 import mz.ciuem.inamar.entity.PedidoEtapa;
@@ -28,24 +30,27 @@ import mz.ciuem.inamar.service.UserRoleService;
 import net.sf.jasperreports.engine.JRException;
 
 import org.zkoss.spring.SpringUtil;
+import org.zkoss.zhtml.Ol;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Execution;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.event.ForwardEvent;
+import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.Button;
 import org.zkoss.zul.Combobox;
+import org.zkoss.zul.Div;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Listitem;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
-public class AreaPerfilCtrl extends GenericForwardComposer{
+public class AreaPerfilConfigDesActCtrl extends GenericForwardComposer{
 	
 	//Superior
 	private Window win_regArePerfil;
@@ -65,6 +70,15 @@ public class AreaPerfilCtrl extends GenericForwardComposer{
 
 	private UserRole _selectedUserRole;
 	private Area _selectedArea;
+	
+	
+	private UserRoleArea _userRoleArea;
+	
+	@Wire("#mainlayout")
+	private Div target;
+	
+	@Wire("#breadcrumb")
+	private Ol ol;
 	
 	private Pedido _pedido;
 	
@@ -235,6 +249,18 @@ public void onClick$btn_gravar() {
 		
 			
 	}
+
+	public void onClickConfig(ForwardEvent e)  {
+		UserRoleArea _userRoleArea = (UserRoleArea) e.getData();
+		final HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("target", target);
+		map.put("breadcrumb", ol);
+		map.put("_userRoleArea", _userRoleArea);
+		win_regArePerfil.getChildren().clear();
+		Executions.createComponents("/views/Parametrizacao/registar_userRoleAreaActo.zul", win_regArePerfil,map);
+		
+	}
+
 	
 	public void showNotifications(String message, String type) {
 		Clients.showNotification(message, type, lbx_taxas, "before_center",

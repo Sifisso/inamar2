@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -39,6 +40,11 @@ public class UserRole extends IdEntity implements Serializable,
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "role_permissions", joinColumns = @JoinColumn(name = "role_id", nullable = false, updatable = false), inverseJoinColumns = @JoinColumn(name = "permission_id", nullable = false, updatable = false))
 	private Set<Permission> permissions = new HashSet<Permission>();
+	
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name= "actos_id")
+	private Actos actos;
 
 	private String type;
 
@@ -109,4 +115,15 @@ public class UserRole extends IdEntity implements Serializable,
 	public void setType(String type) {
 		this.type = type;
 	}
+
+
+	public Actos getActos() {
+		return actos;
+	}
+
+
+	public void setActos(Actos actos) {
+		this.actos = actos;
+	}
+	
 }

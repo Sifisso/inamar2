@@ -1,0 +1,136 @@
+
+<zk xmlns:x="xhtml" xmlns:zk="zk">
+<window  border="none" contentStyle="overflow:auto" width="100%" id="win_regArePerfil"
+			apply="mz.ciuem.inamar.controller.AreaPerfilConfigDesActCtrl"	>
+			
+							<div class="row">
+							<x:br></x:br>
+								
+										
+							<div zclass="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+
+								<x:label>Área</x:label>
+								<combobox width="60%"
+													id="cbx_area"
+													placeholder="Selecione uma Área"
+													constraint="no empty:Selecione uma Área"
+													readonly="true">
+													<template
+														name="model">
+														<comboitem
+															label="${each.nome}" />
+													</template>
+												</combobox>
+							</div>
+										
+										<div zclass="col-lg-7 col-md-7 col-sm-12 col-xs-12">
+
+												<div class="form-group">
+												<x:label>
+													
+												</x:label>
+												<combobox width="60%" visible="false"
+													id="cbx_perfil"
+													placeholder="Selecione um perfil"
+													constraint="no empty:Selecione um Perfil"
+													readonly="true">
+													<template
+														name="model">
+														<comboitem
+															label="${each.rolename}" />
+													</template>
+												</combobox>
+												<button style="margin-left:15px"
+													zclass="btn btn-success btn-sm" type="button"
+													id="btn_gravar" iconSclass="fa fa-save" visible="false">
+
+													Gravar
+												</button>
+											</div>
+										</div>
+										
+								</div>
+
+								<div >
+								<separator></separator>
+								</div>
+
+
+								<div zclass="box box-success">
+									<div zclass="box box-success">
+										<div zclass="box-header">
+											<x:h3 class="box-title">
+												Perfis das Áreas
+											</x:h3>
+											
+											<div align="right">
+											<separator></separator>
+											<button
+												zclass="btn btn-warning btn-sm" type="button"
+												id="btn_imprimir" style="margin-right:3%"
+												iconSclass="fa fa-print">
+
+												Imprimir PDF
+											</button>
+										</div>
+										
+										</div>
+										<div>
+											<div zclass="box-body">
+												<listbox
+													id="lbx_areaPerfil" checkmark="true"
+													multiple="true" rows="10"
+													emptyMessage="Sem Dados Registados">
+													<listhead>
+														<listheader
+															width="5%">
+														</listheader>
+														<listheader
+															label="Área"/>
+														<listheader
+															label="Perfil"/>
+														<listheader label="Actos" width="15%" align="center"/>
+														<listheader label="Destino" width="15%" align="center"/>
+													</listhead>
+													<template
+														name="model">
+														<listitem>
+															<listcell />
+
+															<listcell
+																label="${each.area.nome}" />
+															<listcell
+																label="${each.userRole.rolename}" />
+															 <listcell>
+										 						<div align="center">
+																	<button
+																		zclass="btn btn-sm btn-info"
+																		iconSclass="fa fa-gears"
+																		style="background-color:#00dddd"
+																	     forward="onClick=onClickConfig(${each})">
+																	</button>
+																</div>
+										 					</listcell>
+										 					
+										 					 <listcell>
+										 						<div align="center">
+																	<button
+																		zclass="btn btn-sm btn-info"
+																		iconSclass="fa fa-gears"
+																		style="background-color:#00dddd"
+																	     forward="onClick=onClickConfig(${each})">
+																	</button>
+																</div>
+										 					</listcell>
+
+														</listitem>
+													</template>
+												</listbox>
+											</div>
+
+										</div>
+									</div>
+								</div>
+							
+</window>
+</zk>

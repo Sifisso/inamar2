@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import mz.ciuem.inamar.dao.UserRoleAreaDao;
 import mz.ciuem.inamar.entity.Area;
+import mz.ciuem.inamar.entity.UserRole;
 import mz.ciuem.inamar.entity.UserRoleArea;
 import mz.ciuem.inamar.service.UserRoleAreaService;
 
@@ -30,6 +31,12 @@ public class UserRoleAreaServiceImpl extends GenericServiceImpl<UserRoleArea> im
 	public List<UserRoleArea> findPerfilByAreaArea(Area area) {
 		// TODO Auto-generated method stub
 		return _uraDao.findPerfilByAreaArea(area);
+	}
+	
+	@Override
+	public List<UserRoleArea> findPerfilByUserRole(UserRole userRole) {
+		// TODO Auto-generated method stub
+		return _uraDao.findPerfilByUserRole(userRole);
 	}
 
 }
