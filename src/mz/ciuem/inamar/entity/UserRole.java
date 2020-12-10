@@ -41,11 +41,6 @@ public class UserRole extends IdEntity implements Serializable,
 	@JoinTable(name = "role_permissions", joinColumns = @JoinColumn(name = "role_id", nullable = false, updatable = false), inverseJoinColumns = @JoinColumn(name = "permission_id", nullable = false, updatable = false))
 	private Set<Permission> permissions = new HashSet<Permission>();
 	
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name= "actos_id")
-	private Actos actos;
-
 	private String type;
 
 	public UserRole() {
@@ -116,14 +111,4 @@ public class UserRole extends IdEntity implements Serializable,
 		this.type = type;
 	}
 
-
-	public Actos getActos() {
-		return actos;
-	}
-
-
-	public void setActos(Actos actos) {
-		this.actos = actos;
-	}
-	
 }

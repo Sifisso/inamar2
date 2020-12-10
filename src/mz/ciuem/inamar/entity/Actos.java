@@ -1,10 +1,13 @@
 package mz.ciuem.inamar.entity;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -12,15 +15,13 @@ import javax.persistence.Table;
 
 public class Actos extends IdEntity  {
 	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "actos")
+	private List<AreaPerfilActo> areaPerfilActos;
 	
 	private static final long serialVersionUID = -580835934094969154L;
 
 	@Column(name="descricao_actos")
 	private String descricaoActos;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "userRole_id", insertable = true, updatable = true)
-	private UserRole userRole;
 	
 	private boolean activo;
 
@@ -39,14 +40,5 @@ public class Actos extends IdEntity  {
 	public void setActivo(boolean activo) {
 		this.activo = activo;
 	}
-
-	public UserRole getUserRole() {
-		return userRole;
-	}
-
-	public void setUserRole(UserRole userRole) {
-		this.userRole = userRole;
-	}
-	
 
 }

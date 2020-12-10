@@ -24,6 +24,7 @@ import mz.ciuem.inamar.service.DelegacaoService;
 import mz.ciuem.inamar.service.InstituicaoService;
 import mz.ciuem.inamar.service.ProvinciaService;
 import mz.ciuem.inamar.service.UserRoleAreaService;
+import mz.ciuem.inamar.service.UserRoleService;
 import net.sf.jasperreports.engine.JRException;
 
 import org.zkoss.spring.SpringUtil;
@@ -65,37 +66,22 @@ public class UserRoleAreaActoCtrl extends GenericForwardComposer{
 	//Main Div
 	private Label lbl_descricaoActos, lbl_descricaoActos2, lbl_descricaoPerfil, lbl_descricaoPerfil2;
 	private Textbox txb_nomefind;
-	private Combobox cbx_provinciaFind;
 	private Button btn_procurar;
-	private Listbox lbx_delegacao, lbx_conta, lbx_perfilActo;
+	private Listbox lbx_perfilActo;
 	private Button btn_imprimir;
 	
 	//Modal Div
 	private Textbox txb_nome, txb_codigo;
-	private Intbox ibx_codigo;
-	private Intbox ibx_entidade;
-	private Radio rbx_entidadeSim;
-	private Radio rbx_entidadeNao;
-	private Radio rbx_actSimA;
-	private Radio rbx_actNaoA;
-	private Combobox cbx_provincia, cbx_acto;
-	private Textbox txb_nuit;
-	private Textbox txb_bairro;
-	private Textbox txb_avenida_rua;
-	private Textbox txb_quarteirao_andar;
+	private Combobox cbx_acto;
 	
 	private Button btn_gravar;
 	private Button btn_actualizar;
 	private Button btn_cancelar;
-	private Button btn_addConta;
 	
-	private Window win_regDelegacao;
+	private Window win_regUserRoleAreaActo;
 	
 	Execution ex = Executions.getCurrent();
 	
-	private Delegacao _delegacao;
-	
-	private Instituicao _instituicao;
 	
 	private AreaPerfilActo _areaPerfilActo;
 	
@@ -113,27 +99,12 @@ public class UserRoleAreaActoCtrl extends GenericForwardComposer{
 	private UserRoleAreaService _userRoleAreaService;
 	
 	@WireVariable
-	private InstituicaoService _instituicaoService;
+	private UserRoleService _userRoleService;
 	
-	@WireVariable
-	private ProvinciaService _provinciaService;
-	
-	
-	@WireVariable
-	private DelegacaoService _delegacaoService;
-	
-	@WireVariable
-	private ContaService _contaService;
 	
 	private UserRole _userRole;
 	
-	private List<Instituicao> listIns = new ArrayList<Instituicao>();
-	
-	private List<Provincia> listProvin = new ArrayList<Provincia>();
-	
 	private List<Actos> listActos = new ArrayList<Actos>();
-	
-	private List<Delegacao> lisDeleg =  new ArrayList<Delegacao>();
 	
 	private List <UserRoleArea> listURArea= new ArrayList<UserRoleArea>();
 	
@@ -144,24 +115,14 @@ public class UserRoleAreaActoCtrl extends GenericForwardComposer{
 	public void doBeforeComposeChildren(Component comp) throws Exception {
 		super.doBeforeComposeChildren(comp);
 		
-		_instituicaoService = (InstituicaoService) SpringUtil.getBean("instituicaoService");
-		
 		_areaPerfilActoService = (AreaPerfilActoService) SpringUtil.getBean("areaPerfilActoService");
 		_userRoleAreaService = (UserRoleAreaService) SpringUtil.getBean("userRoleAreaService");
-		
-		
-		_provinciaService = (ProvinciaService) SpringUtil.getBean("provinciaService");
-		
 		_actosService = (ActosService) SpringUtil.getBean("actosService");
-		
-		_delegacaoService = (DelegacaoService) SpringUtil.getBean("delegacaoService");
-		_contaService = (ContaService) SpringUtil.getBean("contaService");
+		_userRoleService = (UserRoleService) SpringUtil.getBean("userRoleService");
 		
 		_userRoleArea =  (UserRoleArea) ex.getArg().get("_userRoleArea");
-		
 		_userRole =  (UserRole) ex.getArg().get("_userRole");
 		_areaPerfilActo =  (AreaPerfilActo) Executions.getCurrent().getArg().get("areaPerfilActo");
-		
 		_actos =  (Actos) Executions.getCurrent().getArg().get("_actos");
 		
 		
@@ -178,142 +139,18 @@ public class UserRoleAreaActoCtrl extends GenericForwardComposer{
 		preencherCabecalho();
 	}
 	
-   	public void onClick$btn_addConta(){
-   		final Listitem item = new Listitem();
-   		
-   		Listcell cellnome = new Listcell();
-   		cellnome.setParent(item);
-   		
-   		Textbox tbx_nome = new Textbox();
-   		tbx_nome.setParent(cellnome);
-   		tbx_nome.setWidth("99%");
-   		tbx_nome.setConstraint("no empty");
-   		
-   		Listcell cellnr = new Listcell();
-   		cellnr.setParent(item);
-   		
-   		Textbox tbx_nr = new Textbox();
-   		tbx_nr.setParent(cellnr);
-   		tbx_nr.setWidth("99%");
-   		tbx_nr.setConstraint("no empty");
-   		
-   		Listcell cellnib = new Listcell();
-   		cellnib.setParent(item);
-   		
-   		Textbox tbx_nib = new Textbox();
-   		tbx_nib.setParent(cellnib);
-   		tbx_nib.setWidth("99%");
-   		tbx_nib.setConstraint("no empty");
-   		
-   		Listcell celapagar = new Listcell();
-		celapagar.setParent(item);
-		Button btn_apagar = new Button();
-		btn_apagar.setZclass("btn btn-danger btn-sm");
-		btn_apagar.setIconSclass("fa  fa-times-circle");
-		btn_apagar.setParent(celapagar);
-		
-		btn_apagar.addEventListener(Events.ON_CLICK, new EventListener<Event>() {
-
-			@Override
-			public void onEvent(Event arg0) throws Exception {
-				lbx_conta.removeChild(item);
-			}
-		});
-   		
-   		lbx_conta.appendChild(item);
-   	}
    	
-   	private void saveContas(Delegacao delegacao2) {
-   		List<Listitem> listItems = lbx_conta.getItems();
-   		List<Conta> lisContas = new ArrayList<Conta>();
-		if(!listItems.isEmpty()){
-			for (Listitem listitem : listItems) {
-				Listcell cellnome = (Listcell) listitem.getFirstChild();
-				Textbox tbx_nome = (Textbox) cellnome.getFirstChild();
-				
-				Listcell cellnr = (Listcell) listitem.getChildren().get(1);
-				Textbox tbx_nr = (Textbox) cellnr.getFirstChild();
-				
-				Listcell cellnib = (Listcell) listitem.getChildren().get(2);
-				Textbox tbx_nib = (Textbox) cellnib.getFirstChild();
-				
-				Conta _conta = new Conta();
-				_conta.setNomeBanco(tbx_nome.getValue());
-				_conta.setNrConta(tbx_nr.getValue());
-				_conta.setNib(tbx_nib.getValue());
-				
-				_conta.setDelegacao(delegacao2);
-				
-				_contaService.saveOrUpdate(_conta);
-				
-				lisContas.add(_conta);
-				
-			}
-			
-			if(btn_actualizar.isVisible()){
-				List<Conta> l = delegacao2.getContas();
-				if(!l.isEmpty()){
-					for (Conta conta : l) {
-						_contaService.delete(conta);
-					}
-				}
-			}
-			
-			delegacao2.setContas(lisContas);
-			_delegacaoService.update(delegacao2);
-		}
-		
-	}
 
 
-    public void onClickprcurar(ForwardEvent e)  {
-             String nome = txb_nomefind.getValue();
-             Provincia provincia = cbx_provinciaFind.getSelectedItem().getValue();
-             findByNomeProvincia(nome,provincia);
-		}
-	
-	public void onClickConfig(ForwardEvent e)  {
-		Delegacao delegacao = (Delegacao) e.getData();
-		final HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("target", target);
-		map.put("breadcrumb", ol);
-		map.put("_delegacao", delegacao);
-		win_regDelegacao.getChildren().clear();
-		Executions.createComponents("/views/Parametrizacao/registar_delegacaoDepartamento.zul", win_regDelegacao,map);
-		
-	}
-	
-	public void onCheckRadioE(ForwardEvent e)  {
-	   if(rbx_entidadeSim.isChecked()){
-		   preencherCampos(false);
-	   }else{
-		   preencherCampos(true);
-	   }
-	}
 	
 	
 	public void onClick$btn_actualizar() throws InterruptedException {
 		
-        _delegacao.setAdmar(rbx_actSimA.isChecked() ? true : false);
-		
-        _delegacao.setEntidadePropria(rbx_entidadeSim.isChecked() ? true : false);
-	    
-        _delegacao.setNome(txb_nome.getValue());
-        _delegacao.setCodigo(ibx_codigo.getValue());
-        _delegacao.setEntidade(""+ibx_entidade.getValue());
-		
-        _delegacao.setInstituicao(_instituicao);
-        _delegacao.setProvincia((Provincia) cbx_provincia.getSelectedItem().getValue());
-		_delegacao.setNuit(txb_nuit.getValue());
-        saveContas(_delegacao);
-   		_delegacao.setBairro(txb_bairro.getValue());
-   		_delegacao.setAv_rua(txb_avenida_rua.getValue());
-   		_delegacao.setQuarteirao_andar(txb_quarteirao_andar.getValue());
 		
 		
-		_delegacaoService.update(_delegacao);
+		_areaPerfilActoService.update(_areaPerfilActo);
 		listar();
-		showNotifications("Delegacao actualizada com sucesso!", "info");
+		showNotifications("Acto Actualizado com sucesso!", "info");
 		limparCampos();
 
 			}
@@ -338,92 +175,16 @@ public class UserRoleAreaActoCtrl extends GenericForwardComposer{
 	
 	}
 	
-	public void onSelect$lbx_delegacao(Event e){
-		lbx_conta.getItems().clear();
-		_delegacao = lbx_delegacao.getSelectedItem().getValue();
-		txb_nome.setValue(_delegacao.getNome());
-		ibx_codigo.setValue(_delegacao.getCodigo());
-		ibx_entidade.setValue(Integer.parseInt(_delegacao.getEntidade()));
-	    rbx_actNaoA.setChecked(!_delegacao.isAdmar());
-	    rbx_actSimA.setChecked(_delegacao.isAdmar());
-	    rbx_entidadeNao.setChecked(!_delegacao.isEntidadePropria());
-	    rbx_entidadeSim.setChecked(_delegacao.isEntidadePropria());
-	    cbx_provincia.setValue(_delegacao.getProvincia().getDesignacao());
-   		txb_nuit.setValue(_delegacao.getNuit());
-   		txb_bairro.setValue(_delegacao.getBairro());
-   		txb_avenida_rua.setValue(_delegacao.getAv_rua());
-   		txb_quarteirao_andar.setValue(_delegacao.getQuarteirao_andar());
-   		cbx_provincia.setValue(_delegacao.getProvincia().getDesignacao());
+	public void onSelect$lbx_perfilActo(Event e){
+		_areaPerfilActo = lbx_perfilActo.getSelectedItem().getValue();
+		txb_codigo.setValue(_areaPerfilActo.getCodigo());
+	    cbx_acto.setValue(_areaPerfilActo.getActos().getDescricaoActos());
 	    
 		btn_actualizar.setVisible(true);
 		btn_gravar.setVisible(false);
 		
-		preencherContas(_delegacao,_instituicao, true);
 	}
 	
-	private void preencherContas(Delegacao _delegacao2, Instituicao instituicao2, boolean del) {
-		lbx_conta.getItems().clear();
-		List<Conta> listContas = new ArrayList<Conta>();
-		
-		if(del){
-				listContas = _delegacao2.getContas();
-		}else{
-			listContas = instituicao2.getContas();
-		}
-  		
-   		
-   		for (Conta conta : listContas) {
-   			final Listitem item = new Listitem();
-   	   		
-   	   		Listcell cellnome = new Listcell();
-   	   		cellnome.setParent(item);
-   	   		
-   	   		Textbox tbx_nome = new Textbox();
-   	   		tbx_nome.setParent(cellnome);
-   	   		tbx_nome.setWidth("99%");
-   	   		tbx_nome.setConstraint("no empty");
-   	   		
-   	   		Listcell cellnr = new Listcell();
-   	   		cellnr.setParent(item);
-   	   		
-   	   		Textbox tbx_nr = new Textbox();
-   	   		tbx_nr.setParent(cellnr);
-   	   		tbx_nr.setWidth("99%");
-   	   		tbx_nr.setConstraint("no empty");
-   	   		
-   	   		Listcell cellnib = new Listcell();
-   	   		cellnib.setParent(item);
-   	   		
-   	   		Textbox tbx_nib = new Textbox();
-   	   		tbx_nib.setParent(cellnib);
-   	   		tbx_nib.setWidth("99%");
-   	   		tbx_nib.setConstraint("no empty");
-   	   		
-			tbx_nome.setValue(conta.getNomeBanco());
-
-			tbx_nr.setValue(conta.getNrConta());
-			
-			tbx_nib.setValue(conta.getNib());
-			
-	   		Listcell celapagar = new Listcell();
-			celapagar.setParent(item);
-			Button btn_apagar = new Button();
-			btn_apagar.setZclass("btn btn-danger btn-sm");
-			btn_apagar.setIconSclass("fa  fa-times-circle");
-			btn_apagar.setParent(celapagar);
-			
-			btn_apagar.addEventListener(Events.ON_CLICK, new EventListener<Event>() {
-
-				@Override
-				public void onEvent(Event arg0) throws Exception {
-					lbx_conta.removeChild(item);
-				}
-			});
-			
-			lbx_conta.appendChild(item);
-		}
-		
-	}
 
 	public void onClick$btn_imprimir(Event e) throws JRException{
 	
@@ -431,36 +192,14 @@ public class UserRoleAreaActoCtrl extends GenericForwardComposer{
 		final Execution ex = Executions.getCurrent();
 		InputStream inputV= ex.getDesktop().getWebApp().getResourceAsStream("/img/inmr.png");       
         mapaParam.put("imagemLogo", inputV);
-        mapaParam.put("listNome", _instituicao.getNome());
-		MasterRep.imprimir("/reportParam/reportDelegacao.jrxml", lisDeleg, mapaParam, win_regDelegacao);
+        mapaParam.put("listNome", _areaPerfilActo.getActos().getDescricaoActos());
+		MasterRep.imprimir("/reportParam/reportAreaPerfilActo.jrxml", listAPActo, mapaParam, win_regUserRoleAreaActo);
 	}
 	
-	public void findByNomeProvincia(String nome, Provincia provincia){
-		lisDeleg = _delegacaoService.findByNomeProvincia(nome, provincia, _instituicao);
-		lbx_delegacao.setModel(new ListModelList<Delegacao>(lisDeleg));
-	}
-	
-	
-	private void limparCampos() {
-		txb_codigo.setRawValue(null);
-   		cbx_acto.setRawValue(null);
-       // habilitarCampos();
-   		btn_gravar.setVisible(true);
-		btn_actualizar.setVisible(false);
-		
-	}
 	
 	private void listar() {
-		/*
-		 * lisDeleg = _delegacaoService.findByInstituicao(_instituicao);
-		 * lbx_deleacao.setModel(new ListModelList<Delegacao>(lisDeleg));
-		 */
 		
-		/*
-		 listURArea = _userRoleAreaService.findPerfilByUserRole(_userRole); l
-		 bx_perfilActo.setModel(new ListModelList<UserRoleArea>(listURArea));*/
-		
-		listAPActo = _areaPerfilActoService.findByUserRole(_actos);
+		listAPActo = _areaPerfilActoService.findByUserRole(_userRole);
 		lbx_perfilActo.setModel(new ListModelList<AreaPerfilActo>(listAPActo));
 		
 	}
@@ -468,74 +207,43 @@ public class UserRoleAreaActoCtrl extends GenericForwardComposer{
 	private void peencherActos() {
 		listActos = _actosService.getAll();
 		cbx_acto.setModel(new ListModelList<Actos>(listActos));
-		//cbx_provinciaFind.setModel(new ListModelList<Provincia>(listProvin));
 	}
 	
 	private void preencherCabecalho() {
 		
-		if(_actos!=null) {
-		lbl_descricaoActos.setValue(_actos.getDescricaoActos());
-	//	lbl_descricaoPerfil.setValue(_areaPerfilActo.getUserRoleArea().getUserRole().getRolename());
-		lbl_descricaoActos2.setValue(_actos.getDescricaoActos());
-		//lbl_descricaoPerfil2.setValue(_areaPerfilActo.getUserRoleArea().getUserRole().getRolename());
+		if(_areaPerfilActo!=null) {
+		lbl_descricaoActos.setValue(_areaPerfilActo.getActos().getDescricaoActos());
+		lbl_descricaoPerfil.setValue(_areaPerfilActo.getUserRoleArea().getUserRole().getRolename());
+		lbl_descricaoActos2.setValue(_areaPerfilActo.getActos().getDescricaoActos());
+		lbl_descricaoPerfil2.setValue(_areaPerfilActo.getUserRoleArea().getUserRole().getRolename());
 		
-//		lbl_descricaoActos.setValue(_actos.getUserRole().getRolename());
-//		lbl_descricaoActos2.setValue(_actos.getUserRole().getRolename());
-//		
-//		lbl_descricaoPerfil.setValue(_actos.getDescricaoActos());
-//		lbl_descricaoPerfil2.setValue(_actos.getDescricaoActos());
-		
-		_userRole = _actos.getUserRole();
+		_userRole = _areaPerfilActo.getUserRoleArea().getUserRole();;
 		
 		}
 	}
 	
-	public void preencherCampos(boolean preencher){
-		if(preencher){
-				ibx_entidade.setValue(Integer.parseInt(_instituicao.getEntidade()));
-		   		txb_nuit.setValue(_instituicao.getNuit());
-		   	    preencherContas(_delegacao, _instituicao, false);
-		   		txb_bairro.setValue(_instituicao.getBairro());
-		   		txb_avenida_rua.setValue(_instituicao.getAv_rua());
-		   		txb_quarteirao_andar.setValue(_instituicao.getQuarteirao_andar());
-		   		cbx_provincia.setValue(_instituicao.getProvincia());
-		   		desabilitarCampos();
+	private void limparCampos() {
+		txb_codigo.setRawValue(null);
+   		cbx_acto.setRawValue(null);
+        habilitarCampos();
+   		btn_gravar.setVisible(true);
+		btn_actualizar.setVisible(false);
 		
-		}else{
-			lbx_delegacao.clearSelection();
-			ibx_entidade.setRawValue(null);
-	   		txb_nuit.setRawValue(null);
-	   	    lbx_conta.getItems().clear();
-	   		txb_bairro.setRawValue(null);
-	   		txb_avenida_rua.setRawValue(null);
-	   		txb_quarteirao_andar.setRawValue(null);
-	   		cbx_provincia.setRawValue(null);
-            habilitarCampos();
-		}
 	}
+	
 
 	private void desabilitarCampos() {
-		ibx_entidade.setDisabled(true);
-   		txb_nuit.setDisabled(true);
-   		//contas
-   		txb_bairro.setDisabled(true);
-   		txb_avenida_rua.setDisabled(true);
-   		txb_quarteirao_andar.setDisabled(true);
-   		cbx_provincia.setDisabled(true);
+		txb_codigo.setDisabled(true);
+		cbx_acto.setDisabled(true);
 	}
 	
 	private void habilitarCampos() {
-		ibx_entidade.setDisabled(false);
-   		txb_nuit.setDisabled(false);
-   		//contas
-   		txb_bairro.setDisabled(false);
-   		txb_avenida_rua.setDisabled(false);
-   		txb_quarteirao_andar.setDisabled(false);
-   		cbx_provincia.setDisabled(false);
+		txb_codigo.setDisabled(false);
+		cbx_acto.setDisabled(false);
 	}
 
 	public void showNotifications(String message, String type) {
-		Clients.showNotification(message, type, lbx_delegacao,"before_center", 4000, true);
+		Clients.showNotification(message, type, lbx_perfilActo,"before_center", 4000, true);
 	}
 
 }
