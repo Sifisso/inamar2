@@ -102,8 +102,6 @@
 											sort="auto(codigo)" />
 										<listheader label="Perfil"
 											sort="auto(entidade)"/>
-<!-- 										<listheader label="Área" -->
-<!-- 											sort="auto(entidade)"/> -->
 										<listheader label="Actos"
 											sort="auto(entidade)"/>
 									</listhead>
@@ -112,7 +110,6 @@
 											<listcell></listcell>
 											<listcell label="${each.codigo}" />
 											<listcell label="${each.userRoleArea.userRole.rolename}"></listcell>
-<!-- 											<listcell label="${each.userRoleArea.area.nome}"></listcell> -->
 											<listcell label="${each.actos.descricaoActos}"></listcell>
 												
 										</listitem>

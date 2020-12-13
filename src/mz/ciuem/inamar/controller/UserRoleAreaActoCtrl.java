@@ -199,7 +199,8 @@ public class UserRoleAreaActoCtrl extends GenericForwardComposer{
 	
 	private void listar() {
 		
-		listAPActo = _areaPerfilActoService.findByUserRole(_userRole);
+		List<UserRoleArea> listUserRoleAreas=_areaPerfilActoService.findAreaByUserRole(_userRole);
+		listAPActo = _areaPerfilActoService.findActoByUserRoleArea(listUserRoleAreas);
 		lbx_perfilActo.setModel(new ListModelList<AreaPerfilActo>(listAPActo));
 		
 	}
