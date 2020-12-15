@@ -262,6 +262,19 @@ public void onClick$btn_gravar() {
 		Executions.createComponents("/views/Parametrizacao/registar_userRoleAreaActo.zul", win_regArePerfil,map);
 		
 	}
+	
+	public void onClickConfigDestino(ForwardEvent e)  {
+		UserRoleArea _userRoleArea = (UserRoleArea) e.getData();
+		
+		final HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("target", target);
+		map.put("breadcrumb", ol);
+		map.put("_userRoleArea", _userRoleArea);
+		map.put("_userRole", _userRoleArea.getUserRole());
+		win_regArePerfil.getChildren().clear();
+		Executions.createComponents("/views/Parametrizacao/registar_userRoleAreaDestino.zul", win_regArePerfil,map);
+		
+	}
 
 	
 	public void showNotifications(String message, String type) {

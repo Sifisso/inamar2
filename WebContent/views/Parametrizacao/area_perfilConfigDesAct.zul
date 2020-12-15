@@ -118,7 +118,7 @@
 																		zclass="btn btn-sm btn-info"
 																		iconSclass="fa fa-gears"
 																		style="background-color:#00dddd"
-																	     forward="onClick=onClickConfig(${each})">
+																	     forward="onClick=onClickConfigDestino(${each})">
 																	</button>
 																</div>
 										 					</listcell>

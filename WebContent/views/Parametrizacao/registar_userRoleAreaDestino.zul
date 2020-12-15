@@ -1,5 +1,5 @@
 <zk xmlns:x="xhtml" xmlns:zk="zk">
-	<window apply="mz.ciuem.inamar.controller.UserRoleAreaActoCtrl" id="win_regUserRoleAreaActo">
+	<window apply="mz.ciuem.inamar.controller.UserRoleAreaDestinoCtrl" id="win_regUserRoleAreaDestino">
 		<div class="row">
 			<div zclass="col-md-12 col-lg-12 col-sm-12 col-xs-12">
 				<div zclass="box box-default">
@@ -30,7 +30,7 @@
 								</div>
 													<x:label class="box-title"
 							style="font-family:Georgia,serif;color:#4E443C; font-variant: small-caps; text-transform: none; font-weight: 100; margin-bottom: 0;">
-							Actos de Perfis
+							Destinos de Perfis
 						</x:label>
 						
 					</div>
@@ -102,9 +102,7 @@
 											sort="auto(codigo)" />
 										<listheader label="Perfil"
 											sort="auto(entidade)"/>
-										<listheader label="Actos"
-											sort="auto(entidade)"/>
-										<listheader label="Editar"
+										<listheader label="Destino"
 											sort="auto(entidade)"/>
 									</listhead>
 									<template name="model">
@@ -112,17 +110,8 @@
 											<listcell></listcell>
 											<listcell label="${each.codigo}" />
 											<listcell label="${each.userRoleArea.userRole.rolename}"></listcell>
-											<listcell label="${each.actos.descricaoActos}"></listcell>
-											<listcell>
-												<div align="center">
-											<x:button type="button"
-												class="btn btn-info btn-sm" data-toggle="modal"
-												data-target="#myModal">
-											<x:i class="fa fa-edit"></x:i>
-											</x:button>
-												</div>
-										
-											</listcell>	
+											<listcell label="${each.userRoleArea.userRole.rolename}"></listcell>
+												
 										</listitem>
 									</template>
 								</listbox>
@@ -202,13 +191,13 @@
 							
 							
 							<div zclass="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-								<x:label>Acto:</x:label>
-								<combobox width="100%" id="cbx_acto"
-									placeholder="Selecione o Acto" readonly="true"
+								<x:label>Destino:</x:label>
+								<combobox width="100%" id="cbx_perfil"
+									placeholder="Selecione o Destino" readonly="true"
 									constraint="no empty : Não pode ser vazio nem conter apenas espaços em branco!">
 									<template name="model">
 										<comboitem
-											label="${each.descricaoActos}" />
+											label="${each.rolename}" />
 									</template>
 								</combobox>
 							</div>
