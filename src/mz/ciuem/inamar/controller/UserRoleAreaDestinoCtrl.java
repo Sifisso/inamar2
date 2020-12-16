@@ -170,15 +170,19 @@ public class UserRoleAreaDestinoCtrl extends GenericForwardComposer{
 
 	public void onClick$btn_gravar(Event e) throws InterruptedException{
 		
-		AreaPerfilActo apc = new AreaPerfilActo();
+		UserRoleAreaDestino urad = new UserRoleAreaDestino();
 		
-		apc.setCodigo(txb_codigo.getValue());
-		apc.setActos((Actos)cbx_acto.getSelectedItem().getValue());
-		apc.setUserRoleArea(_userRoleArea);
+		urad.setCodigo(txb_codigo.getValue());
+		urad.setUserRoleArea(_userRoleArea);
+		urad.setUserRole((UserRole)cbx_perfil.getSelectedItem().getValue());
 		
-		_areaPerfilActoService.create(apc);
+		
+		//urad.setUserRoleArea((UserRoleArea)cbx_perfil.getSelectedItem().getValue());
+		
+		
+		_userRoleAreaDestinoService.create(urad);
 		listar();
-		showNotifications("Acto Registado com sucesso!", "info");
+		showNotifications("Destino Registado com sucesso!", "info");
 		limparCampos();
 	}
 
@@ -221,8 +225,11 @@ public class UserRoleAreaDestinoCtrl extends GenericForwardComposer{
 	}
 	
 	private void peencherDestino() {
-		listURADestino = _userRoleAreaDestinoService.findPerfilByUserRole(_userRole);
-		cbx_perfil.setModel(new ListModelList<UserRoleAreaDestino>(listURADestino));
+//		listURADestino = _userRoleAreaDestinoService.findPerfilByUserRole(_userRole);
+//		cbx_perfil.setModel(new ListModelList<UserRoleAreaDestino>(listURADestino));
+		
+		List<UserRole> listRoles = _userRoleService.getAll();
+		cbx_perfil.setModel(new ListModelList<UserRole>(listRoles));
 	}
 	
 	private void preencherCabecalho() {
@@ -240,7 +247,7 @@ public class UserRoleAreaDestinoCtrl extends GenericForwardComposer{
 	
 	private void limparCampos() {
 		txb_codigo.setRawValue(null);
-   		cbx_acto.setRawValue(null);
+   		cbx_perfil.setRawValue(null);
         habilitarCampos();
    		btn_gravar.setVisible(true);
 		btn_actualizar.setVisible(false);
@@ -250,12 +257,12 @@ public class UserRoleAreaDestinoCtrl extends GenericForwardComposer{
 
 	private void desabilitarCampos() {
 		txb_codigo.setDisabled(true);
-		cbx_acto.setDisabled(true);
+		cbx_perfil.setDisabled(true);
 	}
 	
 	private void habilitarCampos() {
 		txb_codigo.setDisabled(false);
-		cbx_acto.setDisabled(false);
+		cbx_perfil.setDisabled(false);
 	}
 
 	public void showNotifications(String message, String type) {

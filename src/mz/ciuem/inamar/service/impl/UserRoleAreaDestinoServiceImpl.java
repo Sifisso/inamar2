@@ -2,6 +2,7 @@ package mz.ciuem.inamar.service.impl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import mz.ciuem.inamar.dao.UserRoleAreDestinoDao;
@@ -14,7 +15,9 @@ import mz.ciuem.inamar.service.UserRoleAreaDestinoService;
 
 public class UserRoleAreaDestinoServiceImpl extends GenericServiceImpl<UserRoleAreaDestino> implements UserRoleAreaDestinoService{
 
+	@Autowired
 	private UserRoleAreDestinoDao dao;
+	
 	@Override
 	public List<UserRoleAreaDestino> findPerfilByUserRole(UserRole userRole) {
 		// TODO Auto-generated method stub

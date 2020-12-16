@@ -16,11 +16,11 @@ public class UserRoleAreaDestinoDaoImpl extends GenericDaoImpl<UserRoleAreaDesti
 	public List<UserRoleAreaDestino> findPerfilByUserRole(UserRole userRole) {
 		// TODO Auto-generated method stub
 		org.hibernate.Query query = getCurrentSession().createQuery("select urad from UserRoleAreaDestino urad "
-				+ "join fetch urad.userRoleArea ura "
-				+ "join fetch ura.area a "
+				+ " join fetch urad.userRoleArea ura"
+				+ " join fetch ura.area a"
 				+ " join fetch ura.userRole ur"
-				+ "");
-		//query.setParameter("userRole", userRole);
+				+ " where ur=:userRole");
+		query.setParameter("userRole", userRole);
 		return query.list();
 	}
 

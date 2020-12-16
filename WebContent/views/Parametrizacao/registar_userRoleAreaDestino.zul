@@ -93,7 +93,7 @@
 						<div class="row">
 							<div
 								zclass="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-								<listbox id="lbx_perfilActo"
+								<listbox id="lbx_perfilDestino"
 									checkmark="true" rows="10">
 									<listhead>
 										<listheader label="#"
@@ -110,7 +110,7 @@
 											<listcell></listcell>
 											<listcell label="${each.codigo}" />
 											<listcell label="${each.userRoleArea.userRole.rolename}"></listcell>
-											<listcell label="${each.userRoleArea.userRole.rolename}"></listcell>
+											<listcell label="${each.userRole.rolename}"></listcell>
 												
 										</listitem>
 									</template>

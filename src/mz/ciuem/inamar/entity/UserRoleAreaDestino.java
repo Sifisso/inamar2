@@ -17,6 +17,10 @@ public class UserRoleAreaDestino extends IdEntity{
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "userRoleArea_id", insertable = true, updatable = true, nullable=true)
 	private UserRoleArea userRoleArea;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "userRole_id", insertable = true, updatable = true, nullable=true)
+	private UserRole userRole;
 
 	public String getCodigo() {
 		return codigo;
@@ -33,7 +37,14 @@ public class UserRoleAreaDestino extends IdEntity{
 	public void setUserRoleArea(UserRoleArea userRoleArea) {
 		this.userRoleArea = userRoleArea;
 	}
-	
+
+	public UserRole getUserRole() {
+		return userRole;
+	}
+
+	public void setUserRole(UserRole userRole) {
+		this.userRole = userRole;
+	}
 	
 	
 }
