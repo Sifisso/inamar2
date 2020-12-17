@@ -6,36 +6,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.management.loading.PrivateClassLoader;
-
-import mz.ciuem.inamar.comps.MasterRep;
-import mz.ciuem.inamar.entity.Actos;
-import mz.ciuem.inamar.entity.AreaPerfilActo;
-import mz.ciuem.inamar.entity.Conta;
-import mz.ciuem.inamar.entity.Delegacao;
-import mz.ciuem.inamar.entity.Instituicao;
-import mz.ciuem.inamar.entity.Provincia;
-import mz.ciuem.inamar.entity.UserRole;
-import mz.ciuem.inamar.entity.UserRoleArea;
-import mz.ciuem.inamar.service.ActosService;
-import mz.ciuem.inamar.service.AreaPerfilActoService;
-import mz.ciuem.inamar.service.ContaService;
-import mz.ciuem.inamar.service.DelegacaoService;
-import mz.ciuem.inamar.service.InstituicaoService;
-import mz.ciuem.inamar.service.ProvinciaService;
-import mz.ciuem.inamar.service.UserRoleAreaService;
-import mz.ciuem.inamar.service.UserRoleService;
-import net.sf.jasperreports.engine.JRException;
-
 import org.zkoss.spring.SpringUtil;
 import org.zkoss.zhtml.Ol;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Execution;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
-import org.zkoss.zk.ui.event.EventListener;
-import org.zkoss.zk.ui.event.Events;
-import org.zkoss.zk.ui.event.ForwardEvent;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zk.ui.util.Clients;
@@ -43,16 +19,22 @@ import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.Button;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Div;
-import org.zkoss.zul.Intbox;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
-import org.zkoss.zul.Listcell;
-import org.zkoss.zul.Listitem;
-import org.zkoss.zul.Messagebox;
-import org.zkoss.zul.Radio;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
+
+import mz.ciuem.inamar.comps.MasterRep;
+import mz.ciuem.inamar.entity.Actos;
+import mz.ciuem.inamar.entity.AreaPerfilActo;
+import mz.ciuem.inamar.entity.UserRole;
+import mz.ciuem.inamar.entity.UserRoleArea;
+import mz.ciuem.inamar.service.ActosService;
+import mz.ciuem.inamar.service.AreaPerfilActoService;
+import mz.ciuem.inamar.service.UserRoleAreaService;
+import mz.ciuem.inamar.service.UserRoleService;
+import net.sf.jasperreports.engine.JRException;
 
 @SuppressWarnings({ "serial", "rawtypes" })
 public class UserRoleAreaActoCtrl extends GenericForwardComposer{
@@ -88,6 +70,7 @@ public class UserRoleAreaActoCtrl extends GenericForwardComposer{
 	private Actos _actos;
 	
 	private UserRoleArea _userRoleArea;
+	
 	
 	@WireVariable
 	private AreaPerfilActoService _areaPerfilActoService;
@@ -139,14 +122,9 @@ public class UserRoleAreaActoCtrl extends GenericForwardComposer{
 		preencherCabecalho();
 	}
 	
-   	
-
-
-	
-	
 	public void onClick$btn_actualizar() throws InterruptedException {
-		
-		
+		_areaPerfilActo.setCodigo(txb_codigo.getValue()); 
+		_areaPerfilActo.setActos(cbx_acto.getSelectedItem().getValue());
 		
 		_areaPerfilActoService.update(_areaPerfilActo);
 		listar();
@@ -163,10 +141,24 @@ public class UserRoleAreaActoCtrl extends GenericForwardComposer{
 		apc.setActos((Actos)cbx_acto.getSelectedItem().getValue());
 		apc.setUserRoleArea(_userRoleArea);
 		
-		_areaPerfilActoService.create(apc);
-		listar();
-		showNotifications("Acto Registado com sucesso!", "info");
-		limparCampos();
+		boolean existe = false;
+		
+		for( AreaPerfilActo apActo: listAPActo) {
+			if(apActo.getUserRoleArea().getUserRole().getId()==apc.getUserRoleArea().getUserRole().getId() && apActo.getActos().getId()==apc.getActos().getId()) {
+				existe=true;
+			}
+		}
+		
+		if(existe==false) {
+			_areaPerfilActoService.create(apc);
+			listar();
+			showNotifications("Acto Registado com sucesso!", "info");
+			limparCampos();
+		}else {
+			showNotifications("Configuração existente", "error");
+		}
+		
+		
 	}
 
 	public void onClick$btn_cancelar(Event e) throws InterruptedException{
@@ -212,15 +204,11 @@ public class UserRoleAreaActoCtrl extends GenericForwardComposer{
 	
 	private void preencherCabecalho() {
 		
-		if(_areaPerfilActo!=null) {
-		lbl_descricaoActos.setValue(_areaPerfilActo.getActos().getDescricaoActos());
-		lbl_descricaoPerfil.setValue(_areaPerfilActo.getUserRoleArea().getUserRole().getRolename());
-		lbl_descricaoActos2.setValue(_areaPerfilActo.getActos().getDescricaoActos());
-		lbl_descricaoPerfil2.setValue(_areaPerfilActo.getUserRoleArea().getUserRole().getRolename());
+		lbl_descricaoActos.setValue(_userRoleArea.getUserRole().getRolename());
+		lbl_descricaoPerfil.setValue(_userRoleArea.getArea().getNome());
+		lbl_descricaoActos2.setValue(_userRoleArea.getUserRole().getRolename());
+		lbl_descricaoPerfil2.setValue(_userRoleArea.getArea().getNome());
 		
-		_userRole = _areaPerfilActo.getUserRoleArea().getUserRole();;
-		
-		}
 	}
 	
 	private void limparCampos() {

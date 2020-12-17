@@ -10,8 +10,9 @@
 		                            </div>
 		                            <div zclass="col-md-4">
 		                            <div align="center">
-		                            <label id="lbl_descricaoActos" style="color:white" class="box-title"></label>
 		                            <label id="lbl_descricaoPerfil" style="color:white" class="box-title"></label>
+		                             <label style="color:white" class="box-title">|</label>
+		                            <label id="lbl_descricaoDestino" style="color:white" class="box-title"></label>
 		                            </div>
 		                            </div>
 		                            <div zclass="col-md-4">
@@ -44,7 +45,7 @@
 								<div zclass="col-lg-6 col-md-6 col-sm-12 col-xs-12">
 								<div class="input-group">
 									<textbox zclass="form-control"
-										placeholder="Procurar pelo nome do acto"
+										placeholder="Procurar pelo nome do destino"
 										id="txb_nomefind" />
 											<x:span class="input-group-addon" forward="onClick=onClickprcurar()">
 										<x:i class="fa  fa-search"></x:i>
@@ -100,18 +101,29 @@
 											width="5%" />
 										<listheader label="Codigo"
 											sort="auto(codigo)" />
-										<listheader label="Perfil"
-											sort="auto(entidade)"/>
+<!-- 										<listheader label="Perfil" -->
+<!-- 											sort="auto(entidade)"/> -->
 										<listheader label="Destino"
+											sort="auto(entidade)"/>
+										<listheader align="center" label="Editar"
 											sort="auto(entidade)"/>
 									</listhead>
 									<template name="model">
 										<listitem>
 											<listcell></listcell>
 											<listcell label="${each.codigo}" />
-											<listcell label="${each.userRoleArea.userRole.rolename}"></listcell>
+<!-- 											<listcell label="${each.userRoleArea.userRole.rolename}"></listcell> -->
 											<listcell label="${each.userRole.rolename}"></listcell>
-												
+											<listcell>
+												<div align="center">
+											<x:button type="button"
+												class="btn btn-info btn-sm" data-toggle="modal"
+												data-target="#myModal">
+											<x:i class="fa fa-edit"></x:i>
+											</x:button>
+												</div>
+										
+											</listcell>		
 										</listitem>
 									</template>
 								</listbox>
@@ -149,7 +161,7 @@
 							x
 						</x:button>
 						<x:h4 class="modal-title" id="myModalLabel">
-							Novo Acto de Perfil
+							Novo Destino de Perfil
 						</x:h4>
 					</div>
 					<div class="modal-body">
@@ -160,7 +172,8 @@
 		                            </div>
 		                            <div zclass="col-md-8">
 		                            <div align="center">
-		                            <label id="lbl_descricaoActos2" style="color:white" class="box-title"></label>
+		                            <label id="lbl_descricaoDestino2" style="color:white" class="box-title"></label>
+		                            <label style="color:white" class="box-title">|</label>
 		                            <label id="lbl_descricaoPerfil2" style="color:white" class="box-title"></label>
 		                            </div>
 		                            </div>
@@ -192,7 +205,7 @@
 							
 							<div zclass="col-lg-6 col-md-6 col-sm-12 col-xs-12">
 								<x:label>Destino:</x:label>
-								<combobox width="100%" id="cbx_perfil"
+								<combobox cols="36" id="cbx_perfil"
 									placeholder="Selecione o Destino" readonly="true"
 									constraint="no empty : Não pode ser vazio nem conter apenas espaços em branco!">
 									<template name="model">

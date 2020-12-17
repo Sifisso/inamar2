@@ -66,7 +66,7 @@ public class UserRoleAreaDestinoCtrl extends GenericForwardComposer{
 	private Ol ol;
 	
 	//Main Div
-	private Label lbl_descricaoActos, lbl_descricaoActos2, lbl_descricaoPerfil, lbl_descricaoPerfil2;
+	private Label lbl_descricaoDestino, lbl_descricaoDestino2, lbl_descricaoPerfil, lbl_descricaoPerfil2;
 	private Textbox txb_nomefind;
 	private Button btn_procurar;
 	private Listbox lbx_perfilActo,lbx_perfilDestino;
@@ -86,6 +86,8 @@ public class UserRoleAreaDestinoCtrl extends GenericForwardComposer{
 	
 	
 	private AreaPerfilActo _areaPerfilActo;
+	
+	private UserRoleAreaDestino _UserRoleAreaDestino;
 	
 	private Actos _actos;
 	
@@ -133,7 +135,7 @@ public class UserRoleAreaDestinoCtrl extends GenericForwardComposer{
 		_userRoleAreaDestinoService = (UserRoleAreaDestinoService) SpringUtil.getBean("userRoleAreaDestinoService");
 		
 		_userRoleArea =  (UserRoleArea) ex.getArg().get("_userRoleArea");
-		_userRoleAreaDestino =  (UserRoleAreaDestino) ex.getArg().get("_userRoleAreaDestino");
+		_userRoleAreaDestino =  (UserRoleAreaDestino) ex.getArg().get("userRoleAreaDestino");
 		_userRole =  (UserRole) ex.getArg().get("_userRole");
 		_areaPerfilActo =  (AreaPerfilActo) Executions.getCurrent().getArg().get("areaPerfilActo");
 		_actos =  (Actos) Executions.getCurrent().getArg().get("_actos");
@@ -152,21 +154,25 @@ public class UserRoleAreaDestinoCtrl extends GenericForwardComposer{
 		preencherCabecalho();
 	}
 	
-   	
-
-
-	
-	
 	public void onClick$btn_actualizar() throws InterruptedException {
+		_UserRoleAreaDestino.setCodigo(txb_codigo.getValue());
+		_UserRoleAreaDestino.setUserRole(cbx_perfil.getSelectedItem().getValue());
 		
-		
-		
-		_areaPerfilActoService.update(_areaPerfilActo);
+		_userRoleAreaDestinoService.update(_UserRoleAreaDestino);
 		listar();
-		showNotifications("Acto Actualizado com sucesso!", "info");
+		showNotifications("Destino Actualizado com sucesso!", "info");
 		limparCampos();
 
-			}
+		}
+	
+	private void preencherCabecalho() {
+		
+		lbl_descricaoDestino.setValue(_userRoleArea.getUserRole().getRolename());
+		lbl_descricaoPerfil.setValue(_userRoleArea.getArea().getNome());
+		lbl_descricaoDestino2.setValue(_userRoleArea.getArea().getNome());
+		lbl_descricaoPerfil2.setValue(_userRoleArea.getUserRole().getRolename());
+		
+	}
 
 	public void onClick$btn_gravar(Event e) throws InterruptedException{
 		
@@ -176,14 +182,26 @@ public class UserRoleAreaDestinoCtrl extends GenericForwardComposer{
 		urad.setUserRoleArea(_userRoleArea);
 		urad.setUserRole((UserRole)cbx_perfil.getSelectedItem().getValue());
 		
+		boolean existe = false;
 		
+		for(UserRoleAreaDestino uraDestino: listURADestino) {
+			if(uraDestino.getUserRoleArea().getUserRole().getId()==urad.getUserRoleArea().getUserRole().getId() && uraDestino.getUserRole().getId()==urad.getUserRole().getId()) {
+				existe=true;
+			}
+		}
+		
+		if(existe==false) {
+			_userRoleAreaDestinoService.create(urad);
+			listar();
+			showNotifications("Destino Registado com sucesso!", "info");
+			limparCampos();
+		}else {
+			showNotifications("Configuração existente", "error");
+		}
 		//urad.setUserRoleArea((UserRoleArea)cbx_perfil.getSelectedItem().getValue());
 		
 		
-		_userRoleAreaDestinoService.create(urad);
-		listar();
-		showNotifications("Destino Registado com sucesso!", "info");
-		limparCampos();
+		
 	}
 
 	public void onClick$btn_cancelar(Event e) throws InterruptedException{
@@ -192,10 +210,10 @@ public class UserRoleAreaDestinoCtrl extends GenericForwardComposer{
 	
 	}
 	
-	public void onSelect$lbx_perfilActo(Event e){
-		_areaPerfilActo = lbx_perfilActo.getSelectedItem().getValue();
-		txb_codigo.setValue(_areaPerfilActo.getCodigo());
-	    cbx_acto.setValue(_areaPerfilActo.getActos().getDescricaoActos());
+	public void onSelect$lbx_perfilDestino(Event e){
+		_userRoleAreaDestino = lbx_perfilDestino.getSelectedItem().getValue();
+		txb_codigo.setValue(_userRoleAreaDestino.getCodigo());
+	    cbx_perfil.setValue(_userRoleAreaDestino.getUserRole().getRolename());
 	    
 		btn_actualizar.setVisible(true);
 		btn_gravar.setVisible(false);
@@ -232,18 +250,7 @@ public class UserRoleAreaDestinoCtrl extends GenericForwardComposer{
 		cbx_perfil.setModel(new ListModelList<UserRole>(listRoles));
 	}
 	
-	private void preencherCabecalho() {
-		
-		if(_areaPerfilActo!=null) {
-		lbl_descricaoActos.setValue(_areaPerfilActo.getActos().getDescricaoActos());
-		lbl_descricaoPerfil.setValue(_areaPerfilActo.getUserRoleArea().getUserRole().getRolename());
-		lbl_descricaoActos2.setValue(_areaPerfilActo.getActos().getDescricaoActos());
-		lbl_descricaoPerfil2.setValue(_areaPerfilActo.getUserRoleArea().getUserRole().getRolename());
-		
-		_userRole = _areaPerfilActo.getUserRoleArea().getUserRole();;
-		
-		}
-	}
+	
 	
 	private void limparCampos() {
 		txb_codigo.setRawValue(null);

@@ -230,7 +230,7 @@ public void onClick$btn_gravar() {
 			listarPerfisDasAreas();
 			showNotifications("Perfil Adicionado com Sucesso", "info");
 		}else {
-			showNotifications("Perfil já adicionado na Área selecionada", "error");
+			showNotifications("Configuração existente", "error");
 		}
 		
 			

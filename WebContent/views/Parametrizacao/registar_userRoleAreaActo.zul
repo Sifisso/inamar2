@@ -10,8 +10,9 @@
 		                            </div>
 		                            <div zclass="col-md-4">
 		                            <div align="center">
-		                            <label id="lbl_descricaoActos" style="color:white" class="box-title"></label>
 		                            <label id="lbl_descricaoPerfil" style="color:white" class="box-title"></label>
+		                            <label style="color:white" class="box-title">|</label>
+		                            <label id="lbl_descricaoActos" style="color:white" class="box-title"></label>
 		                            </div>
 		                            </div>
 		                            <div zclass="col-md-4">
@@ -100,18 +101,18 @@
 											width="5%" />
 										<listheader label="Codigo"
 											sort="auto(codigo)" />
-										<listheader label="Perfil"
-											sort="auto(entidade)"/>
+<!-- 										<listheader label="Perfil" -->
+<!-- 											sort="auto(entidade)"/> -->
 										<listheader label="Actos"
 											sort="auto(entidade)"/>
-										<listheader label="Editar"
+										<listheader align="center" label="Editar"
 											sort="auto(entidade)"/>
 									</listhead>
 									<template name="model">
 										<listitem>
 											<listcell></listcell>
 											<listcell label="${each.codigo}" />
-											<listcell label="${each.userRoleArea.userRole.rolename}"></listcell>
+<!-- 											<listcell label="${each.userRoleArea.userRole.rolename}"></listcell> -->
 											<listcell label="${each.actos.descricaoActos}"></listcell>
 											<listcell>
 												<div align="center">
@@ -171,8 +172,9 @@
 		                            </div>
 		                            <div zclass="col-md-8">
 		                            <div align="center">
-		                            <label id="lbl_descricaoActos2" style="color:white" class="box-title"></label>
 		                            <label id="lbl_descricaoPerfil2" style="color:white" class="box-title"></label>
+									 <label style="color:white" class="box-title">|</label>
+		                            <label id="lbl_descricaoActos2" style="color:white" class="box-title"></label>
 		                            </div>
 		                            </div>
 		                            <div zclass="col-md-2">
@@ -203,7 +205,7 @@
 							
 							<div zclass="col-lg-6 col-md-6 col-sm-12 col-xs-12">
 								<x:label>Acto:</x:label>
-								<combobox width="100%" id="cbx_acto"
+								<combobox cols="36" id="cbx_acto"
 									placeholder="Selecione o Acto" readonly="true"
 									constraint="no empty : Não pode ser vazio nem conter apenas espaços em branco!">
 									<template name="model">
