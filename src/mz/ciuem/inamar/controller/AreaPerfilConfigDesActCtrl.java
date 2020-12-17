@@ -289,14 +289,15 @@ public void onClick$btn_gravar() {
 		cbx_area.setRawValue(null);
    }
 	
-	public void findByUserRoleArea(Area area) {
-		_listUserRoleArea = _userRoleAreaService.findByUserRoleArea(area);
+	public void findByUserRoleArea(String userRole, Area area) {
+		_listUserRoleArea = _userRoleAreaService.findByUserRoleArea(userRole, area);
 		lbx_areaPerfil.setModel(new ListModelList<UserRoleArea>(_listUserRoleArea));
 	}
 	
 	public void onClickprcurar(ForwardEvent e) {
 		Area area = cbx_area.getSelectedItem().getValue();
-		findByUserRoleArea(area);
+		String userRole = txb_perfifind.getValue();
+		findByUserRoleArea(userRole, area);
 	}
 
 }

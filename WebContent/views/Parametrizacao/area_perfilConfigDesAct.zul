@@ -16,7 +16,7 @@
 
 								<x:label>Área</x:label>
 								<div class="input-group">
-								<combobox width="190%"
+								<combobox width="190%" constraint="no empty: Escolha a Área primeiro"
 													id="cbx_area"
 													placeholder="Selecione uma Área"
 													readonly="true" forward="onSelect=onClickprcurar()">

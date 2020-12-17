@@ -49,11 +49,12 @@ public class UserRoleAreaDaoImpl extends GenericDaoImpl<UserRoleArea> implements
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<UserRoleArea> findByUserRoleArea(Area area) {
+	public List<UserRoleArea> findByUserRoleArea(String userRole, Area area) {
 		org.hibernate.Query query = getCurrentSession().createQuery("select ura from UserRoleArea ura "
 				+ " join fetch ura.userRole ur "
 				+ " join fetch ura.area a "
-				+ " where a=:area");
+				+ " where ur.rolename like:userRole and a=:area");
+		query.setParameter("userRole", "%"+userRole+"%");
 		query.setParameter("area", area);
 		
 		return query.list();
