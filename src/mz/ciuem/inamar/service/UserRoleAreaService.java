@@ -13,4 +13,6 @@ public interface UserRoleAreaService extends GenericService<UserRoleArea>{
 	public List<UserRoleArea> findPerfilByAreaArea(Area area);
 	
 	public List<UserRoleArea> findPerfilByUserRole(UserRole userRole);
+	
+	public List<UserRoleArea> findByUserRoleArea(Area area);
 }

@@ -4,24 +4,45 @@
 			apply="mz.ciuem.inamar.controller.AreaPerfilConfigDesActCtrl"	>
 			
 							<div class="row">
+							<div zclass="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+							<div zclass="box box-default">
+							<div zclass="box-header">
 							<x:br></x:br>
 								
-										
+								
+							<groupbox>	
+							<caption>Filtrar por</caption>		
 							<div zclass="col-lg-5 col-md-5 col-sm-12 col-xs-12">
 
 								<x:label>Área</x:label>
-								<combobox width="60%"
+								<div class="input-group">
+								<combobox width="190%"
 													id="cbx_area"
 													placeholder="Selecione uma Área"
-													constraint="no empty:Selecione uma Área"
-													readonly="true">
+													readonly="true" forward="onSelect=onClickprcurar()">
 													<template
 														name="model">
 														<comboitem
 															label="${each.nome}" />
 													</template>
 												</combobox>
+												<x:span></x:span>
+												</div>
+												
 							</div>
+							<div zclass="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+							
+							<x:label>Perfil</x:label>
+							<div class="input-group">
+									<textbox zclass="form-control"
+										placeholder="Procurar pelo nome do perfil"
+										id="txb_perfifind" />
+											<x:span class="input-group-addon" forward="onClick=onClickprcurar()">
+										<x:i class="fa  fa-search"></x:i>
+									</x:span>
+								</div>
+								</div>
+							</groupbox>
 										
 										<div zclass="col-lg-7 col-md-7 col-sm-12 col-xs-12">
 
@@ -130,6 +151,9 @@
 
 										</div>
 									</div>
+									</div>
+									</div>
+								</div>
 								</div>
 							
 </window>

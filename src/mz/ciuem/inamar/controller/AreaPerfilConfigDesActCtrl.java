@@ -48,6 +48,7 @@ import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Listitem;
 import org.zkoss.zul.Messagebox;
+import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 
 public class AreaPerfilConfigDesActCtrl extends GenericForwardComposer{
@@ -56,6 +57,7 @@ public class AreaPerfilConfigDesActCtrl extends GenericForwardComposer{
 	private Window win_regArePerfil;
 	private Combobox cbx_taxas, cbx_subArea, cbx_area , cbx_perfil;
 	private Listbox lbx_taxas;
+	private Textbox txb_perfifind;
 	
 	private Button btn_cancelar;
 	private Button btn_gravar;
@@ -286,6 +288,16 @@ public void onClick$btn_gravar() {
 		cbx_perfil.setRawValue(null);
 		cbx_area.setRawValue(null);
    }
+	
+	public void findByUserRoleArea(Area area) {
+		_listUserRoleArea = _userRoleAreaService.findByUserRoleArea(area);
+		lbx_areaPerfil.setModel(new ListModelList<UserRoleArea>(_listUserRoleArea));
+	}
+	
+	public void onClickprcurar(ForwardEvent e) {
+		Area area = cbx_area.getSelectedItem().getValue();
+		findByUserRoleArea(area);
+	}
 
 }
 

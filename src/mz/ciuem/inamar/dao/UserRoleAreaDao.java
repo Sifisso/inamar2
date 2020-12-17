@@ -14,6 +14,10 @@ public interface UserRoleAreaDao extends GenericDao<UserRoleArea>{
 	public List<UserRoleArea> findPerfilByArea();
 
 	public List<UserRoleArea> findPerfilByAreaArea(Area area);
+	
+	public List<UserRoleArea> findByUserRoleArea(Area area);
+	
+	
 
 
 

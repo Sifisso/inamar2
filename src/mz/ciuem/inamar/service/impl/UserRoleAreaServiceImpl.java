@@ -39,4 +39,10 @@ public class UserRoleAreaServiceImpl extends GenericServiceImpl<UserRoleArea> im
 		return _uraDao.findPerfilByUserRole(userRole);
 	}
 
+	@Override
+	public List<UserRoleArea> findByUserRoleArea(Area area) {
+		// TODO Auto-generated method stub
+		return _uraDao.findByUserRoleArea(area);
+	}
+
 }

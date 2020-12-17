@@ -15,7 +15,9 @@ public class DelegacaoDaoImpl extends GenericDaoImpl<Delegacao> implements Deleg
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Delegacao> findByNomeProvincia(String nome, Provincia provincia, Instituicao instituicao) {
-		org.hibernate.Query query = getCurrentSession().createQuery("select d from Delegacao d join fetch d.provincia p where d.nome like :nome and d.provincia=:provincia and d.instituicao=:instituicao");
+		org.hibernate.Query query = getCurrentSession().createQuery("select d from Delegacao d "
+				+ "join fetch d.provincia "
+				+ "p where d.nome like :nome and d.provincia=:provincia and d.instituicao=:instituicao");
 		query.setParameter("nome", "%"+nome+"%");
 		query.setParameter("provincia", provincia);
 		query.setParameter("instituicao", instituicao);

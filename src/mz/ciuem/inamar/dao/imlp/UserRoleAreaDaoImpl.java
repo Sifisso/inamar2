@@ -46,4 +46,16 @@ public class UserRoleAreaDaoImpl extends GenericDaoImpl<UserRoleArea> implements
 		query.setParameter("userRole", userRole);
 		return query.list();
 	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<UserRoleArea> findByUserRoleArea(Area area) {
+		org.hibernate.Query query = getCurrentSession().createQuery("select ura from UserRoleArea ura "
+				+ " join fetch ura.userRole ur "
+				+ " join fetch ura.area a "
+				+ " where a=:area");
+		query.setParameter("area", area);
+		
+		return query.list();
+	}
 }
