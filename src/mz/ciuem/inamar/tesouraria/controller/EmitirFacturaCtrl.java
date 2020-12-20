@@ -1,21 +1,13 @@
 package mz.ciuem.inamar.tesouraria.controller;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import mz.ciuem.inamar.entity.Conta;
 import mz.ciuem.inamar.entity.ItensPeticao;
-import mz.ciuem.inamar.entity.Pagamento;
 import mz.ciuem.inamar.entity.Pedido;
 import mz.ciuem.inamar.entity.Peticao;
 import mz.ciuem.inamar.entity.PeticaoMaritimoTaxaPedido;
-import mz.ciuem.inamar.entity.ServicoDestino;
-import mz.ciuem.inamar.entity.Taxa;
 import mz.ciuem.inamar.entity.TaxaPedido;
-import mz.ciuem.inamar.entity.TipoRequisito;
-import mz.ciuem.inamar.service.ContaService;
 import mz.ciuem.inamar.service.ItensPeticaoService;
 import mz.ciuem.inamar.service.PagamentoService;
 import mz.ciuem.inamar.service.PeticaoMaritimoTaxaPedidoService;
@@ -33,19 +25,13 @@ import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.Button;
 import org.zkoss.zul.Combobox;
-import org.zkoss.zul.Datebox;
-import org.zkoss.zul.Div;
 import org.zkoss.zul.Doublebox;
-import org.zkoss.zul.Include;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Listitem;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
-
-import com.lowagie.text.pdf.AcroFields.Item;
-import com.sun.xml.internal.fastinfoset.algorithm.IntEncodingAlgorithm;
 
 public class EmitirFacturaCtrl extends GenericForwardComposer{
 	

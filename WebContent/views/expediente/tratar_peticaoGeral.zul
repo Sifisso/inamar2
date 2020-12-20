@@ -157,7 +157,7 @@
 													<template
 														name="model">
 														<comboitem
-															label="${each.userRole.rolename}" />
+															label="${each.nome}" />
 													</template>
 												</combobox>
 	                        	</groupbox>

@@ -6,19 +6,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javafx.scene.control.ComboBox;
 import mz.ciuem.inamar.entity.Actos;
-import mz.ciuem.inamar.entity.Delegacao;
-import mz.ciuem.inamar.entity.EtapaFluxo;
 import mz.ciuem.inamar.entity.Peticao;
+import mz.ciuem.inamar.entity.PeticaoDestino;
 import mz.ciuem.inamar.entity.PeticaoEtapa;
 import mz.ciuem.inamar.entity.PeticaoPedidoEtapaInstrumentoLegal;
 import mz.ciuem.inamar.entity.PeticaoTarefasNaEtapa;
-import mz.ciuem.inamar.entity.RoleActos;
 import mz.ciuem.inamar.entity.User;
 import mz.ciuem.inamar.entity.UserRole;
 import mz.ciuem.inamar.entity.UserRoleArea;
 import mz.ciuem.inamar.service.ActosService;
+import mz.ciuem.inamar.service.PeticaoDestinoService;
 import mz.ciuem.inamar.service.PeticaoEtapaService;
 import mz.ciuem.inamar.service.PeticaoPedidoEtapaInstrumentoLegalService;
 import mz.ciuem.inamar.service.PeticaoService;
@@ -83,6 +81,7 @@ public class TratarPeticaoGeralCtrl extends GenericForwardComposer{
 	private UserRole _userRole;
 	@WireVariable
 	private RoleActosService roleActosService;
+	private PeticaoDestinoService _peticaoDestinoService;
 	@WireVariable
 	private PeticaoTarefasNaEtapaService _peticaoTarefasNaEtapaService;
 	@WireVariable
@@ -110,6 +109,8 @@ public class TratarPeticaoGeralCtrl extends GenericForwardComposer{
 		_userRoleAreaService =(UserRoleAreaService) SpringUtil.getBean("userRoleAreaService");
 		_userRoleArea = (UserRoleArea) Executions.getCurrent().getArg().get("_userRoleArea");
 		
+		_peticaoDestinoService =(PeticaoDestinoService) SpringUtil.getBean("peticaoDestinoService");
+		
 		_peticao = (Peticao) Executions.getCurrent().getArg().get("peticao");
 		_peticaoEtapaService = (PeticaoEtapaService) SpringUtil.getBean("peticaoEtapaService");
 		_peticaoTarefasNaEtapaService = (PeticaoTarefasNaEtapaService) SpringUtil.getBean("peticaoTarefasNaEtapaService");
@@ -132,9 +133,9 @@ public class TratarPeticaoGeralCtrl extends GenericForwardComposer{
 		listarActo();
 	}
 	private void listarPerfil(){
-		List<UserRoleArea> _listPerfil = _userRoleAreaService.findPerfilByArea();
+		List<PeticaoDestino> _listPerfil = _peticaoDestinoService.buscarPeticoesPorArea();
 		//cbx_roles.setModel(new ListModelList<UserURole>(perfil));
-		cbx_roles.setModel(new ListModelList<UserRoleArea>(_listPerfil));
+		cbx_roles.setModel(new ListModelList<PeticaoDestino>(_listPerfil));
 		
 		
 	}
