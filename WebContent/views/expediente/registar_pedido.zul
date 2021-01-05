@@ -395,6 +395,7 @@
 									<listhead>
 										<listheader label="#" width="5%" />
 										<listheader label="Utente" sort="auto(utente)" />
+										<listheader label="Area" sort="auto(area)" />
 										<listheader label="Pedido" sort="auto(nome)" />
 										<listheader label="Data e hora" sort="auto(nome)" />
 <!-- 										<listheader label="valor" sort="auto(codigo)" width="12%" align="center"/> -->
@@ -406,6 +407,7 @@
 										<listitem>
 											<listcell></listcell>
 											<listcell label="${each.utente}" />
+											<listcell label="${each.pedido.tipoPedido.area.nome}" />
 											<listcell label="${each.descricao}" />
 											<listcell label="${each.created}" />
 <!-- 											<listcell label="${each.valorTotal}0 MZN" /> -->
@@ -442,20 +444,12 @@
 																label="Ver Tramitação"  iconSclass="fa  fa-stethoscope pull-left"
                                                           forward="onClick=onClickVerTramitacao(${each})">
 														 </menuitem>
-															         <!-- 
+														
 															   <menuitem
-																	label="Accoes"  iconSclass="fa  fa-stethoscope pull-left" 
-																	forward="onClick=onClickTratar(${each})" >
-															   </menuitem>
-															     -->
-															   <menuitem
-																	label="Accoes"  iconSclass="fa  fa-stethoscope pull-left" 
+																	label="Tramitação"  iconSclass="fa  fa-stethoscope pull-left" 
 																	forward="onClick=onClickTratar(${each})">
 															   </menuitem>
-															    <menuitem
-																	label="Destino"  iconSclass="fa  fa-stethoscope pull-left" 
-																	forward="onClick=onClickTratar(${each})" >
-															   </menuitem>
+															   
 													
 														</menupopup>
 													</menu>

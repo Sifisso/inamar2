@@ -184,6 +184,17 @@ public class Peticao extends IdEntity{
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "peticao")
 	private List<PeticaoPedidoEtapaInstrumentoLegal> peticoesInstrumentoLegal;
 	
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="peticao")
+	private List<PeticaoDestino> peticaoDestino;
+	
+	public List<PeticaoDestino> getPeticaoDestino() {
+		return peticaoDestino;
+	}
+
+	public void setPeticaoDestino(List<PeticaoDestino> peticaoDestino) {
+		this.peticaoDestino = peticaoDestino;
+	}
+
 	public List<PeticaoPedidoEtapaInstrumentoLegal> getPeticoesInstrumentoLegal() {
 		return peticoesInstrumentoLegal;
 	}

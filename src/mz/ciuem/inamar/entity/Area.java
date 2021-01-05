@@ -36,7 +36,9 @@ public class Area extends IdEntity{
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "area")
 	private List<SubArea> subAreas;
-
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="area")
+	private List<UserRoleArea> userRoleArea;
+	
 	public String getNome() {
 		return nome;
 	}

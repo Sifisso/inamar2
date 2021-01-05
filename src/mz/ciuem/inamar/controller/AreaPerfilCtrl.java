@@ -176,7 +176,6 @@ public class AreaPerfilCtrl extends GenericForwardComposer{
 		_selectedUserRole = null;
 		_selectedArea = null;
 		cbx_perfil.setRawValue(null);
-
 	}
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })

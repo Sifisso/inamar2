@@ -207,6 +207,7 @@ public class TratarPeticaoGeralTesourariaCtrl extends GenericForwardComposer{
 
 	private void preencherCampos() {
 		if(_peticao!=null){
+			System.out.println(_peticao.getUtente());
 			lbl_nome.setValue(_peticao.getUtente());
 			lbl_pedido.setValue(_peticao.getDescricao());
 			lbl_dataentrada.setValue(""+_peticao.getCreated());
@@ -222,8 +223,6 @@ public class TratarPeticaoGeralTesourariaCtrl extends GenericForwardComposer{
 		List<PeticaoPedidoEtapaInstrumentoLegal> list = _peticaoPedidoEtapaInstrumentoLegalService.findByPeticao(_peticao2);
         lbx_insLegal.setModel(new ListModelList<PeticaoPedidoEtapaInstrumentoLegal>(list));		
 	}
-
-
 	public void onClickClose(ForwardEvent e){
 		win_tratarPeticaoTs.detach();
 	}

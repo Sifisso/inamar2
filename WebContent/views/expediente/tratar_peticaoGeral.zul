@@ -14,6 +14,7 @@
 						<x:h4 class="modal-title" id="">
 							TRATAR PETIÇÃO 
 						</x:h4>
+						Area:<label id="lbl_nomeArea" width="100%" value="asdasdasd"/>
 					</div>
 					<div zclass="box-body">
 					<!-- 
@@ -138,7 +139,7 @@
 													</template>
 												</combobox>
 											<button zclass="btn btn-info btn-sm pull-right" type="button"
-											id="btn_adicionar" iconSclass="fa fa-plus-square">
+											id="btn_adicionarActos" iconSclass="fa fa-plus-square">
 											Adicionar
 											</button>
 	                        	</groupbox>
@@ -157,13 +158,17 @@
 													<template
 														name="model">
 														<comboitem
-															label="${each.nome}" />
+															label="${each.userRoleAreaDestino.userRoleArea.userRole.rolename}" />
 													</template>
 												</combobox>
+												<button zclass="btn btn-info btn-sm pull-right" type="button"
+											id="btn_adicionarRoles" iconSclass="fa fa-plus-square">
+											Adicionar
+											</button>
 	                        	</groupbox>
 							</div>
 							
-							<div>
+							<div  zclass="col-lg-6 col-md-6 col-sm-6 col-xs-6">
 								<div zclass="box-body">
 												<listbox id="lbx_taxas"
 									checkmark="true" rows="4">
@@ -171,12 +176,37 @@
 										<listheader label="#" width="5%" />
 										<listheader label="Nome"/>
 										<!-- <listheader label="Activo?" align="center" width="12%"/> -->
-										<listheader label="Remover" width="10%" align="center"/>
+										<listheader label="Remover" width="12%" align="center"/>
 									</listhead>
 									<template name="model">
 										<listitem>
 											<listcell></listcell>
 											<listcell label="${each.nome}" />
+									       								<listcell>
+                                                             <button label = "Remover" 
+                                                             zclass ="btn btn-danger btn-xs" iconSclass="fa fa-trash-o" forward=" onClick = 'onRemover(${ each})'"></button>
+														    </listcell>
+												
+										</listitem>
+									</template>
+								</listbox>
+											</div>
+							
+							</div>
+							<div  zclass="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+								<div zclass="box-body">
+												<listbox id="lbx_perfil"
+									checkmark="true" rows="4">
+									<listhead>
+										<listheader label="#" width="5%" />
+										<listheader label="Nome"/>
+										<!-- <listheader label="Activo?" align="center" width="12%"/> -->
+										<listheader label="Remover" width="12%" align="center"/>
+									</listhead>
+									<template name="model">
+										<listitem>
+											<listcell></listcell>
+											<listcell label="${each.userRole.rolename}" />
 									       								<listcell>
                                                              <button label = "Remover" 
                                                              zclass ="btn btn-danger btn-xs" iconSclass="fa fa-trash-o" forward=" onClick = 'onRemover(${ each})'"></button>

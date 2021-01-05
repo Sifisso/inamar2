@@ -26,6 +26,8 @@ public class UserRoleArea extends IdEntity{
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userRoleArea")
 	private List<AreaPerfilActo> areaPerfilActos;
 	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userRoleArea")
+	private List<UserRoleAreaDestino> userRoleAreaDestino;
 	
 	private String descricao;
 

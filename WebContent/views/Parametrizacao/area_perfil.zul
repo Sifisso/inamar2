@@ -9,7 +9,7 @@
 										
 							<div zclass="col-lg-5 col-md-5 col-sm-12 col-xs-12">
 
-								<x:label>Área</x:label>
+								<x:label>Área Perfil</x:label>
 								<combobox width="60%"
 													id="cbx_area"
 													placeholder="Selecione uma Área"

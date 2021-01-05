@@ -1,9 +1,12 @@
 package mz.ciuem.inamar.entity;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -21,6 +24,18 @@ public class UserRoleAreaDestino extends IdEntity{
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "userRole_id", insertable = true, updatable = true, nullable=true)
 	private UserRole userRole;
+
+	@OneToMany(fetch = FetchType.EAGER)
+	@JoinColumn(name = "peticao_destino_id", insertable = true, updatable = true, nullable=true)
+	private List<PeticaoDestino>  peticaoDestino;
+	
+	public List<PeticaoDestino> getPeticaoDestino() {
+		return peticaoDestino;
+	}
+
+	public void setPeticaoDestino(List<PeticaoDestino> peticaoDestino) {
+		this.peticaoDestino = peticaoDestino;
+	}
 
 	public String getCodigo() {
 		return codigo;
