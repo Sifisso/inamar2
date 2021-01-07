@@ -17,7 +17,7 @@ public class UserRoleAreaDestino extends IdEntity{
 	
 	private String codigo;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "userRoleArea_id", insertable = true, updatable = true, nullable=true)
 	private UserRoleArea userRoleArea;
 	

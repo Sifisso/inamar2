@@ -394,7 +394,9 @@
 									checkmark="true" mold="paging" pageSize="5">
 									<listhead>
 										<listheader label="#" width="5%" />
+											<listheader label="id" width="8%" sort="auto(id)"/>
 										<listheader label="Utente" sort="auto(utente)" />
+										
 										<listheader label="Area" sort="auto(area)" />
 										<listheader label="Pedido" sort="auto(nome)" />
 										<listheader label="Data e hora" sort="auto(nome)" />
@@ -406,6 +408,7 @@
 									<template name="model">
 										<listitem>
 											<listcell></listcell>
+											<listcell label="${each.id}" />
 											<listcell label="${each.utente}" />
 											<listcell label="${each.pedido.tipoPedido.area.nome}" />
 											<listcell label="${each.descricao}" />

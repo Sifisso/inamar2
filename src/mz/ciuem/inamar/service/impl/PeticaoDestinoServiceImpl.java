@@ -26,5 +26,9 @@ public class PeticaoDestinoServiceImpl extends GenericServiceImpl<PeticaoDestino
 	public List<PeticaoDestino> buscarPeticoesPorAreaTeste(UserRole userRole,UserRoleArea userRoleArea,UserRoleAreaDestino userRoleAreaDestino){
 		return dao.buscarPeticoesPorAreaTeste(userRole,userRoleArea,userRoleAreaDestino);	
 	}
+	@Override
+	public List<PeticaoDestino> findDestinoByPeticao(Peticao peticao) {
+		return dao.findDestinoByPeticao(peticao);
+	}
 
 }

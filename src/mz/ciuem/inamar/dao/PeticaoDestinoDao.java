@@ -14,4 +14,5 @@ public interface PeticaoDestinoDao extends GenericDao<PeticaoDestino>{
 	
 
 	public List<PeticaoDestino> buscarPeticoesPorAreaTeste(UserRole userRole,UserRoleArea userRoleArea,UserRoleAreaDestino userRoleAreaDestino);
+	public List<PeticaoDestino> findDestinoByPeticao(Peticao peticao);
 }

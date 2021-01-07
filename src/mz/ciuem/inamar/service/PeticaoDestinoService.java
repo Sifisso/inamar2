@@ -11,4 +11,5 @@ import mz.ciuem.inamar.entity.UserRoleAreaDestino;
 public interface PeticaoDestinoService extends GenericService<PeticaoDestino> {
 	public List<PeticaoDestino> buscarPeticoesPorArea(UserRole userRole);
 	public List<PeticaoDestino> buscarPeticoesPorAreaTeste(UserRole userRole,UserRoleArea userRoleArea,UserRoleAreaDestino userRoleAreaDestino);
+	public List<PeticaoDestino> findDestinoByPeticao(Peticao peticao);
 }

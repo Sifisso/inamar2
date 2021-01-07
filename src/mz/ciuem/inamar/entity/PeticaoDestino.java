@@ -18,12 +18,12 @@ public class PeticaoDestino extends IdEntity {
 	@JoinColumn(name = "peticao_id", insertable = true, updatable = true)
 	private Peticao peticao;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "userRoleAreaDestino_id", insertable = true, updatable = true, nullable=true)
 	private UserRoleAreaDestino userRoleAreaDestino;
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "userRole_id", insertable = true, updatable = true)
+	@JoinColumn(name = "userRole_id", insertable = true, updatable = true, nullable=true)
 	private UserRole userRole;
 
 	

@@ -26,6 +26,7 @@ import mz.ciuem.inamar.service.PeticaoService;
 import mz.ciuem.inamar.service.PeticaoTarefasNaEtapaService;
 import mz.ciuem.inamar.service.RoleActosService;
 import mz.ciuem.inamar.service.UserRoleAreaService;
+import mz.ciuem.inamar.service.UserRoleService;
 import mz.ciuem.inamar.service.UserService;
 import net.sf.jasperreports.engine.JRException;
 
@@ -81,7 +82,7 @@ public class TratarPeticaoGeralCtrl extends GenericForwardComposer{
 	@WireVariable
 	private UserRoleAreaService _userRoleAreaService;
 	@WireVariable
-	private UserRole _userRole;
+	private UserRoleService _userRoleService;
 	@WireVariable
 	private RoleActosService roleActosService;
 	@WireVariable
@@ -115,6 +116,8 @@ public class TratarPeticaoGeralCtrl extends GenericForwardComposer{
 		_peticaoService =(PeticaoService) SpringUtil.getBean("peticaoService");
 		
 		_userRoleAreaService =(UserRoleAreaService) SpringUtil.getBean("userRoleAreaService");
+		
+		_userRoleService =(UserRoleService) SpringUtil.getBean("userRoleService");
 		_userRoleArea = (UserRoleArea) Executions.getCurrent().getArg().get("_userRoleArea");
 		
 		_peticaoDestinoService =(PeticaoDestinoService) SpringUtil.getBean("peticaoDestinoService");
@@ -141,20 +144,20 @@ public class TratarPeticaoGeralCtrl extends GenericForwardComposer{
 		preencherCampos();
 		listarPerfil();
 		listarActo();
+		listarPerfisLBX();
 	
 	}
 	private void listarPerfil(){
-	//	List<PeticaoDestino> _listPerfil = _peticaoDestinoService.buscarPeticoesPorAreaTeste(userRole,userRoleArea,userRoleAreaDestino);
-		List<PeticaoDestino> listPerfil = _peticaoDestinoService.buscarPeticoesPorArea(userRole);
-	//	System.out.println("TESTE  LISTA FUNCIONAL 1"+_listPerfil);
-		System.out.println("TESTE  LISTA FUNCIONAL 2"+listPerfil);
-		//cbx_roles.setModel(new ListModelList<UserURole>(perfil));
-		cbx_roles.setModel(new ListModelList<PeticaoDestino>(listPerfil));	
+//		List<PeticaoDestino> listDestinos = _peticaoDestinoService.getAll();
+//		cbx_roles.setModel(new ListModelList<PeticaoDestino>(listDestinos));
+		
+		List<UserRole> userRoles = _userRoleService.getAll();
+		cbx_roles.setModel(new ListModelList<UserRole>(userRoles));
 	}
 	private void listarPerfisLBX(){
-		_listPeticaoDestino = _peticaoDestinoService.getAll();
+		_listPeticaoDestino = _peticaoDestinoService.findDestinoByPeticao(_peticao);
 		lbx_perfil.setModel(new ListModelList<PeticaoDestino>(_listPeticaoDestino));
-		btn_gravar.setVisible(true);
+		//btn_gravar.setVisible(true);
 	}
 	
 
@@ -163,11 +166,24 @@ public class TratarPeticaoGeralCtrl extends GenericForwardComposer{
 		//cbx_area.setRawValue(null);
    }
 
-	public void onClick$btn_adicionarRoles(){
+	public void onClick$btn_adicionarRoles(Event e) throws InterruptedException{
+	
 	PeticaoDestino pd = new PeticaoDestino();
-
+	
 	pd.setUserRole((UserRole)cbx_roles.getSelectedItem().getValue());
-		boolean existe = false;
+	pd.setPeticao(_peticao);
+	
+	_peticaoDestinoService.create(pd);
+	//_selectedArea = null;
+	_selectedUserRole = null;
+	//cbx_area.setRawValue(null);
+	cbx_roles.setRawValue(null);
+	
+	limparCampos();
+	listarPerfisLBX();
+	showNotifications("Perfil Adicionado com Sucesso", "info");
+	
+	/*	boolean existe = false;
 		
 		for(PeticaoDestino pdRole: _listPeticaoDestino) {
 			if((pdRole.getUserRole().getId()==pdRole.getUserRole().getId())) {
@@ -187,7 +203,7 @@ public class TratarPeticaoGeralCtrl extends GenericForwardComposer{
 			showNotifications("Perfil Adicionado com Sucesso", "info");
 		}else {
 			showNotifications("Configuração existente", "error");
-		}
+		}*/
 		
 		
 	}

@@ -3,6 +3,7 @@ package mz.ciuem.inamar.dao.imlp;
 import java.util.List;
 
 import mz.ciuem.inamar.dao.PeticaoDestinoDao;
+import mz.ciuem.inamar.entity.Peticao;
 import mz.ciuem.inamar.entity.PeticaoDestino;
 import mz.ciuem.inamar.entity.UserRole;
 import mz.ciuem.inamar.entity.UserRoleArea;
@@ -36,6 +37,21 @@ public class PeticaoDestinoDaoImpl  extends GenericDaoImpl<PeticaoDestino> imple
 		return query.list();
 
 	}
+	
+	
+	@SuppressWarnings("unchecked")
+	public List<PeticaoDestino> findDestinoByPeticao(Peticao peticao) {
+		Query query = getCurrentSession().createQuery("SELECT pd FROM PeticaoDestino pd "
+				+ " join fetch pd.peticao p"
+				+ " join fetch pd.userRoleAreaDestino urad "
+				+ " join fetch urad.userRoleArea ura "
+				+ " join fetch ura.userRole ur "
+				+ " where p=:peticao");
+		query.setParameter("peticao", peticao);                                                              
+		return query.list();
+
+	}
+	
 	
 	@SuppressWarnings("unchecked")
 	public List<PeticaoDestino> buscarPeticoesPorAreaTeste(UserRole userRole,UserRoleArea userRoleArea,UserRoleAreaDestino userRoleAreaDestino  ) {
