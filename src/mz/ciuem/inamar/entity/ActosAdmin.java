@@ -11,20 +11,21 @@ import javax.persistence.Table;
 public class ActosAdmin  extends IdEntity{
 	private static final long serialVersionUID = 1L;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "roleActos_id", insertable = true, updatable = true)
-	private RoleActos role_actos;
+	private AreaPerfilActo areaPerfilActo;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "peticao_id", insertable = true, updatable = true)
 	private Peticao peticao;
 
-	public RoleActos getRole_actos() {
-		return role_actos;
+
+	public AreaPerfilActo getAreaPerfilActo() {
+		return areaPerfilActo;
 	}
 
-	public void setRole_actos(RoleActos role_actos) {
-		this.role_actos = role_actos;
+	public void setAreaPerfilActo(AreaPerfilActo areaPerfilActo) {
+		this.areaPerfilActo = areaPerfilActo;
 	}
 
 	public Peticao getPeticao() {

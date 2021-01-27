@@ -181,7 +181,7 @@ public class AreaPerfilCtrl extends GenericForwardComposer{
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void onRemover(final ForwardEvent e){
 		
-		Messagebox.show("Deseja remover o perfil da Ã¡rea selecionada?", "RemoÃ§Ã£o do perfil",Messagebox.YES|Messagebox.NO, Messagebox.QUESTION, new EventListener() {
+		Messagebox.show("Deseja remover o perfil da Área selecionada?", "Remoção do perfil",Messagebox.YES|Messagebox.NO, Messagebox.QUESTION, new EventListener() {
 		
 			@Override
 			public void onEvent(Event event) throws Exception {

@@ -6,38 +6,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.management.loading.PrivateClassLoader;
-
-import mz.ciuem.inamar.comps.MasterRep;
-import mz.ciuem.inamar.entity.Actos;
-import mz.ciuem.inamar.entity.AreaPerfilActo;
-import mz.ciuem.inamar.entity.Conta;
-import mz.ciuem.inamar.entity.Delegacao;
-import mz.ciuem.inamar.entity.Instituicao;
-import mz.ciuem.inamar.entity.Provincia;
-import mz.ciuem.inamar.entity.UserRole;
-import mz.ciuem.inamar.entity.UserRoleArea;
-import mz.ciuem.inamar.entity.UserRoleAreaDestino;
-import mz.ciuem.inamar.service.ActosService;
-import mz.ciuem.inamar.service.AreaPerfilActoService;
-import mz.ciuem.inamar.service.ContaService;
-import mz.ciuem.inamar.service.DelegacaoService;
-import mz.ciuem.inamar.service.InstituicaoService;
-import mz.ciuem.inamar.service.ProvinciaService;
-import mz.ciuem.inamar.service.UserRoleAreaDestinoService;
-import mz.ciuem.inamar.service.UserRoleAreaService;
-import mz.ciuem.inamar.service.UserRoleService;
-import net.sf.jasperreports.engine.JRException;
-
 import org.zkoss.spring.SpringUtil;
 import org.zkoss.zhtml.Ol;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Execution;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
-import org.zkoss.zk.ui.event.EventListener;
-import org.zkoss.zk.ui.event.Events;
-import org.zkoss.zk.ui.event.ForwardEvent;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zk.ui.util.Clients;
@@ -45,16 +19,24 @@ import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.Button;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Div;
-import org.zkoss.zul.Intbox;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
-import org.zkoss.zul.Listcell;
-import org.zkoss.zul.Listitem;
-import org.zkoss.zul.Messagebox;
-import org.zkoss.zul.Radio;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
+
+import mz.ciuem.inamar.comps.MasterRep;
+import mz.ciuem.inamar.entity.Actos;
+import mz.ciuem.inamar.entity.AreaPerfilActo;
+import mz.ciuem.inamar.entity.UserRole;
+import mz.ciuem.inamar.entity.UserRoleArea;
+import mz.ciuem.inamar.entity.UserRoleAreaDestino;
+import mz.ciuem.inamar.service.ActosService;
+import mz.ciuem.inamar.service.AreaPerfilActoService;
+import mz.ciuem.inamar.service.UserRoleAreaDestinoService;
+import mz.ciuem.inamar.service.UserRoleAreaService;
+import mz.ciuem.inamar.service.UserRoleService;
+import net.sf.jasperreports.engine.JRException;
 
 @SuppressWarnings({ "serial", "rawtypes" })
 public class UserRoleAreaDestinoCtrl extends GenericForwardComposer{
@@ -156,7 +138,8 @@ public class UserRoleAreaDestinoCtrl extends GenericForwardComposer{
 	
 	public void onClick$btn_actualizar() throws InterruptedException {
 		_UserRoleAreaDestino.setCodigo(txb_codigo.getValue());
-		_UserRoleAreaDestino.setUserRole(cbx_perfil.getSelectedItem().getValue());
+		//_UserRoleAreaDestino.setUserRole(cbx_perfil.getSelectedItem().getValue());
+		_userRoleAreaDestino.setUserRoleArea(cbx_perfil.getSelectedItem().getValue());
 		
 		_userRoleAreaDestinoService.update(_UserRoleAreaDestino);
 		listar();
@@ -180,12 +163,13 @@ public class UserRoleAreaDestinoCtrl extends GenericForwardComposer{
 		
 		urad.setCodigo(txb_codigo.getValue());
 		urad.setUserRoleArea(_userRoleArea);
-		urad.setUserRole((UserRole)cbx_perfil.getSelectedItem().getValue());
+		//urad.setUserRole((UserRole)cbx_perfil.getSelectedItem().getValue());
+		urad.setUserRoleArea(cbx_perfil.getSelectedItem().getValue());
 		
 		boolean existe = false;
 		
 		for(UserRoleAreaDestino uraDestino: listURADestino) {
-			if(uraDestino.getUserRoleArea().getUserRole().getId()==urad.getUserRoleArea().getUserRole().getId() && uraDestino.getUserRole().getId()==urad.getUserRole().getId()) {
+			if(uraDestino.getUserRoleArea().getUserRole().getId()==urad.getUserRoleArea().getUserRole().getId() && uraDestino.getUserRoleArea().getUserRole().getId()==urad.getUserRoleArea().getUserRole().getId()) {
 				existe=true;
 			}
 		}
@@ -213,7 +197,7 @@ public class UserRoleAreaDestinoCtrl extends GenericForwardComposer{
 	public void onSelect$lbx_perfilDestino(Event e){
 		_userRoleAreaDestino = lbx_perfilDestino.getSelectedItem().getValue();
 		txb_codigo.setValue(_userRoleAreaDestino.getCodigo());
-	    cbx_perfil.setValue(_userRoleAreaDestino.getUserRole().getRolename());
+	    cbx_perfil.setValue(_userRoleAreaDestino.getUserRoleArea().getUserRole().getRolename());
 	    
 		btn_actualizar.setVisible(true);
 		btn_gravar.setVisible(false);
@@ -238,7 +222,7 @@ public class UserRoleAreaDestinoCtrl extends GenericForwardComposer{
 //		listAPActo = _areaPerfilActoService.findActoByUserRoleArea(listUserRoleAreas);
 //		lbx_perfilActo.setModel(new ListModelList<AreaPerfilActo>(listAPActo));
 		
-		listURADestino = _userRoleAreaDestinoService.findPerfilByUserRole(_userRole);
+		listURADestino = _userRoleAreaDestinoService.findPerfilByUserRole(_userRoleArea);
 		lbx_perfilDestino.setModel(new ListModelList<UserRoleAreaDestino>(listURADestino));
 	}
 	
@@ -246,8 +230,11 @@ public class UserRoleAreaDestinoCtrl extends GenericForwardComposer{
 //		listURADestino = _userRoleAreaDestinoService.findPerfilByUserRole(_userRole);
 //		cbx_perfil.setModel(new ListModelList<UserRoleAreaDestino>(listURADestino));
 		
-		List<UserRole> listRoles = _userRoleService.getAll();
-		cbx_perfil.setModel(new ListModelList<UserRole>(listRoles));
+		List<UserRoleArea> listURoleAres = _userRoleAreaService.getAll();
+		cbx_perfil.setModel(new ListModelList<UserRoleArea>(listURoleAres));
+		
+		//List<UserRole> listRoles = _userRoleService.getAll();
+		//cbx_perfil.setModel(new ListModelList<UserRole>(listRoles));
 	}
 	
 	

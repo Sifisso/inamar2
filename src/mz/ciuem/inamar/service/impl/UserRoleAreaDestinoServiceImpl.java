@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import mz.ciuem.inamar.dao.UserRoleAreDestinoDao;
 import mz.ciuem.inamar.entity.UserRole;
+import mz.ciuem.inamar.entity.UserRoleArea;
 import mz.ciuem.inamar.entity.UserRoleAreaDestino;
 import mz.ciuem.inamar.service.UserRoleAreaDestinoService;
 
@@ -19,9 +20,9 @@ public class UserRoleAreaDestinoServiceImpl extends GenericServiceImpl<UserRoleA
 	private UserRoleAreDestinoDao dao;
 	
 	@Override
-	public List<UserRoleAreaDestino> findPerfilByUserRole(UserRole userRole) {
+	public List<UserRoleAreaDestino> findPerfilByUserRole(UserRoleArea userRoleArea) {
 		// TODO Auto-generated method stub
-		return dao.findPerfilByUserRole(userRole);
+		return dao.findPerfilByUserRole(userRoleArea);
 	}
 
 }

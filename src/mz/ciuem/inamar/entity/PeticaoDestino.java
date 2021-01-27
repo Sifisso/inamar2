@@ -9,7 +9,6 @@ import javax.persistence.Table;
 @Entity
 @Table(name="peticao_destino")
 public class PeticaoDestino extends IdEntity {
-
 	
 
 	private static final long serialVersionUID = 1L;
@@ -21,21 +20,6 @@ public class PeticaoDestino extends IdEntity {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "userRoleAreaDestino_id", insertable = true, updatable = true, nullable=true)
 	private UserRoleAreaDestino userRoleAreaDestino;
-
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "userRole_id", insertable = true, updatable = true, nullable=true)
-	private UserRole userRole;
-
-	
-
-
-	public UserRole getUserRole() {
-		return userRole;
-	}
-
-	public void setUserRole(UserRole userRole) {
-		this.userRole = userRole;
-	}
 
 	public UserRoleAreaDestino getUserRoleAreaDestino() {
 		return userRoleAreaDestino;

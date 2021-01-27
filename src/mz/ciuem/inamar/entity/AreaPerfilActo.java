@@ -17,7 +17,7 @@ public class AreaPerfilActo extends IdEntity{
 	@JoinColumn(name = "userRoleArea_id", insertable = true, updatable = true, nullable=true)
 	private UserRoleArea userRoleArea;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "actos_id", insertable = true, updatable = true, nullable=true)
 	private Actos actos;
 
