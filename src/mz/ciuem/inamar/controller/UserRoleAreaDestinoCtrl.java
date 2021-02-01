@@ -116,6 +116,7 @@ public class UserRoleAreaDestinoCtrl extends GenericForwardComposer{
 		_userRoleService = (UserRoleService) SpringUtil.getBean("userRoleService");
 		_userRoleAreaDestinoService = (UserRoleAreaDestinoService) SpringUtil.getBean("userRoleAreaDestinoService");
 		
+		_UserRoleAreaDestino = (UserRoleAreaDestino) ex.getArg().get("_UserRoleAreaDestino");
 		_userRoleArea =  (UserRoleArea) ex.getArg().get("_userRoleArea");
 		_userRoleAreaDestino =  (UserRoleAreaDestino) ex.getArg().get("userRoleAreaDestino");
 		_userRole =  (UserRole) ex.getArg().get("_userRole");
@@ -137,7 +138,7 @@ public class UserRoleAreaDestinoCtrl extends GenericForwardComposer{
 	}
 	
 	public void onClick$btn_actualizar() throws InterruptedException {
-		_UserRoleAreaDestino.setCodigo(txb_codigo.getValue());
+		_userRoleAreaDestino.setCodigo(txb_codigo.getValue());
 		//_UserRoleAreaDestino.setUserRole(cbx_perfil.getSelectedItem().getValue());
 		_userRoleAreaDestino.setUserRoleArea(cbx_perfil.getSelectedItem().getValue());
 		
@@ -162,9 +163,8 @@ public class UserRoleAreaDestinoCtrl extends GenericForwardComposer{
 		UserRoleAreaDestino urad = new UserRoleAreaDestino();
 		
 		urad.setCodigo(txb_codigo.getValue());
+		urad.setUserRoleArea((UserRoleArea)cbx_perfil.getSelectedItem().getValue());
 		urad.setUserRoleArea(_userRoleArea);
-		//urad.setUserRole((UserRole)cbx_perfil.getSelectedItem().getValue());
-		urad.setUserRoleArea(cbx_perfil.getSelectedItem().getValue());
 		
 		boolean existe = false;
 		
@@ -180,9 +180,9 @@ public class UserRoleAreaDestinoCtrl extends GenericForwardComposer{
 			showNotifications("Destino Registado com sucesso!", "info");
 			limparCampos();
 		}else {
-			showNotifications("ConfiguraÃ§Ã£o existente", "error");
+			showNotifications("Configuração existente", "error");
 		}
-		//urad.setUserRoleArea((UserRoleArea)cbx_perfil.getSelectedItem().getValue());
+		urad.setUserRoleArea((UserRoleArea)cbx_perfil.getSelectedItem().getValue());
 		
 		
 		
@@ -221,8 +221,8 @@ public class UserRoleAreaDestinoCtrl extends GenericForwardComposer{
 //		List<UserRoleArea> listUserRoleAreas=_areaPerfilActoService.findAreaByUserRole(_userRole);
 //		listAPActo = _areaPerfilActoService.findActoByUserRoleArea(listUserRoleAreas);
 //		lbx_perfilActo.setModel(new ListModelList<AreaPerfilActo>(listAPActo));
-		
-		listURADestino = _userRoleAreaDestinoService.findPerfilByUserRole(_userRoleArea);
+		List<UserRoleArea> listUserRoleAreas = _userRoleAreaDestinoService.findAreaByUserRole(_userRole);
+		listURADestino = _userRoleAreaDestinoService.findDestinoByUserRoleArea(listUserRoleAreas);
 		lbx_perfilDestino.setModel(new ListModelList<UserRoleAreaDestino>(listURADestino));
 	}
 	

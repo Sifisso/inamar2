@@ -20,9 +20,17 @@ public class UserRoleAreaDestinoServiceImpl extends GenericServiceImpl<UserRoleA
 	private UserRoleAreDestinoDao dao;
 	
 	@Override
-	public List<UserRoleAreaDestino> findPerfilByUserRole(UserRoleArea userRoleArea) {
-		// TODO Auto-generated method stub
-		return dao.findPerfilByUserRole(userRoleArea);
+	public List<UserRoleAreaDestino> findPerfilByUserRole(UserRole userRole) {
+		return dao.findPerfilByUserRole(userRole);
+	}
+	
+	public List<UserRoleArea> findAreaByUserRole(UserRole userRole){
+		return dao.findAreaByUserRole(userRole);
+	}
+
+	@Override
+	public List<UserRoleAreaDestino> findDestinoByUserRoleArea(List<UserRoleArea> listUserRoleAreas) {
+		return dao.findDestinoByUserRoleArea(listUserRoleAreas);
 	}
 
 }

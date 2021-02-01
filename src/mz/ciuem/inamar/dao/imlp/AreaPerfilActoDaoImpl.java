@@ -39,7 +39,6 @@ public class AreaPerfilActoDaoImpl extends GenericDaoImpl<AreaPerfilActo> implem
 		
 		return query.list();
 		
-		
 	}
 	
 	@SuppressWarnings("unchecked")

@@ -30,6 +30,7 @@ import mz.ciuem.inamar.service.PeticaoPedidoEtapaInstrumentoLegalService;
 import mz.ciuem.inamar.service.PeticaoService;
 import mz.ciuem.inamar.service.PeticaoTarefasNaEtapaService;
 import mz.ciuem.inamar.service.RoleActosService;
+import mz.ciuem.inamar.service.UserRoleAreaDestinoService;
 import mz.ciuem.inamar.service.UserRoleAreaService;
 import mz.ciuem.inamar.service.UserRoleService;
 import mz.ciuem.inamar.service.UserService;
@@ -68,7 +69,7 @@ public class TratarPeticaoGeralCtrl extends GenericForwardComposer{
 
 	private Label lbl_nome, lbl_pedido, lbl_dataentrada,lbl_datasaida;
 	
-	private Listbox lbx_peticaoTarefasEtapa,lbx_eventos, lbx_insLegal,lbx_perfil, lbx_actosAdmin;
+	private Listbox lbx_peticaoTarefasEtapa,lbx_eventos, lbx_insLegal,lbx_peticaoDestino, lbx_actosAdmin;
 	
 	private Textbox tbx_peticaoEtapa;
 	
@@ -85,6 +86,8 @@ public class TratarPeticaoGeralCtrl extends GenericForwardComposer{
 	
 	@WireVariable
 	private AreaPerfilActoService _areaPerfilActoService;
+	@WireVariable
+	private UserRoleAreaDestinoService _userRoleAreaDestinoService;
 	@WireVariable
 	private ActosService _actosService;
 	@WireVariable
@@ -112,6 +115,7 @@ public class TratarPeticaoGeralCtrl extends GenericForwardComposer{
 	protected User loggeduser;
 	private List<PeticaoDestino> _listPeticaoDestino = new ArrayList<PeticaoDestino>();
 	private List<ActosAdmin> listActosAdmin = new ArrayList<ActosAdmin>(); 
+	private List<PeticaoDestino> listPeticaoDestino = new ArrayList<PeticaoDestino>(); 
 	protected Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 	
 	private UserRole _selectedUserRole;
@@ -134,7 +138,7 @@ public class TratarPeticaoGeralCtrl extends GenericForwardComposer{
 		_actosAdminService = (ActosAdminService) SpringUtil.getBean("actosAdminService");
 		_areaPerfilActoService = (AreaPerfilActoService) SpringUtil.getBean("areaPerfilActoService");
 		_userRoleAreaService =(UserRoleAreaService) SpringUtil.getBean("userRoleAreaService");
-		
+		_userRoleAreaDestinoService =(UserRoleAreaDestinoService) SpringUtil.getBean("userRoleAreaDestinoService");
 		_userRoleService =(UserRoleService) SpringUtil.getBean("userRoleService");
 		_userRoleArea = (UserRoleArea) Executions.getCurrent().getArg().get("_userRoleArea");
 		_areaPerfilActo = (AreaPerfilActo) Executions.getCurrent().getArg().get("_areaPerfilActo");
@@ -170,11 +174,11 @@ public class TratarPeticaoGeralCtrl extends GenericForwardComposer{
 	
 	}
 	private void listarPerfil(){
-		List<PeticaoDestino> listDestinos = _peticaoDestinoService.buscarPeticoesPorArea(userRole);
-		cbx_roles.setModel(new ListModelList<PeticaoDestino>(listDestinos));
+		//List<PeticaoDestino> listDestinos = _peticaoDestinoService.buscarPeticoesPorArea(userRole);
+		//cbx_roles.setModel(new ListModelList<PeticaoDestino>(listDestinos));
 		
-		//List<UserRole> userRoles = _userRoleService.getAll();
-		//cbx_roles.setModel(new ListModelList<UserRole>(userRoles));
+		List<UserRoleAreaDestino> listUserRoleAreaDestinos = _userRoleAreaDestinoService.getAll();
+		cbx_roles.setModel(new ListModelList<UserRoleAreaDestino>(listUserRoleAreaDestinos));
 	}
 	
 	private void listarActosAdmin(){
@@ -183,8 +187,8 @@ public class TratarPeticaoGeralCtrl extends GenericForwardComposer{
 	}
 	
 	private void listarPerfisLBX(){
-		_listPeticaoDestino = _peticaoDestinoService.findDestinoByPeticao(_peticao);
-		lbx_perfil.setModel(new ListModelList<PeticaoDestino>(_listPeticaoDestino));
+		_listPeticaoDestino = _peticaoDestinoService.getAll();
+		lbx_peticaoDestino.setModel(new ListModelList<PeticaoDestino>(_listPeticaoDestino));
 		//btn_gravar.setVisible(true);
 	}
 	
@@ -197,38 +201,28 @@ public class TratarPeticaoGeralCtrl extends GenericForwardComposer{
 	public void onClick$btn_adicionarRoles(Event e) throws InterruptedException{
 	
 	PeticaoDestino pd = new PeticaoDestino();
-	pd.setUserRoleAreaDestino((UserRoleAreaDestino)cbx_roles.getSelectedItem().getValue());
 	pd.setPeticao(_peticao);
+	pd.setUserRoleAreaDestino((UserRoleAreaDestino)cbx_roles.getSelectedItem().getValue());
 	
-	_peticaoDestinoService.create(pd);
-	_selectedUserRole = null;
-	cbx_roles.setRawValue(null);
-	
-	limparCampos();
-	listarPerfisLBX();
-	showNotifications("Perfil Adicionado com Sucesso", "info");
-	
-	/*	boolean existe = false;
+		boolean existe = false;
 		
 		for(PeticaoDestino pdRole: _listPeticaoDestino) {
-			if((pdRole.getUserRole().getId()==pdRole.getUserRole().getId())) {
+			if((pdRole.getUserRoleAreaDestino().getUserRoleArea().getUserRole().getId()==pd.getUserRoleAreaDestino().getUserRoleArea().getUserRole().getId())) {
 				existe=true;
 			}
 		}
 		
 		if(existe==false) {
 			_peticaoDestinoService.create(pd);
-			//_selectedArea = null;
 			_selectedUserRole = null;
-			//cbx_area.setRawValue(null);
 			cbx_roles.setRawValue(null);
 			
 			limparCampos();
 			listarPerfisLBX();
 			showNotifications("Perfil Adicionado com Sucesso", "info");
 		}else {
-			showNotifications("ConfiguraÃ§Ã£o existente", "error");
-		}*/
+			showNotifications("Configuração existente", "error");
+		}
 		
 		
 	}
@@ -285,6 +279,30 @@ public class TratarPeticaoGeralCtrl extends GenericForwardComposer{
 						listarActosAdmin();
 					}
 					showNotifications("Acto Removido", "warning");
+				}
+			}
+		});
+	}
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public void onRemoverDestino(final ForwardEvent e){
+		
+		Messagebox.show("Deseja remover o Destino da Área selecionada?", "Remoção do destino",Messagebox.YES|Messagebox.NO, Messagebox.QUESTION, new EventListener() {
+		
+			@Override
+			public void onEvent(Event event) throws Exception {
+				
+				if("onYes".equals(event.getName())){
+					
+					PeticaoDestino pd = (PeticaoDestino) e.getData();
+					
+					if(_listPeticaoDestino.contains(pd)){
+						
+						_peticaoDestinoService.delete(pd);
+						
+						listarPerfisLBX();
+					}
+					showNotifications("Destino Removido", "warning");
 				}
 			}
 		});

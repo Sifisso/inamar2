@@ -9,5 +9,10 @@ import mz.ciuem.inamar.entity.UserRoleAreaDestino;
 public interface UserRoleAreaDestinoService extends GenericService<UserRoleAreaDestino>{
 
 
-	public List<UserRoleAreaDestino> findPerfilByUserRole(UserRoleArea userRoleArea);
+	public List<UserRoleAreaDestino> findPerfilByUserRole(UserRole userRole);
+	
+	public List<UserRoleArea> findAreaByUserRole(UserRole userRole);
+	
+	public List<UserRoleAreaDestino> findDestinoByUserRoleArea(List<UserRoleArea> listUserRoleAreas);
+	
 }

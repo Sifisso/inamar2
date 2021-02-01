@@ -87,8 +87,6 @@
 											width="5%" />
 										<listheader label="Código"
 											sort="auto(codigo)" />
-											<listheader label="Area"
-											sort="auto(entidade)"/>
 										<listheader label="Destino"
 											sort="auto(entidade)"/>
 										<listheader align="center" label="Editar"
@@ -98,7 +96,6 @@
 										<listitem>
 											<listcell></listcell>
 											<listcell label="${each.codigo}" />
-											<listcell label="${each.userRoleArea.area.nome}" />
 											<listcell label="${each.userRoleArea.userRole.rolename}"></listcell>
 											<listcell>
 												<div align="center">

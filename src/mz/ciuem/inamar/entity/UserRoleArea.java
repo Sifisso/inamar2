@@ -19,7 +19,7 @@ public class UserRoleArea extends IdEntity{
 	@JoinColumn(name = "userRole_id", insertable = true, updatable = true)
 	private UserRole userRole;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "area_id", insertable = true, updatable = true)
 	private Area area;
 	
