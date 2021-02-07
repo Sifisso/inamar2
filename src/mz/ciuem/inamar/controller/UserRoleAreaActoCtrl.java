@@ -22,16 +22,19 @@ import org.zkoss.zul.Div;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
+import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 
 import mz.ciuem.inamar.comps.MasterRep;
 import mz.ciuem.inamar.entity.Actos;
+import mz.ciuem.inamar.entity.Area;
 import mz.ciuem.inamar.entity.AreaPerfilActo;
 import mz.ciuem.inamar.entity.UserRole;
 import mz.ciuem.inamar.entity.UserRoleArea;
 import mz.ciuem.inamar.service.ActosService;
 import mz.ciuem.inamar.service.AreaPerfilActoService;
+import mz.ciuem.inamar.service.AreaService;
 import mz.ciuem.inamar.service.UserRoleAreaService;
 import mz.ciuem.inamar.service.UserRoleService;
 import net.sf.jasperreports.engine.JRException;
@@ -46,7 +49,9 @@ public class UserRoleAreaActoCtrl extends GenericForwardComposer{
 	private Ol ol;
 	
 	//Main Div
-	private Label lbl_descricaoActos, lbl_descricaoActos2, lbl_descricaoPerfil, lbl_descricaoPerfil2;
+	private Label lbl_descricaoActos, lbl_descricaoActos2, lbl_descricaoPerfil, lbl_descricaoPerfil2, 
+	lbl_nomeArea, lbl_nomePerfil;
+	
 	private Textbox txb_nomefind;
 	private Button btn_procurar;
 	private Listbox lbx_perfilActo;
@@ -84,8 +89,14 @@ public class UserRoleAreaActoCtrl extends GenericForwardComposer{
 	@WireVariable
 	private UserRoleService _userRoleService;
 	
+
+	@WireVariable
+	private AreaService _areaService;
+	
 	
 	private UserRole _userRole;
+	
+	private Area _area;
 	
 	private List<Actos> listActos = new ArrayList<Actos>();
 	
@@ -102,9 +113,11 @@ public class UserRoleAreaActoCtrl extends GenericForwardComposer{
 		_userRoleAreaService = (UserRoleAreaService) SpringUtil.getBean("userRoleAreaService");
 		_actosService = (ActosService) SpringUtil.getBean("actosService");
 		_userRoleService = (UserRoleService) SpringUtil.getBean("userRoleService");
+		_areaService = (AreaService) SpringUtil.getBean("areaService");
 		
 		_userRoleArea =  (UserRoleArea) ex.getArg().get("_userRoleArea");
 		_userRole =  (UserRole) ex.getArg().get("_userRole");
+		_area =  (Area) ex.getArg().get("area");
 		_areaPerfilActo =  (AreaPerfilActo) Executions.getCurrent().getArg().get("areaPerfilActo");
 		_actos =  (Actos) Executions.getCurrent().getArg().get("_actos");
 		
@@ -117,6 +130,7 @@ public class UserRoleAreaActoCtrl extends GenericForwardComposer{
 		// TODO Auto-generated method stub
 		super.doAfterCompose(comp);
 
+		
 		listar();
 		peencherActos();
 		preencherCabecalho();
@@ -192,6 +206,7 @@ public class UserRoleAreaActoCtrl extends GenericForwardComposer{
 	private void listar() {
 		
 		List<UserRoleArea> listUserRoleAreas=_areaPerfilActoService.findAreaByUserRole(_userRole);
+		//Messagebox.show("roles-->"+listUserRoleAreas);
 		listAPActo = _areaPerfilActoService.findActoByUserRoleArea(listUserRoleAreas);
 		lbx_perfilActo.setModel(new ListModelList<AreaPerfilActo>(listAPActo));
 		
@@ -202,12 +217,21 @@ public class UserRoleAreaActoCtrl extends GenericForwardComposer{
 		cbx_acto.setModel(new ListModelList<Actos>(listActos));
 	}
 	
-	private void preencherCabecalho() {
+	public void  preencherCabecalho() {
 		
 		lbl_descricaoActos.setValue(_userRoleArea.getUserRole().getRolename());
 		lbl_descricaoPerfil.setValue(_userRoleArea.getArea().getNome());
 		lbl_descricaoActos2.setValue(_userRoleArea.getUserRole().getRolename());
 		lbl_descricaoPerfil2.setValue(_userRoleArea.getArea().getNome());
+		
+	}
+	
+	public String  preencher() {
+		
+		String area = _userRoleArea.getArea().getNome();
+		Messagebox.show("AREA="+area);
+		return area;
+		
 		
 	}
 	

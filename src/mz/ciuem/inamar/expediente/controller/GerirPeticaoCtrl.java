@@ -66,6 +66,7 @@ import org.zkoss.zul.Button;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Div;
 import org.zkoss.zul.Include;
+import org.zkoss.zul.Label;
 import org.zkoss.zul.ListModel;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
@@ -84,6 +85,7 @@ public class GerirPeticaoCtrl extends GenericForwardComposer{
 	private Window win_regPedidoExpediente;
 	private Textbox txb_nomefind;
 	private Button btn_imprimir;
+	private Label lbl_tete;
 	
 	@WireVariable
 	private AreaService _areaService;
@@ -121,6 +123,7 @@ public class GerirPeticaoCtrl extends GenericForwardComposer{
 	Peticao peticao;
 	private Funcionario funcionario=null;
 	private Utente utente;
+	private  Area _area;
 	private List<Peticao> listPeticao = new ArrayList<Peticao>();
 	private List<TaxaPedido> listTaxaPedido = new ArrayList<>();
 	private ListModel<TaxaPedido> listTaxaPedidoModel;
@@ -164,7 +167,8 @@ public class GerirPeticaoCtrl extends GenericForwardComposer{
 		// TODO Auto-generated method stub
 		super.doAfterCompose(comp);
 		listarUtente();
-		listarArea();		
+		listarArea();	
+		
 		//listarTaxaPedido();
 
 		if(loggeduser.getFuncionario() != null){
@@ -331,6 +335,7 @@ public class GerirPeticaoCtrl extends GenericForwardComposer{
 		List<Area> listArea = _areaService.getAll();
 		cbx_area.setModel(new ListModelList<Area>(listArea));
 	}
+	
 	
 	
 	

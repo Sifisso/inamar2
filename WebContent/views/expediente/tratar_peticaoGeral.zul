@@ -14,7 +14,8 @@
 						<x:h4 class="modal-title" id="">
 							TRATAR PETIÇÃO 
 						</x:h4>
-						Area:<label id="lbl_nomeArea" width="100%" value="asdasdasd"/>
+						Area:<label id="lbl_nomeArea" width="100%" value="aaaaa"/> <x:br></x:br>
+						
 					</div>
 					<div zclass="box-body">
 					<!-- 

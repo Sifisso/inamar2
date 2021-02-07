@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import mz.ciuem.inamar.controller.UserRoleAreaActoCtrl;
 import mz.ciuem.inamar.dao.imlp.UserRoleAreaDaoImpl;
 import mz.ciuem.inamar.entity.Actos;
 import mz.ciuem.inamar.entity.ActosAdmin;
@@ -40,6 +41,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.zkoss.spring.SpringUtil;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Execution;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
@@ -67,7 +69,7 @@ public class TratarPeticaoGeralCtrl extends GenericForwardComposer{
 	private Div div_content_out;
 	private Include inc_main;
 
-	private Label lbl_nome, lbl_pedido, lbl_dataentrada,lbl_datasaida;
+	private Label lbl_nome, lbl_pedido, lbl_dataentrada,lbl_datasaida, lbl_nomeArea, lbl_nomePerfil;
 	
 	private Listbox lbx_peticaoTarefasEtapa,lbx_eventos, lbx_insLegal,lbx_peticaoDestino, lbx_actosAdmin;
 	
@@ -116,7 +118,10 @@ public class TratarPeticaoGeralCtrl extends GenericForwardComposer{
 	private List<PeticaoDestino> _listPeticaoDestino = new ArrayList<PeticaoDestino>();
 	private List<ActosAdmin> listActosAdmin = new ArrayList<ActosAdmin>(); 
 	private List<PeticaoDestino> listPeticaoDestino = new ArrayList<PeticaoDestino>(); 
+	private List<AreaPerfilActo> listAPActo = new ArrayList<AreaPerfilActo>();
 	protected Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	
+	Execution ex = Executions.getCurrent();
 	
 	private UserRole _selectedUserRole;
 	private Peticao _peticao;
@@ -125,7 +130,7 @@ public class TratarPeticaoGeralCtrl extends GenericForwardComposer{
 	private UserRoleAreaDestino userRoleAreaDestino;
 	private Area _area;
 	private UserRoleArea _userRoleArea;
-	private UserRole userRole;
+	private UserRole _userRole;
 	@SuppressWarnings("unchecked")
 	@Override
 	public void doBeforeComposeChildren(Component comp) throws Exception {
@@ -141,6 +146,7 @@ public class TratarPeticaoGeralCtrl extends GenericForwardComposer{
 		_userRoleAreaDestinoService =(UserRoleAreaDestinoService) SpringUtil.getBean("userRoleAreaDestinoService");
 		_userRoleService =(UserRoleService) SpringUtil.getBean("userRoleService");
 		_userRoleArea = (UserRoleArea) Executions.getCurrent().getArg().get("_userRoleArea");
+		_userRole = (UserRole) Executions.getCurrent().getArg().get("userRole");
 		_areaPerfilActo = (AreaPerfilActo) Executions.getCurrent().getArg().get("_areaPerfilActo");
 		
 		_peticaoDestinoService =(PeticaoDestinoService) SpringUtil.getBean("peticaoDestinoService");
@@ -148,7 +154,7 @@ public class TratarPeticaoGeralCtrl extends GenericForwardComposer{
 		_actosAdmin = (ActosAdmin) Executions.getCurrent().getArg().get("actosAdmin");
 		_peticao = (Peticao) Executions.getCurrent().getArg().get("peticao");
 		_area = (Area) Executions.getCurrent().getArg().get("area");
-		userRole=(UserRole) Executions.getCurrent().getArg().get("userRole");
+		_userRole =  (UserRole) ex.getArg().get("_userRole");
 		//userRole1=(UserRole) Executions.getCurrent().getArg().get("userRole");
 		_peticaoEtapaService = (PeticaoEtapaService) SpringUtil.getBean("peticaoEtapaService");
 		_peticaoTarefasNaEtapaService = (PeticaoTarefasNaEtapaService) SpringUtil.getBean("peticaoTarefasNaEtapaService");
@@ -179,6 +185,31 @@ public class TratarPeticaoGeralCtrl extends GenericForwardComposer{
 		
 		List<UserRoleAreaDestino> listUserRoleAreaDestinos = _userRoleAreaDestinoService.getAll();
 		cbx_roles.setModel(new ListModelList<UserRoleAreaDestino>(listUserRoleAreaDestinos));
+	}
+	
+		
+	
+
+	private void listarActo(){
+		
+		
+		
+		List<UserRoleArea> listUserRoleAreas = _areaPerfilActoService.findArePerfilByArea(_area);
+		Messagebox.show("AREA"+_area);
+		
+		//listAPActo = _areaPerfilActoService.findActoByUserRoleArea(listUserRoleAreas);
+		//List<AreaPerfilActo> listUserRoleAreas=_actosAdminService.findAreaByUserRoleArea(_userRoleArea);
+		//List<ActosAdmin> listUserRoleAreas=_actosAdminService.getAll();
+		
+//		listAPActo = _areaPerfilActoService.findActoByUserRoleArea(listUserRoleAreas);
+//		cbx_Actos.setModel(new ListModelList<AreaPerfilActo>(listAPActo));
+		
+		
+//		List<AreaPerfilActo> listActosAdmin = _areaPerfilActoService.findActosByArea(_area);
+//		cbx_Actos.setModel(new ListModelList<AreaPerfilActo>(listActosAdmin));
+		
+	//	List<ActosAdmin> listActosAdmin = _actosAdminService.findActosByArea(_area);
+	//	cbx_Actos.setModel(new ListModelList<ActosAdmin>(listActosAdmin));
 	}
 	
 	private void listarActosAdmin(){
@@ -310,13 +341,7 @@ public class TratarPeticaoGeralCtrl extends GenericForwardComposer{
 	
 	
 	
-	private void listarActo(){
-		List<AreaPerfilActo> listActosAdmin = _areaPerfilActoService.getAll();
-		cbx_Actos.setModel(new ListModelList<AreaPerfilActo>(listActosAdmin));
-		
-//		List<ActosAdmin> listActosAdmin = _actosAdminService.findActosByArea(_area);
-//		cbx_Actos.setModel(new ListModelList<ActosAdmin>(listActosAdmin));
-	}
+	
 	
 	public void onClick$btn_gravar(){
 		if(_peticao!=null){
@@ -382,10 +407,14 @@ public class TratarPeticaoGeralCtrl extends GenericForwardComposer{
 
 	private void preencherCampos() {
 		if(_peticao!=null){
+			
+			
+			_area=_peticao.getPedido().getTipoPedido().getArea();
 			lbl_nome.setValue(_peticao.getUtente());
 			lbl_pedido.setValue(_peticao.getDescricao());
 			lbl_dataentrada.setValue(""+_peticao.getCreated());
 //			lbl_datasaida.setValue(""+_peticao.getCreated()+10);
+			//lbl_nomeArea.setValue(""+area);
 			preencherInstrumentoLegal(_peticao);
 			preencherPermissoes();
 			

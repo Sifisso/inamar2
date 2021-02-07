@@ -6,6 +6,7 @@ import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 
 import mz.ciuem.inamar.dao.AreaPerfilActoDao;
+import mz.ciuem.inamar.entity.Area;
 import mz.ciuem.inamar.entity.AreaPerfilActo;
 import mz.ciuem.inamar.entity.UserRole;
 import mz.ciuem.inamar.entity.UserRoleArea;
@@ -26,7 +27,6 @@ public class AreaPerfilActoDaoImpl extends GenericDaoImpl<AreaPerfilActo> implem
 		return query.list();
 	}
 	
-	
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<UserRoleArea> findAreaByUserRole(UserRole userRole) {
@@ -43,6 +43,19 @@ public class AreaPerfilActoDaoImpl extends GenericDaoImpl<AreaPerfilActo> implem
 	
 	@SuppressWarnings("unchecked")
 	@Override
+	public List<UserRoleArea> findArePerfilByArea(Area area){
+		org.hibernate.Query query = getCurrentSession().createQuery("select distinct ura from UserRoleArea ura "
+				+ " join fetch ura.area a "
+				+ " join fetch ura.userRole ur "
+				+ "where a=:area");
+		query.setParameter("area", area);
+		return query.list();
+	}
+	
+	
+	
+	@SuppressWarnings("unchecked")
+	@Override
 	public List<AreaPerfilActo> findActoByUserRoleArea(List<UserRoleArea> listUserRoleAreas) {
 		
 		
@@ -55,4 +68,20 @@ public class AreaPerfilActoDaoImpl extends GenericDaoImpl<AreaPerfilActo> implem
 		return query.list();
 		
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<AreaPerfilActo> findActosByArea(Area area) {
+		
+		Query query = getCurrentSession().createQuery("select distinct apa from AreaPerfilActo apa "
+				+ " join fetch apa.userRoleArea ura "
+				+ " join fetch ura.userRole ur "
+				+ " join fetch ura.area a "
+				+ " where a=:area");
+		query.setParameter("area", area);
+		
+		return query.list();
+		
+	}
+	
 }

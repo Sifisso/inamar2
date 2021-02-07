@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import mz.ciuem.inamar.dao.AreaPerfilActoDao;
+import mz.ciuem.inamar.entity.Area;
 import mz.ciuem.inamar.entity.AreaPerfilActo;
 import mz.ciuem.inamar.entity.UserRole;
 import mz.ciuem.inamar.entity.UserRoleArea;
@@ -37,6 +38,20 @@ public class AreaPerfilActoServiceImpl extends GenericServiceImpl<AreaPerfilActo
 	public List<AreaPerfilActo> findActoByUserRoleArea(List<UserRoleArea> listUserRoleAreas) {
 		// TODO Auto-generated method stub
 		return _apaDao.findActoByUserRoleArea(listUserRoleAreas);
+	}
+
+
+
+	@Override
+	public List<AreaPerfilActo> findActosByArea(Area area) {
+		return _apaDao.findActosByArea(area);
+	}
+
+
+
+	@Override
+	public List<UserRoleArea> findArePerfilByArea(Area area) {
+		return _apaDao.findArePerfilByArea(area);
 	}
 
 	
