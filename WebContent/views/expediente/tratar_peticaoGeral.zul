@@ -14,7 +14,8 @@
 						<x:h4 class="modal-title" id="">
 							TRATAR PETIÇÃO 
 						</x:h4>
-						Area:<label id="lbl_nomeArea" width="100%" value="aaaaa"/> <x:br></x:br>
+						Area:<label id="lbl_nomeArea" width="100%" value="aaaaa"/> <x:br></x:br>||
+						Perfil:<label id="lbl_nomePerfil" width="100%" value="aaaaa"/> <x:br></x:br>
 						
 					</div>
 					<div zclass="box-body">
@@ -159,7 +160,7 @@
 													<template
 														name="model">
 														<comboitem
-															label="${each.userRoleArea.userRole.rolename}" />
+															label="${each}" />
 													</template>
 												</combobox>
 												<button zclass="btn btn-info btn-sm pull-right" type="button"
@@ -207,7 +208,7 @@
 									<template name="model">
 										<listitem>
 											<listcell></listcell>
-											<listcell label="${each.userRoleAreaDestino.userRoleArea.userRole.rolename}" />
+											<listcell label="${each}" />
 									       								<listcell>
                                                              <button label = "Remover" 
                                                              zclass ="btn btn-danger btn-xs" iconSclass="fa fa-trash-o" forward="onClick=onRemoverDestino(${each})"></button>

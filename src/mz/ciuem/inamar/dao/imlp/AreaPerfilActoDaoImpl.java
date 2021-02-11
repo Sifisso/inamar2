@@ -43,12 +43,13 @@ public class AreaPerfilActoDaoImpl extends GenericDaoImpl<AreaPerfilActo> implem
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<UserRoleArea> findArePerfilByArea(Area area){
+	public List<UserRoleArea> findArePerfilByArea(Area area, UserRole userRole){
 		org.hibernate.Query query = getCurrentSession().createQuery("select distinct ura from UserRoleArea ura "
 				+ " join fetch ura.area a "
 				+ " join fetch ura.userRole ur "
-				+ "where a=:area");
+				+ " where a=:area and ur=:userRole ");
 		query.setParameter("area", area);
+		query.setParameter("userRole", userRole);
 		return query.list();
 	}
 	

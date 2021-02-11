@@ -17,6 +17,6 @@ public interface AreaPerfilActoDao extends GenericDao<AreaPerfilActo>{
 
 	public List<AreaPerfilActo> findActosByArea(Area area);
 
-	public List<UserRoleArea> findArePerfilByArea(Area area);
+	public List<UserRoleArea> findArePerfilByArea(Area area,UserRole userRoleParametro);
 
 }

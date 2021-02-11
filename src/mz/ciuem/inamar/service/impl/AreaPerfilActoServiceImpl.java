@@ -50,8 +50,8 @@ public class AreaPerfilActoServiceImpl extends GenericServiceImpl<AreaPerfilActo
 
 
 	@Override
-	public List<UserRoleArea> findArePerfilByArea(Area area) {
-		return _apaDao.findArePerfilByArea(area);
+	public List<UserRoleArea> findArePerfilByArea(Area area,UserRole userRoleParametro) {
+		return _apaDao.findArePerfilByArea(area,userRoleParametro);
 	}
 
 	

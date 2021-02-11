@@ -63,6 +63,8 @@ import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 
+import com.sun.corba.se.impl.protocol.giopmsgheaders.Message;
+
 public class TratarPeticaoGeralCtrl extends GenericForwardComposer{
 	
 	private Window win_tratarPeticao;
@@ -116,6 +118,7 @@ public class TratarPeticaoGeralCtrl extends GenericForwardComposer{
     private UserService _userService;	
 	protected User loggeduser;
 	private List<PeticaoDestino> _listPeticaoDestino = new ArrayList<PeticaoDestino>();
+	private List<UserRole> listUserRoleTotal=new ArrayList<UserRole>();
 	private List<ActosAdmin> listActosAdmin = new ArrayList<ActosAdmin>(); 
 	private List<PeticaoDestino> listPeticaoDestino = new ArrayList<PeticaoDestino>(); 
 	private List<AreaPerfilActo> listAPActo = new ArrayList<AreaPerfilActo>();
@@ -129,8 +132,9 @@ public class TratarPeticaoGeralCtrl extends GenericForwardComposer{
 	private UserRoleArea userRoleArea;
 	private UserRoleAreaDestino userRoleAreaDestino;
 	private Area _area;
+	private String userRoleLogado;
 	private UserRoleArea _userRoleArea;
-	private UserRole _userRole;
+	private UserRole _userRole, userRoleParametro;
 	@SuppressWarnings("unchecked")
 	@Override
 	public void doBeforeComposeChildren(Component comp) throws Exception {
@@ -192,25 +196,23 @@ public class TratarPeticaoGeralCtrl extends GenericForwardComposer{
 
 	private void listarActo(){
 		
+		userRoleLogado=_peticao.getUserLoggado().getRoles().toString();
+		UserRole userR=new UserRole();
+		userR.setRolename(userRoleLogado);
+		List<UserRole> listUserRoleMadness=_userRoleService.getAll();
+		for(int i=0; i<listUserRoleMadness.size();i++){
+			if(userR.getRolename().contains(listUserRoleMadness.get(i).getRolename())){
+				userRoleParametro=listUserRoleMadness.get(i);
+				break;
+			}
+			
+		}
+		List<UserRoleArea> listUserRoleAreas = _areaPerfilActoService.findArePerfilByArea(_area,userRoleParametro);
 		
+		listAPActo = _areaPerfilActoService.findActoByUserRoleArea(listUserRoleAreas);
+		cbx_Actos.setModel(new ListModelList<AreaPerfilActo>(listAPActo));
 		
-		List<UserRoleArea> listUserRoleAreas = _areaPerfilActoService.findArePerfilByArea(_area);
-		Messagebox.show("AREA"+_area);
-		
-		//listAPActo = _areaPerfilActoService.findActoByUserRoleArea(listUserRoleAreas);
-		//List<AreaPerfilActo> listUserRoleAreas=_actosAdminService.findAreaByUserRoleArea(_userRoleArea);
-		//List<ActosAdmin> listUserRoleAreas=_actosAdminService.getAll();
-		
-//		listAPActo = _areaPerfilActoService.findActoByUserRoleArea(listUserRoleAreas);
-//		cbx_Actos.setModel(new ListModelList<AreaPerfilActo>(listAPActo));
-		
-		
-//		List<AreaPerfilActo> listActosAdmin = _areaPerfilActoService.findActosByArea(_area);
-//		cbx_Actos.setModel(new ListModelList<AreaPerfilActo>(listActosAdmin));
-		
-	//	List<ActosAdmin> listActosAdmin = _actosAdminService.findActosByArea(_area);
-	//	cbx_Actos.setModel(new ListModelList<ActosAdmin>(listActosAdmin));
-	}
+		}
 	
 	private void listarActosAdmin(){
 		listActosAdmin = _actosAdminService.getAll();
@@ -408,8 +410,9 @@ public class TratarPeticaoGeralCtrl extends GenericForwardComposer{
 	private void preencherCampos() {
 		if(_peticao!=null){
 			
-			
+			lbl_nomePerfil.setValue(_peticao.getUserLoggado().getRoles().toString());
 			_area=_peticao.getPedido().getTipoPedido().getArea();
+			lbl_nomeArea.setValue(_peticao.getPedido().getTipoPedido().getArea().getNome());
 			lbl_nome.setValue(_peticao.getUtente());
 			lbl_pedido.setValue(_peticao.getDescricao());
 			lbl_dataentrada.setValue(""+_peticao.getCreated());

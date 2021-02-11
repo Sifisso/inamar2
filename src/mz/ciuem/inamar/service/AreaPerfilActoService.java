@@ -17,5 +17,5 @@ public interface AreaPerfilActoService extends GenericService<AreaPerfilActo> {
 	
 	public List<AreaPerfilActo> findActosByArea(Area area);
 	
-	public List<UserRoleArea> findArePerfilByArea(Area area);
+	public List<UserRoleArea> findArePerfilByArea(Area area,UserRole userRoleParametro);
 }
