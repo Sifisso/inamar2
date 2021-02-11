@@ -425,7 +425,7 @@ public class TratarPeticaoGeralCtrl extends GenericForwardComposer{
 //			lbl_datasaida.setValue(""+_peticao.getCreated()+10);
 			//lbl_nomeArea.setValue(""+area);
 			preencherInstrumentoLegal(_peticao);
-			preencherPermissoes();
+			//preencherPermissoes();
 			
 			if(!_peticao.isChefeSecretariaParecer()){
 				//preencherPeticaoEtapa(_peticao);

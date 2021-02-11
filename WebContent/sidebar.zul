@@ -231,6 +231,62 @@
 					</x:ul>
 			  </x:li>
 			  
+			  <x:li if="${sec:isAnyGranted('SECRETARIA,E_SUPER_ADMINISTRADOR')}" sclass="treeview ${vm.hoursPage}">
+					<x:a href="#" >
+						<x:i class="fa  fa-retweet"></x:i>
+						<x:span>Director Geral</x:span>
+						<x:i class="fa fa-angle-left pull-right"></x:i>
+					</x:a>
+					<x:ul class="treeview-menu">
+						<x:li if="${sec:isAnyGranted('SECRETARIA,E_SUPER_ADMINISTRADOR')}"><x:a href="#" onClick="@command('registarExpediente')"><x:i class="fa fa-dot-circle-o"></x:i>Entrada de Pedidos</x:a></x:li>
+						<x:li if="${sec:isAnyGranted('SECRETARIA,E_SUPER_ADMINISTRADOR')}"><x:a href="#" onClick="@command('registarUtente')"><x:i class="fa fa-dot-circle-o"></x:i>Registo de Utentes</x:a></x:li>
+						<x:li if="${sec:isAnyGranted('SECRETARIA,E_SUPER_ADMINISTRADOR')}"><x:a href="#" onClick="@command('registarMaritimo')"><x:i class="fa fa-dot-circle-o"></x:i>Registo de Maritimos</x:a></x:li>
+					
+					</x:ul>
+			  </x:li>
+			  
+			  <x:li if="${sec:isAnyGranted('SECRETARIA,E_SUPER_ADMINISTRADOR')}" sclass="treeview ${vm.hoursPage}">
+					<x:a href="#" >
+						<x:i class="fa  fa-retweet"></x:i>
+						<x:span>Director Serviços</x:span>
+						<x:i class="fa fa-angle-left pull-right"></x:i>
+					</x:a>
+					<x:ul class="treeview-menu">
+						<x:li if="${sec:isAnyGranted('SECRETARIA,E_SUPER_ADMINISTRADOR')}"><x:a href="#" onClick="@command('registarExpediente')"><x:i class="fa fa-dot-circle-o"></x:i>Entrada de Pedidos</x:a></x:li>
+						<x:li if="${sec:isAnyGranted('SECRETARIA,E_SUPER_ADMINISTRADOR')}"><x:a href="#" onClick="@command('registarUtente')"><x:i class="fa fa-dot-circle-o"></x:i>Registo de Utentes</x:a></x:li>
+						<x:li if="${sec:isAnyGranted('SECRETARIA,E_SUPER_ADMINISTRADOR')}"><x:a href="#" onClick="@command('registarMaritimo')"><x:i class="fa fa-dot-circle-o"></x:i>Registo de Maritimos</x:a></x:li>
+					
+					</x:ul>
+			  </x:li>
+			  
+			  <x:li if="${sec:isAnyGranted('SECRETARIA,E_SUPER_ADMINISTRADOR')}" sclass="treeview ${vm.hoursPage}">
+					<x:a href="#" >
+						<x:i class="fa  fa-retweet"></x:i>
+						<x:span>Técnico Informático</x:span>
+						<x:i class="fa fa-angle-left pull-right"></x:i>
+					</x:a>
+					<x:ul class="treeview-menu">
+						<x:li if="${sec:isAnyGranted('SECRETARIA,E_SUPER_ADMINISTRADOR')}"><x:a href="#" onClick="@command('registarExpediente')"><x:i class="fa fa-dot-circle-o"></x:i>Entrada de Pedidos</x:a></x:li>
+						<x:li if="${sec:isAnyGranted('SECRETARIA,E_SUPER_ADMINISTRADOR')}"><x:a href="#" onClick="@command('registarUtente')"><x:i class="fa fa-dot-circle-o"></x:i>Registo de Utentes</x:a></x:li>
+						<x:li if="${sec:isAnyGranted('SECRETARIA,E_SUPER_ADMINISTRADOR')}"><x:a href="#" onClick="@command('registarMaritimo')"><x:i class="fa fa-dot-circle-o"></x:i>Registo de Maritimos</x:a></x:li>
+					
+					</x:ul>
+			  </x:li>
+			  
+			  <x:li if="${sec:isAnyGranted('SECRETARIA,E_SUPER_ADMINISTRADOR')}" sclass="treeview ${vm.hoursPage}">
+					<x:a href="#" >
+						<x:i class="fa  fa-retweet"></x:i>
+						<x:span>Depertamento Técnico</x:span>
+						<x:i class="fa fa-angle-left pull-right"></x:i>
+					</x:a>
+					<x:ul class="treeview-menu">
+						<x:li if="${sec:isAnyGranted('SECRETARIA,E_SUPER_ADMINISTRADOR')}"><x:a href="#" onClick="@command('registarExpediente')"><x:i class="fa fa-dot-circle-o"></x:i>Entrada de Pedidos</x:a></x:li>
+						<x:li if="${sec:isAnyGranted('SECRETARIA,E_SUPER_ADMINISTRADOR')}"><x:a href="#" onClick="@command('registarUtente')"><x:i class="fa fa-dot-circle-o"></x:i>Registo de Utentes</x:a></x:li>
+						<x:li if="${sec:isAnyGranted('SECRETARIA,E_SUPER_ADMINISTRADOR')}"><x:a href="#" onClick="@command('registarMaritimo')"><x:i class="fa fa-dot-circle-o"></x:i>Registo de Maritimos</x:a></x:li>
+					
+					</x:ul>
+			  </x:li>
+			  
 <!-- 			  <x:li if="${sec:isAnyGranted('PEDIDO_EMBARCACAO,E_SUPER_ADMINISTRADOR')}" sclass="treeview ${vm.hoursPage}"> -->
 <!-- 					<x:a href="#" > -->
 <!-- 						<x:i class="fa  fa-retweet"></x:i> -->
