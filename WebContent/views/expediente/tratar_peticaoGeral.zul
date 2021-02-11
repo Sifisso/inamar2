@@ -160,7 +160,7 @@
 													<template
 														name="model">
 														<comboitem
-															label="${each}" />
+															label="${each.userRoleArea.userRole.rolename}" />
 													</template>
 												</combobox>
 												<button zclass="btn btn-info btn-sm pull-right" type="button"
@@ -208,7 +208,7 @@
 									<template name="model">
 										<listitem>
 											<listcell></listcell>
-											<listcell label="${each}" />
+											<listcell label="${each.userRoleAreaDestino.userRoleArea.userRole.rolename}" />
 									       								<listcell>
                                                              <button label = "Remover" 
                                                              zclass ="btn btn-danger btn-xs" iconSclass="fa fa-trash-o" forward="onClick=onRemoverDestino(${each})"></button>
@@ -333,10 +333,11 @@
 							Fechar
 						</button>
 						
-							<button visible="true" zclass="btn btn-success btn-sm" forward="onClick=onClickClose()"
-											iconSclass="" dir="reverse">
-							Submeter
-						</button>
+					<button
+						zclass="btn btn-success btn-sm" type="button"
+		   	         	id="btn_submeter" width="100%" forward="onClick=onClickSubmeter()" visible="${win._peticao.preValidado=='true' and win._peticao.validado=='false' or win._peticao.recusado=='false'}">
+						Submeter
+				 </button>
 					</div>
 
 				</div>

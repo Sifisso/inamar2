@@ -351,7 +351,13 @@ public class TratarPeticaoGeralCtrl extends GenericForwardComposer{
 			preencherCampos();
 		}
 	}
-	
+
+	public void onClick$btn_Submeter(){
+		if(_peticao!=null){
+			executarTarefas(lbx_peticaoTarefasEtapa.getItems());
+			preencherCampos();
+		}
+	}
 	private void executarTarefas(List<Listitem> items) {
 		boolean todas=true;
 		for (Listitem listitem : items) {
@@ -483,16 +489,15 @@ public class TratarPeticaoGeralCtrl extends GenericForwardComposer{
 		win_tratarPeticao.detach();
 		
 	}
-	
 	@SuppressWarnings({ "unchecked" })
-	public void onClickValidar(final ForwardEvent e) {
-		
+	public void onClickSubmeter(final ForwardEvent e) {
+	/*	
 		
 		Peticao _pet = (Peticao) _peticao;
 		Map<String, Object> mapContaReceber = new HashMap<String, Object>();
 		mapContaReceber.put("peticao", _pet);
 		Executions.createComponents("/views/ChefeSecretaria/telinha.zul", win_tratarPeticao, mapContaReceber);
-		
+		*/
 		
 	}
 	
