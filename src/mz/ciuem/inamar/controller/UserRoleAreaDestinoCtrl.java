@@ -139,8 +139,8 @@ public class UserRoleAreaDestinoCtrl extends GenericForwardComposer{
 	
 	public void onClick$btn_actualizar() throws InterruptedException {
 		_userRoleAreaDestino.setCodigo(txb_codigo.getValue());
-		//_UserRoleAreaDestino.setUserRole(cbx_perfil.getSelectedItem().getValue());
-		_userRoleAreaDestino.setUserRoleArea(cbx_perfil.getSelectedItem().getValue());
+		_UserRoleAreaDestino.setUserRole(cbx_perfil.getSelectedItem().getValue());
+		//_userRoleAreaDestino.setUserRoleArea(cbx_perfil.getSelectedItem().getValue());
 		
 		_userRoleAreaDestinoService.update(_UserRoleAreaDestino);
 		listar();
@@ -163,13 +163,13 @@ public class UserRoleAreaDestinoCtrl extends GenericForwardComposer{
 		UserRoleAreaDestino urad = new UserRoleAreaDestino();
 		
 		urad.setCodigo(txb_codigo.getValue());
-		urad.setUserRoleArea((UserRoleArea)cbx_perfil.getSelectedItem().getValue());
 		urad.setUserRoleArea(_userRoleArea);
+		urad.setUserRole((UserRole)cbx_perfil.getSelectedItem().getValue());
 		
 		boolean existe = false;
 		
 		for(UserRoleAreaDestino uraDestino: listURADestino) {
-			if(uraDestino.getUserRoleArea().getUserRole().getId()==urad.getUserRoleArea().getUserRole().getId() && uraDestino.getUserRoleArea().getUserRole().getId()==urad.getUserRoleArea().getUserRole().getId()) {
+			if(uraDestino.getUserRoleArea().getUserRole().getId()==urad.getUserRoleArea().getUserRole().getId() && uraDestino.getUserRole().getId()==urad.getUserRole().getId()) {
 				existe=true;
 			}
 		}
@@ -182,7 +182,7 @@ public class UserRoleAreaDestinoCtrl extends GenericForwardComposer{
 		}else {
 			showNotifications("Configuração existente", "error");
 		}
-		urad.setUserRoleArea((UserRoleArea)cbx_perfil.getSelectedItem().getValue());
+		//urad.setUserRoleArea((UserRoleArea)cbx_perfil.getSelectedItem().getValue());
 		
 		
 		
@@ -221,20 +221,25 @@ public class UserRoleAreaDestinoCtrl extends GenericForwardComposer{
 //		List<UserRoleArea> listUserRoleAreas=_areaPerfilActoService.findAreaByUserRole(_userRole);
 //		listAPActo = _areaPerfilActoService.findActoByUserRoleArea(listUserRoleAreas);
 //		lbx_perfilActo.setModel(new ListModelList<AreaPerfilActo>(listAPActo));
-		List<UserRoleArea> listUserRoleAreas = _userRoleAreaDestinoService.findAreaByUserRole(_userRole);
-		listURADestino = _userRoleAreaDestinoService.findDestinoByUserRoleArea(listUserRoleAreas);
+		
+		
+//		List<UserRoleArea> listUserRoleAreas = _userRoleAreaDestinoService.findAreaByUserRole(_userRole);
+//		listURADestino = _userRoleAreaDestinoService.findDestinoByUserRoleArea(listUserRoleAreas);
+//		lbx_perfilDestino.setModel(new ListModelList<UserRoleAreaDestino>(listURADestino));
+		
+		listURADestino = _userRoleAreaDestinoService.findPerfilByUserRole(_userRole);
 		lbx_perfilDestino.setModel(new ListModelList<UserRoleAreaDestino>(listURADestino));
 	}
 	
 	private void peencherDestino() {
 //		listURADestino = _userRoleAreaDestinoService.findPerfilByUserRole(_userRole);
 //		cbx_perfil.setModel(new ListModelList<UserRoleAreaDestino>(listURADestino));
+//		
+//		List<UserRoleArea> listURoleAres = _userRoleAreaService.getAll();
+//		cbx_perfil.setModel(new ListModelList<UserRoleArea>(listURoleAres));
 		
-		List<UserRoleArea> listURoleAres = _userRoleAreaService.getAll();
-		cbx_perfil.setModel(new ListModelList<UserRoleArea>(listURoleAres));
-		
-		//List<UserRole> listRoles = _userRoleService.getAll();
-		//cbx_perfil.setModel(new ListModelList<UserRole>(listRoles));
+		List<UserRole> listRoles = _userRoleService.getAll();
+		cbx_perfil.setModel(new ListModelList<UserRole>(listRoles));
 	}
 	
 	

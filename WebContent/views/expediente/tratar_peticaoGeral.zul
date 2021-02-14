@@ -14,7 +14,7 @@
 						<x:h4 class="modal-title" id="">
 							TRATAR PETIÇÃO 
 						</x:h4>
-						Area:<label id="lbl_nomeArea" width="100%" value="aaaaa"/> <x:br></x:br>||
+						Area:<label id="lbl_nomeArea" width="100%" value="aaaaa"/> <x:br></x:br>|
 						Perfil:<label id="lbl_nomePerfil" width="100%" value="aaaaa"/> <x:br></x:br>
 						
 					</div>
@@ -334,11 +334,14 @@
 						</button>
 						
 					<button
-						zclass="btn btn-success btn-sm" type="button"
-		   	         	id="btn_submeter" width="100%" forward="onClick=onClickSubmeter()" visible="${win._peticao.preValidado=='true' and win._peticao.validado=='false' or win._peticao.recusado=='false'}">
+						zclass="btn btn-success btn-sm" type="button" 
+		   	         	id="btn_submeter" width="7%" forward="onClick=onClickSubmeter()" visible="${win._peticao.preValidado=='true' and win._peticao.validado=='false' or win._peticao.recusado=='false'}" 
+		   	         	iconSclass="fa fa-sign-in">
 						Submeter
 				 </button>
 					</div>
+
+
 
 				</div>
 			</div>

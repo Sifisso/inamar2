@@ -85,28 +85,20 @@
 									<listhead>
 										<listheader label="#"
 											width="5%" />
-										<listheader label="Código"
+										<listheader label="Codigo"
 											sort="auto(codigo)" />
+<!-- 										<listheader label="Perfil" -->
+<!-- 											sort="auto(entidade)"/> -->
 										<listheader label="Destino"
-											sort="auto(entidade)"/>
-										<listheader align="center" label="Editar"
 											sort="auto(entidade)"/>
 									</listhead>
 									<template name="model">
 										<listitem>
 											<listcell></listcell>
 											<listcell label="${each.codigo}" />
-											<listcell label="${each.userRoleArea.userRole.rolename}"></listcell>
-											<listcell>
-												<div align="center">
-											<x:button type="button"
-												class="btn btn-info btn-sm" data-toggle="modal"
-												data-target="#myModal">
-											<x:i class="fa fa-edit"></x:i>
-											</x:button>
-												</div>
-										
-											</listcell>		
+<!-- 											<listcell label="${each.userRoleArea.userRole.rolename}"></listcell> -->
+											<listcell label="${each.userRole.rolename}"></listcell>
+												
 										</listitem>
 									</template>
 								</listbox>
@@ -193,7 +185,7 @@
 									constraint="no empty : Não pode ser vazio nem conter apenas espaços em branco!">
 									<template name="model">
 										<comboitem
-											label="${each.userRole.rolename}" />
+											label="${each.rolename}" />
 									</template>
 								</combobox>
 							</div>
