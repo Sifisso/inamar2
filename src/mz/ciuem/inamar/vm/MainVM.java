@@ -1351,6 +1351,70 @@ public class MainVM extends PagVM {
 		menuReset();
 		setMorePage("active");
 	}
+
+	@Command
+	public void directorGeral() {
+		final HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("target", target);
+		map.put("breadcrumb", ol);
+		target.getChildren().clear();
+		Executions.createComponents("views/DirectorGeral/registar_pedido.zul", target,map);
+		Executions.getCurrent().getSession().removeAttribute("ss_utente");
+		links = new ArrayList<String>();
+		links.add("Inicio");
+		drawnBreadcrumb("fa fa-sort", "Mais", links);
+
+		menuReset();
+		setMorePage("active");
+	}
+	
+	@Command
+	public void departamentoTecnico() {
+		final HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("target", target);
+		map.put("breadcrumb", ol);
+		target.getChildren().clear();
+		Executions.createComponents("views/DepartamantoTecnico/registar_pedido.zul", target,map);
+		Executions.getCurrent().getSession().removeAttribute("ss_utente");
+		links = new ArrayList<String>();
+		links.add("Inicio");
+		drawnBreadcrumb("fa fa-sort", "Mais", links);
+
+		menuReset();
+		setMorePage("active");
+	}
+	@Command
+	public void tecnicoInformatico() {
+		final HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("target", target);
+		map.put("breadcrumb", ol);
+		target.getChildren().clear();
+		Executions.createComponents("views/TecnicoInformatico/registar_pedido.zul", target,map);
+		Executions.getCurrent().getSession().removeAttribute("ss_utente");
+		links = new ArrayList<String>();
+		links.add("Inicio");
+		drawnBreadcrumb("fa fa-sort", "Mais", links);
+
+		menuReset();
+		setMorePage("active");
+	}
+	@Command
+	public void directorDeServicos() {
+		final HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("target", target);
+		map.put("breadcrumb", ol);
+		target.getChildren().clear();
+		Executions.createComponents("views/DirectorDeServicos/registar_pedido.zul", target,map);
+		Executions.getCurrent().getSession().removeAttribute("ss_utente");
+		links = new ArrayList<String>();
+		links.add("Inicio");
+		drawnBreadcrumb("fa fa-sort", "Mais", links);
+
+		menuReset();
+		setMorePage("active");
+	}
+	
+	
 	
 	@Command
 	public void registarExpedienteUtente() {

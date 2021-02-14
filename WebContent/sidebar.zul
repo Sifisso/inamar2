@@ -239,8 +239,6 @@
 					</x:a>
 					<x:ul class="treeview-menu">
 						<x:li if="${sec:isAnyGranted('SECRETARIA,E_SUPER_ADMINISTRADOR')}"><x:a href="#" onClick="@command('registarExpediente')"><x:i class="fa fa-dot-circle-o"></x:i>Entrada de Pedidos</x:a></x:li>
-						<x:li if="${sec:isAnyGranted('SECRETARIA,E_SUPER_ADMINISTRADOR')}"><x:a href="#" onClick="@command('registarUtente')"><x:i class="fa fa-dot-circle-o"></x:i>Registo de Utentes</x:a></x:li>
-						<x:li if="${sec:isAnyGranted('SECRETARIA,E_SUPER_ADMINISTRADOR')}"><x:a href="#" onClick="@command('registarMaritimo')"><x:i class="fa fa-dot-circle-o"></x:i>Registo de Maritimos</x:a></x:li>
 					
 					</x:ul>
 			  </x:li>
@@ -253,8 +251,6 @@
 					</x:a>
 					<x:ul class="treeview-menu">
 						<x:li if="${sec:isAnyGranted('SECRETARIA,E_SUPER_ADMINISTRADOR')}"><x:a href="#" onClick="@command('registarExpediente')"><x:i class="fa fa-dot-circle-o"></x:i>Entrada de Pedidos</x:a></x:li>
-						<x:li if="${sec:isAnyGranted('SECRETARIA,E_SUPER_ADMINISTRADOR')}"><x:a href="#" onClick="@command('registarUtente')"><x:i class="fa fa-dot-circle-o"></x:i>Registo de Utentes</x:a></x:li>
-						<x:li if="${sec:isAnyGranted('SECRETARIA,E_SUPER_ADMINISTRADOR')}"><x:a href="#" onClick="@command('registarMaritimo')"><x:i class="fa fa-dot-circle-o"></x:i>Registo de Maritimos</x:a></x:li>
 					
 					</x:ul>
 			  </x:li>
@@ -267,8 +263,6 @@
 					</x:a>
 					<x:ul class="treeview-menu">
 						<x:li if="${sec:isAnyGranted('SECRETARIA,E_SUPER_ADMINISTRADOR')}"><x:a href="#" onClick="@command('registarExpediente')"><x:i class="fa fa-dot-circle-o"></x:i>Entrada de Pedidos</x:a></x:li>
-						<x:li if="${sec:isAnyGranted('SECRETARIA,E_SUPER_ADMINISTRADOR')}"><x:a href="#" onClick="@command('registarUtente')"><x:i class="fa fa-dot-circle-o"></x:i>Registo de Utentes</x:a></x:li>
-						<x:li if="${sec:isAnyGranted('SECRETARIA,E_SUPER_ADMINISTRADOR')}"><x:a href="#" onClick="@command('registarMaritimo')"><x:i class="fa fa-dot-circle-o"></x:i>Registo de Maritimos</x:a></x:li>
 					
 					</x:ul>
 			  </x:li>
@@ -281,8 +275,6 @@
 					</x:a>
 					<x:ul class="treeview-menu">
 						<x:li if="${sec:isAnyGranted('SECRETARIA,E_SUPER_ADMINISTRADOR')}"><x:a href="#" onClick="@command('registarExpediente')"><x:i class="fa fa-dot-circle-o"></x:i>Entrada de Pedidos</x:a></x:li>
-						<x:li if="${sec:isAnyGranted('SECRETARIA,E_SUPER_ADMINISTRADOR')}"><x:a href="#" onClick="@command('registarUtente')"><x:i class="fa fa-dot-circle-o"></x:i>Registo de Utentes</x:a></x:li>
-						<x:li if="${sec:isAnyGranted('SECRETARIA,E_SUPER_ADMINISTRADOR')}"><x:a href="#" onClick="@command('registarMaritimo')"><x:i class="fa fa-dot-circle-o"></x:i>Registo de Maritimos</x:a></x:li>
 					
 					</x:ul>
 			  </x:li>
