@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import mz.ciuem.inamar.dao.UserRoleAreDestinoDao;
+import mz.ciuem.inamar.entity.Area;
 import mz.ciuem.inamar.entity.UserRole;
 import mz.ciuem.inamar.entity.UserRoleArea;
 import mz.ciuem.inamar.entity.UserRoleAreaDestino;
@@ -31,6 +32,12 @@ public class UserRoleAreaDestinoServiceImpl extends GenericServiceImpl<UserRoleA
 	@Override
 	public List<UserRoleAreaDestino> findDestinoByUserRoleArea(List<UserRoleArea> listUserRoleAreas) {
 		return dao.findDestinoByUserRoleArea(listUserRoleAreas);
+	}
+	public List<UserRoleArea> findArePerfilByArea(Area area, UserRole userRole){
+		return dao.findArePerfilByArea(area, userRole);
+	}
+	public List<UserRoleAreaDestino> findDestinoByUserRoleAreaDestino() {
+		return dao.findDestinoByUserRoleAreaDestino();
 	}
 
 }

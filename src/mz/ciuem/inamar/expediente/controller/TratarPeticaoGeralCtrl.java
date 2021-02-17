@@ -117,6 +117,7 @@ public class TratarPeticaoGeralCtrl extends GenericForwardComposer{
 	@WireVariable
     private UserService _userService;	
 	protected User loggeduser;
+	private List<UserRoleAreaDestino> listAPDestino = new ArrayList<UserRoleAreaDestino>();
 	private List<PeticaoDestino> _listPeticaoDestino = new ArrayList<PeticaoDestino>();
 	private List<UserRole> listUserRoleTotal=new ArrayList<UserRole>();
 	private List<ActosAdmin> listActosAdmin = new ArrayList<ActosAdmin>(); 
@@ -126,7 +127,7 @@ public class TratarPeticaoGeralCtrl extends GenericForwardComposer{
 	
 	Execution ex = Executions.getCurrent();
 	
-	private UserRole _selectedUserRole;
+	private UserRole _selectedUserRole,userRoletest;
 	private Peticao _peticao;
 	private ActosAdmin _actosAdmin;
 	private UserRoleArea userRoleArea;
@@ -183,19 +184,8 @@ public class TratarPeticaoGeralCtrl extends GenericForwardComposer{
 		listarActosAdmin();
 	
 	}
-	private void listarPerfil(){
-		//List<PeticaoDestino> listDestinos = _peticaoDestinoService.buscarPeticoesPorArea(userRole);
-		//cbx_roles.setModel(new ListModelList<PeticaoDestino>(listDestinos));
-		
-		List<UserRoleAreaDestino> listUserRoleAreaDestinos = _userRoleAreaDestinoService.getAll();
-		cbx_roles.setModel(new ListModelList<UserRoleAreaDestino>(listUserRoleAreaDestinos));
-	}
 	
-		
-	
-
-	private void listarActo(){
-		
+	public UserRole pergarUserLogado(){
 		userRoleLogado=_peticao.getUserLoggado().getRoles().toString();
 		UserRole userR=new UserRole();
 		userR.setRolename(userRoleLogado);
@@ -207,12 +197,25 @@ public class TratarPeticaoGeralCtrl extends GenericForwardComposer{
 			}
 			
 		}
-		List<UserRoleArea> listUserRoleAreas = _areaPerfilActoService.findArePerfilByArea(_area,userRoleParametro);
+		return userRoleParametro;
+	}
+	private void listarActo(){
 		
+		userRoletest= pergarUserLogado();
+		List<UserRoleArea> listUserRoleAreas = _areaPerfilActoService.findArePerfilByArea(_area,userRoletest);
 		listAPActo = _areaPerfilActoService.findActoByUserRoleArea(listUserRoleAreas);
 		cbx_Actos.setModel(new ListModelList<AreaPerfilActo>(listAPActo));
 		
 		}
+	private void listarPerfil(){
+		userRoletest= pergarUserLogado();
+	
+		List<UserRoleArea> listUserRoleAreas=_userRoleAreaDestinoService.findArePerfilByArea(_area,userRoletest);
+		listAPDestino = _userRoleAreaDestinoService.findDestinoByUserRoleArea(listUserRoleAreas);
+	
+		cbx_roles.setModel(new ListModelList<UserRoleAreaDestino>(listAPDestino));
+
+	}
 	
 	private void listarActosAdmin(){
 		listActosAdmin = _actosAdminService.getAll();
@@ -240,7 +243,7 @@ public class TratarPeticaoGeralCtrl extends GenericForwardComposer{
 		boolean existe = false;
 		
 		for(PeticaoDestino pdRole: _listPeticaoDestino) {
-			if((pdRole.getUserRoleAreaDestino().getUserRoleArea().getUserRole().getId()==pd.getUserRoleAreaDestino().getUserRoleArea().getUserRole().getId())) {
+			if((pdRole.getUserRoleAreaDestino().getUserRole().getId()==pd.getUserRoleAreaDestino().getUserRole().getId())) {
 				existe=true;
 			}
 		}
