@@ -14,6 +14,7 @@ import mz.ciuem.inamar.entity.Peticao;
 import mz.ciuem.inamar.entity.PeticaoEmbarcacao;
 import mz.ciuem.inamar.entity.PeticaoMaritimoTaxaPedido;
 import mz.ciuem.inamar.entity.Provincia;
+import mz.ciuem.inamar.entity.ServicoDestino;
 import mz.ciuem.inamar.entity.User;
 import mz.ciuem.inamar.entity.Utente;
 import mz.ciuem.inamar.service.ClasseEmbarcacaoService;
@@ -48,9 +49,9 @@ public class EmissaoTituloPropriedadeSegundaViaCtrl extends GenericForwardCompos
 	private Window win_tituloSegundaVia;
 	private Div div_content_out, div_terminar, div_utente, div_secretario, myModal, div_dados;
 	private Include inc_main;
-	private Combobox cbx_local, cbx_motivo;
+	private Combobox cbx_local, cbx_motivo, cbx_servico;
 	private Button btn_proximo, btn_imprimir, btn_terminar, btn_voltarUtente, btn_voltar, btn_validar, btn_recusar, btn_prevalidar;
-	private Textbox tbx_denominacao,tbx_nr_registo;
+	private Textbox tbx_denominacao,tbx_nr_registo, tbx_livro, tbx_folhas, tbx_propretario;
 	
 	@WireVariable
 	private PeticaoEmbarcacaoService _peticaoEmbarcacaoService;
@@ -102,12 +103,18 @@ public class EmissaoTituloPropriedadeSegundaViaCtrl extends GenericForwardCompos
 		pegarPeticaoEmbarcacao();
 		peencherLocal();
 		preencherCampos();
+		preencherServico();
 	}
 	
 	
 	private void peencherLocal() {
 		cbx_local.setModel(new ListModelList<Provincia>(_provinciaService.getAll()));
 	  }
+	
+	private void preencherServico(){
+		List<ServicoDestino> listDestino = _servicoDestinoServico.getAll();
+		cbx_servico.setModel(new ListModelList<ServicoDestino>(listDestino));
+	}
 
 	private void pegarPeticaoEmbarcacao() {
 			if(p!=null){
@@ -157,7 +164,11 @@ public class EmissaoTituloPropriedadeSegundaViaCtrl extends GenericForwardCompos
 				_peticaoEmbarcacao.setLocal_registo(cbx_local.getValue());
 				_peticaoEmbarcacao.setNumero_registo(tbx_nr_registo.getValue());
 				_peticaoEmbarcacao.setDenominacao(tbx_denominacao.getValue());
+				_peticaoEmbarcacao.setProprietario(tbx_propretario.getValue());
+				_peticaoEmbarcacao.setDoLivro(tbx_livro.getValue());
+				_peticaoEmbarcacao.setaFolhas(tbx_folhas.getValue());
 				_peticaoEmbarcacao.setMotivo(cbx_motivo.getValue());
+				_peticaoEmbarcacao.setServicoDestino((ServicoDestino) cbx_servico.getSelectedItem().getValue());
 		        _peticaoEmbarcacaoService.saveOrUpdate(_peticaoEmbarcacao);
 		      // visibilidades();
 			}
@@ -252,7 +263,7 @@ public class EmissaoTituloPropriedadeSegundaViaCtrl extends GenericForwardCompos
 					btn_validar.setVisible(false);
 					btn_prevalidar.setVisible(false);
 					btn_recusar.setVisible(true);
-					showNotifications("PetiÃ§Ã£o prÃ©-validada com sucesso.", "info");
+					showNotifications("Petição pré-validada com sucesso.", "info");
 				}
 				win_tituloSegundaVia.detach();
 			}
@@ -266,7 +277,7 @@ public class EmissaoTituloPropriedadeSegundaViaCtrl extends GenericForwardCompos
 					_peticaoService.update(pet);
 					btn_validar.setVisible(false);
 					btn_recusar.setVisible(true);
-					showNotifications("PetiÃ§Ã£o Validada com sucesso.", "info");
+					showNotifications("Petição Validada com sucesso.", "info");
 				}
 			}
 			
@@ -278,7 +289,7 @@ public class EmissaoTituloPropriedadeSegundaViaCtrl extends GenericForwardCompos
 					_peticaoService.update(pet);
 					btn_validar.setVisible(true);
 					btn_recusar.setVisible(false);
-					showNotifications("PetiÃ§Ã£o Recusada com sucesso.", "error");
+					showNotifications("Petição Recusada com sucesso.", "error");
 					ocultarCampos();
 				}
 			}
@@ -287,9 +298,13 @@ public class EmissaoTituloPropriedadeSegundaViaCtrl extends GenericForwardCompos
 				if(_peticaoEmbarcacao!=null && _peticaoEmbarcacao.getLocal_registo()!=null){
 				    _peticaoEmbarcacao = _peticaoEmbarcacaoService.findOneWithEager(_peticaoEmbarcacao.getId());
 				    tbx_denominacao.setValue(_peticaoEmbarcacao.getDenominacao());
+				    tbx_livro.setValue(_peticaoEmbarcacao.getDoLivro());
+				    tbx_folhas.setValue(_peticaoEmbarcacao.getaFolhas());
+				    tbx_propretario.setValue(_peticaoEmbarcacao.getProprietario());
 				    tbx_nr_registo.setValue(_peticaoEmbarcacao.getNumero_registo());
 					cbx_local.setValue(_peticaoEmbarcacao.getLocal_registo());
 					cbx_motivo.setValue(_peticaoEmbarcacao.getMotivo());
+					cbx_servico.setValue(_peticaoEmbarcacao.getServicoDestino().getNome());
 				}
 			}
 

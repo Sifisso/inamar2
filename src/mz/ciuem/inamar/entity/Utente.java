@@ -161,6 +161,8 @@ public class Utente extends IdEntity{
 	private String classe_maritimo;
 	private boolean maritimo;
 	
+	private int idade;
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "categoria_maritimo_id", insertable = true, updatable = true)
 	private CategoriaMaritimo categoria_maritimo;
@@ -564,5 +566,18 @@ public class Utente extends IdEntity{
 	public void setDelegacao(Delegacao delegacao) {
 		this.delegacao = delegacao;
 	}
+
+	@SuppressWarnings("deprecation")
+	public int getIdade() {
+		return idade = new Date().getYear()-getDataNascimento().getYear();
+	}
+
+	public void setIdade(int idade) {
+		this.idade = idade;
+	}
+	
+	
+	
+	
 
 }

@@ -49,6 +49,17 @@ public class Peticao extends IdEntity{
 	@Column(name="utente")
 	private String utente;
 	
+	private String contactoUtente;
+	private String  distritoUtente;
+	private String tipDocUtente;
+	private String provincia;
+	private String nrDocUtente;
+	private String dataNascUtente;
+	private String localEmissaoUtente;
+	
+	@Column(name="idadeUtente")
+	private String idadeUtente;
+	
 	@Column(name="localizacao")
 	private String localizacao;
 	
@@ -166,6 +177,11 @@ public class Peticao extends IdEntity{
 	@Fetch(FetchMode.JOIN)
 	@JoinColumn(name = "peticaoEmbarcacao_id")
 	private PeticaoEmbarcacao peticaoEmbarcacao;
+	
+	@OneToOne(fetch = FetchType.LAZY)
+	@Fetch(FetchMode.JOIN)
+	@JoinColumn(name = "peticaoLicenca_id")
+	private PeticaoLicenca peticaoLicenca;
 	
 	@OneToOne(fetch = FetchType.LAZY)
 	@Fetch(FetchMode.JOIN)
@@ -674,6 +690,78 @@ public class Peticao extends IdEntity{
 
 	public void setNaoVisivel(boolean naoVisivel) {
 		this.naoVisivel = naoVisivel;
+	}
+
+	public String getIdadeUtente() {
+		return idadeUtente;
+	}
+
+	public void setIdadeUtente(String idadeUtente) {
+		this.idadeUtente = idadeUtente;
+	}
+
+	public String getContactoUtente() {
+		return contactoUtente;
+	}
+
+	public void setContactoUtente(String contactoUtente) {
+		this.contactoUtente = contactoUtente;
+	}
+
+	public String getDistritoUtente() {
+		return distritoUtente;
+	}
+
+	public void setDistritoUtente(String distritoUtente) {
+		this.distritoUtente = distritoUtente;
+	}
+
+	public String getNrDocUtente() {
+		return nrDocUtente;
+	}
+
+	public void setNrDocUtente(String nrDocUtente) {
+		this.nrDocUtente = nrDocUtente;
+	}
+
+	public String getDataNascUtente() {
+		return dataNascUtente;
+	}
+
+	public void setDataNascUtente(String dataNascUtente) {
+		this.dataNascUtente = dataNascUtente;
+	}
+
+	public String getLocalEmissaoUtente() {
+		return localEmissaoUtente;
+	}
+
+	public void setLocalEmissaoUtente(String localEmissaoUtente) {
+		this.localEmissaoUtente = localEmissaoUtente;
+	}
+
+	public String getTipDocUtente() {
+		return tipDocUtente;
+	}
+
+	public void setTipDocUtente(String tipDocUtente) {
+		this.tipDocUtente = tipDocUtente;
+	}
+
+	public String getProvincia() {
+		return provincia;
+	}
+
+	public void setProvincia(String provincia) {
+		this.provincia = provincia;
+	}
+
+	public PeticaoLicenca getPeticaoLicenca() {
+		return peticaoLicenca;
+	}
+
+	public void setPeticaoLicenca(PeticaoLicenca peticaoLicenca) {
+		this.peticaoLicenca = peticaoLicenca;
 	}
 
 }

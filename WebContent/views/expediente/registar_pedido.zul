@@ -100,32 +100,44 @@
 			
                 
                             	<div zclass="col-lg-6 col-md-6 col-sm-12">
-								<div class="form-group">
-									<x:label>Tipo de Pedido</x:label>
-									<combobox width="100%"
-										id="cbx_tipoPedido" constraint="no empty"
-										placeholder="Selecione o Tipo de Pedido" readonly="true">
-										<template name="model">
-											<comboitem
-												label="${each.nome}" />
-										</template>
-									</combobox>
+									<div class="form-group">
+										<x:label>Tipo de Pedido</x:label>
+										<combobox width="100%"
+											id="cbx_tipoPedido" constraint="no empty"
+											placeholder="Selecione o Tipo de Pedido" readonly="true">
+											<template name="model">
+												<comboitem
+													label="${each.nome}" />
+											</template>
+										</combobox>
+									</div>
 								</div>
-				</div>
 				
-				            	<div zclass="col-lg-12 col-md-12 col-sm-12">
-								<div class="form-group">
-									<x:label>Pedido</x:label>
-									<combobox width="100%"
-										id="cbx_pedido" constraint="no empty"
-										placeholder="Selecione o Pedido" readonly="true">
-										<template name="model">
-											<comboitem
-												label="${each.descricao}" />
-										</template>
-									</combobox>
-								</div>
-				</div>  
+				            	<div zclass="col-lg-6 col-md-6 col-sm-12">
+									<div class="form-group">
+										<x:label>Pedido</x:label>
+										<combobox width="100%"
+											id="cbx_pedido" constraint="no empty"
+											placeholder="Selecione o Pedido" readonly="true">
+											<template name="model">
+												<comboitem
+													label="${each.descricao}" />
+											</template>
+										</combobox>
+									</div>
+								</div>  
+								
+								<div zclass="col-lg-6 col-md-6 col-sm-12">
+									<div class="form-group">
+										<x:label>Nr de Expediente</x:label>
+										<textbox width="100%"
+											id="txt_nrExpediente" constraint="no empty"
+											placeholder="Número de Expediente" zclass="form-control">
+											
+										</textbox>
+									</div>
+								</div>  
+								
                   
                   <div class="table-responsive mailbox-messages">
 
@@ -134,7 +146,7 @@
                   		<tab label="Requisitos" />
                   		<tab label="Instrumentos Legais"/>
                   		<tab label="Taxas" />
-                  		<tab label="Etapas" />
+<!--                   		<tab label="Etapas" /> -->
                   	</tabs>
                   	<tabpanels>
                   		<tabpanel>
@@ -143,31 +155,31 @@
 									<listhead>
 										<listheader label="#" width="5%" />
 										<listheader label="Requisito" sort="auto(nome)" />
-										<listheader label="Válido" sort="auto(codigo)"/>
-										<listheader label="Anexado" width="12%" align="center"/>
-										<listheader label="Anexar" width="10%" align="center"/>
+<!-- 										<listheader label="Válido" sort="auto(codigo)"/> -->
+										<listheader label="Apresentado" width="12%" align="center"/>
+<!-- 										<listheader label="Anexar" width="10%" align="center"/> -->
 									</listhead>
 									<template name="model">
 										<listitem>
 											<listcell></listcell>
 											<listcell label="${each.tipoRequisito.nome}" />
-											  <listcell label="ND">
-									        </listcell>
+<!-- 											  <listcell label="ND"> -->
+<!-- 									        </listcell> -->
 											<listcell >
 											<checkbox></checkbox>
 											</listcell>
-										<listcell>
-												<div align="center">
-											<x:button type="button"
-												class="btn btn-info btn-sm" data-toggle="modal"
-												data-target="#myModal">
-											<x:i class="fa fa-edit"></x:i>
-											</x:button>
-										</div>
+<!-- 										<listcell> -->
+<!-- 												<div align="center"> -->
+<!-- 											<x:button type="button" -->
+<!-- 												class="btn btn-info btn-sm" data-toggle="modal" -->
+<!-- 												data-target="#myModal"> -->
+<!-- 											<x:i class="fa fa-edit"></x:i> -->
+<!-- 											</x:button> -->
+<!-- 										</div> -->
 										
 										
 										
-										</listcell>
+<!-- 										</listcell> -->
 												
 										</listitem>
 									</template>
@@ -394,7 +406,7 @@
 									checkmark="true" mold="paging" pageSize="5">
 									<listhead>
 										<listheader label="#" width="5%" />
-											<listheader label="id" width="8%" sort="auto(id)"/>
+<!-- 											<listheader label="id" width="8%" sort="auto(id)"/> -->
 										<listheader label="Utente" sort="auto(utente)" />
 										
 										<listheader label="Area" sort="auto(area)" />
@@ -403,12 +415,13 @@
 <!-- 										<listheader label="valor" sort="auto(codigo)" width="12%" align="center"/> -->
 										<listheader label="Estado" width="12%" align="center"/>
 										<listheader label="Localização" width="15%" align="center"/>
+										<listheader label="Detalhes" width="14%" align="center"/>
 										<listheader label="Tramitação" width="12%" align="center"/>
 									</listhead>
 									<template name="model">
 										<listitem>
 											<listcell></listcell>
-											<listcell label="${each.id}" />
+<!-- 											<listcell label="${each.id}" /> -->
 											<listcell label="${each.utente}" />
 											<listcell label="${each.pedido.tipoPedido.area.nome}" />
 											<listcell label="${each.descricao}" />
@@ -426,13 +439,18 @@
 									         </div>
 									       </listcell>
 									       <listcell label="${each.localizacao}" />
+									       <listcell>
+												<div align="center">
+												<hlayout>
+												<button forward="onClick=onClickDetalhes(${each})">
+													ver
+												</button>
+											</hlayout>
+												</div>
+										</listcell>
 										<listcell>
 												<div align="center">
 												  <hlayout>
-													<button
-														zclass="btn btn-sm btn-info" iconSclass="fa fa-eye"
-														forward="onClick=onClickDetalhes(${each})" visible="${each.recusado ? true : false}">
-													</button>
 													
 										<panel border="none">
 											<panelchildren>

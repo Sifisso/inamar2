@@ -70,7 +70,7 @@ public class EmbarcacaoImportadaCtrl extends GenericForwardComposer{
 	private Combobox cbx_pais, cbx_classeEmbarcacao, cbx_servico;
 	private Radio rdx_temporaria, rdx_definitiva;
 	private Button btn_proximo, btn_imprimir, btn_terminar, btn_voltarUtente, btn_voltar, btn_validar, btn_recusar, btn_prevalidar;
-	private Textbox tbx_denominacao;
+	private Textbox tbx_denominacao, tbx_proprietario;
 	
 	@WireVariable
 	private PeticaoEmbarcacaoService _peticaoEmbarcacaoService;
@@ -192,6 +192,7 @@ public class EmbarcacaoImportadaCtrl extends GenericForwardComposer{
 			_peticaoEmbarcacao.setServicoDestino((ServicoDestino) cbx_servico.getSelectedItem().getValue());
 			_peticaoEmbarcacao.setEhTemporario(rdx_temporaria.isChecked() ? true : false);
 			_peticaoEmbarcacao.setDenominacao(tbx_denominacao.getValue());
+			_peticaoEmbarcacao.setProprietario(tbx_proprietario.getValue());
 	        _peticaoEmbarcacaoService.saveOrUpdate(_peticaoEmbarcacao);
 	     //  visibilidades();
 		}
@@ -286,7 +287,7 @@ public class EmbarcacaoImportadaCtrl extends GenericForwardComposer{
 				btn_validar.setVisible(false);
 				btn_prevalidar.setVisible(false);
 				btn_recusar.setVisible(true);
-				showNotifications("PetiÃ§Ã£o prÃ©-validada com Sucesso.", "info");
+				showNotifications("Petição pré-validada com Sucesso.", "info");
 				win_embarcacaoImportada.detach();
 			}
 			
@@ -319,7 +320,7 @@ public class EmbarcacaoImportadaCtrl extends GenericForwardComposer{
 				_peticaoService.update(pet);
 				btn_validar.setVisible(false);
 				btn_recusar.setVisible(true);
-				showNotifications("PetiÃ§Ã£o Validada com sucesso.", "info");
+				showNotifications("Petição Validada com sucesso.", "info");
 			}
 		}
 		
@@ -331,7 +332,7 @@ public class EmbarcacaoImportadaCtrl extends GenericForwardComposer{
 				_peticaoService.update(pet);
 				btn_validar.setVisible(true);
 				btn_recusar.setVisible(false);
-				showNotifications("PetiÃ§Ã£o Recusada com sucesso.", "error");
+				showNotifications("Petição Recusada com sucesso.", "error");
 				ocultarCampos();
 			}
 		}
@@ -344,6 +345,7 @@ public class EmbarcacaoImportadaCtrl extends GenericForwardComposer{
 					cbx_servico.setValue(_peticaoEmbarcacao.getServicoDestino().getNome());
 					rdx_temporaria.setChecked(_peticaoEmbarcacao.isEhTemporario());
 					tbx_denominacao.setValue(_peticaoEmbarcacao.getDenominacao());
+					tbx_proprietario.setValue(_peticaoEmbarcacao.getProprietario());
 			}
 		}
 

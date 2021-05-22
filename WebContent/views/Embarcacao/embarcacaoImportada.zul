@@ -14,11 +14,13 @@ position: center;
 min-height: 53px;
 </style>
 
-	<window apply="mz.ciuem.inamar.embarcacao.controller.EmbarcacaoImportadaCtrl" id="win_embarcacaoImportada">
+	<window apply="mz.ciuem.inamar.embarcacao.controller.EmbarcacaoImportadaDetalhesCtrl" id="win_embarcacaoImportada">
 
 		<div class="row" id="div_content_out">
 			<div zclass="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 				<div zclass="box box-default">
+				
+				
 						<div zclass="box-header" align="center">
 						<x:label class="box-title"
 							style="font-family:Georgia,serif;color:#4E443C; font-variant: small-caps; text-transform: none; font-weight: 100; margin-bottom: 0;">
@@ -32,7 +34,7 @@ min-height: 53px;
 									<div class="form-group">
 									<x:label>País de importação</x:label>
 									<combobox width="100%"
-										id="cbx_pais" constraint="no empty"
+										id="cbx_pais"
 										placeholder="Selecione o País" readonly="true">
 										<template name="model">
 											<comboitem
@@ -60,8 +62,8 @@ min-height: 53px;
 								<div class="form-group">
 									<x:label>Destinada ao Serviço de:</x:label>
 									<combobox width="100%"
-										id="cbx_servico" constraint="no empty"
-										placeholder="Selecione o Serviço de Destino" readonly="true">
+										id="cbx_servico" constraint="no empty" readonly="true"
+										placeholder="Selecione o Serviço de Destino" >
 										<template name="model">
 											<comboitem
 												label="${each.nome}" />
@@ -70,7 +72,32 @@ min-height: 53px;
 								</div>
 							</div>
 							
-						<div zclass="col-lg-6 col-md-6 col-sm-12">
+							<div zclass="col-lg-6 col-md-6 col-sm-12">
+							<div class="form-group">
+									<x:label>Nova denominação</x:label>
+									<div class="input-group">
+									<textbox zclass="form-control"
+										placeholder="Denominação"
+										id="tbx_denominacao" />
+								  <x:span class="input-group-addon"><x:i class="fa fa-edit"></x:i></x:span>
+										</div>
+								</div>
+							</div>
+							
+							<div zclass="col-lg-6 col-md-6 col-sm-12">
+							<div class="form-group">
+									<x:label>Nome do Novo Proprietário</x:label>
+									<div class="input-group">
+									<textbox zclass="form-control"
+										placeholder="Denominação"
+										constraint="no empty : Não pode ser vazio nem conter apenas espaços em branco!"
+										id="tbx_proprietario" />
+								  <x:span class="input-group-addon"><x:i class="fa fa-edit"></x:i></x:span>
+										</div>
+								</div>
+							</div>
+							
+							<div zclass="col-lg-6 col-md-6 col-sm-12">
 								<div class="form-group">
 								<x:label>Tipo de Importação</x:label>
 									<hlayout style="margin-top:5px">
@@ -81,19 +108,6 @@ min-height: 53px;
 									</hlayout>
 								</div>
 						</div>
-							
-							<div zclass="col-lg-12 col-md-12 col-sm-12">
-							<div class="form-group">
-									<x:label>Nova denominação</x:label>
-									<div class="input-group">
-									<textbox zclass="form-control"
-										placeholder="Denominação"
-										constraint="no empty : Não pode ser vazio nem conter apenas espaços em branco!"
-										id="tbx_denominacao" />
-								  <x:span class="input-group-addon"><x:i class="fa fa-edit"></x:i></x:span>
-										</div>
-								</div>
-							</div>
 						</div>
 					</div>
 					<div zclass="box-footer" align="center"

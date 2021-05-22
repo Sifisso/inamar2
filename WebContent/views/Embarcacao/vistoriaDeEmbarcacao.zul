@@ -29,7 +29,7 @@ min-height: 53px;
 
 						<div class="row">
 							
-							<div zclass="col-lg-12 col-md-12 col-sm-12">
+							<div zclass="col-lg-6 col-md-6col-sm-12">
 							<div class="form-group">
 									<x:label>Denominação</x:label>
 									<div class="input-group">
@@ -37,6 +37,19 @@ min-height: 53px;
 										placeholder="Denominação"
 										constraint="no empty : Não pode ser vazio nem conter apenas espaços em branco!"
 										id="tbx_denominacao" />
+								  <x:span class="input-group-addon"><x:i class="fa fa-edit"></x:i></x:span>
+										</div>
+								</div>
+							</div>
+							
+							<div zclass="col-lg-6 col-md-6 col-sm-12">
+							<div class="form-group">
+									<x:label>Nome Proprietário</x:label>
+									<div class="input-group">
+									<textbox zclass="form-control"
+										placeholder="Denominação"
+										constraint="no empty : Não pode ser vazio nem conter apenas espaços em branco!"
+										id="tbx_proprietario" />
 								  <x:span class="input-group-addon"><x:i class="fa fa-edit"></x:i></x:span>
 										</div>
 								</div>

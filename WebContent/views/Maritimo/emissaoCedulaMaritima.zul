@@ -13,11 +13,12 @@
 					<div zclass="box-body" id="div_dados">
 
 						<div class="row">
-							<div zclass="col-lg-12 col-md-12 col-sm-12">
-								<div class="form-group">
+						
+						<div zclass="col-lg-12 col-md-12 col-sm-12">
+								<div visible="true" class="form-group">
 									<x:label>Cor dos Olhos</x:label>
 									<combobox width="100%"
-										id="cbx_olhos" constraint="no empty"
+										id="cbx_olhos" constraint="no empty: Nao vazio"
 										placeholder="Selecione a cor dos olhos" readonly="true">
 											<comboitem label="Preto" />
 											<comboitem label="Castanho" />
@@ -28,7 +29,7 @@
 								</div>
 							</div>
 							<div zclass="col-lg-12 col-md-12 col-sm-12">
-								<div class="form-group">
+								<div visible="true" class="form-group">
 									<x:label>Altura  (</x:label><x:label style="color:red">Informe a sua altura em metros</x:label><x:label>)</x:label>
 									<div class="input-group">
 									<doublebox zclass="form-control"
@@ -39,6 +40,7 @@
 										</div>
 								</div>
 							</div>
+						
 							<div zclass="col-lg-12 col-md-12 col-sm-12">
 								<div class="form-group">
 									<x:label>Categoria</x:label>

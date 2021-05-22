@@ -2,7 +2,6 @@ package mz.ciuem.inamar.entity;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -44,6 +43,20 @@ public class PeticaoMaritimo extends IdEntity{
 	private String nrInscricao;
 	private String nrLivro;
 	private String nrFolhas;
+	private String nrCedula;
+	
+	//Desembarque
+	private String nomeEmbarcacao;
+	private String nomeMaritimo;
+	private String nomeProprietario;
+	//Fim	
+	
+	//Segunda via da carta (atributos de averbamento de cedula maritimas inclusos no controller)
+	private String nrCarta;
+	private String nrLivroCarta;
+	private String nrFolhasCarta;
+	private String motivo;
+	
 	//Fim
 	
 	//InscricaoMaritima
@@ -60,10 +73,14 @@ public class PeticaoMaritimo extends IdEntity{
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "exame_id", insertable = true, updatable = true)
 	private Exame exame;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id", insertable = true, updatable = true)
 	private User user;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "delegacao_id", insertable = true, updatable = true)
+	private Delegacao delegacao;
 	
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "peticaoMaritimo")
 	private List<PeticaoCategoriaMaritimo> peticoesCategoriaMaritimo;
@@ -72,6 +89,7 @@ public class PeticaoMaritimo extends IdEntity{
 	@Fetch(FetchMode.JOIN)
 	@JoinColumn(name = "peticao_id")
 	private Peticao peticao;
+	
 	
 	public double getValor() {
 		return valor;
@@ -226,6 +244,77 @@ public class PeticaoMaritimo extends IdEntity{
 	public void setExame(Exame exame) {
 		this.exame = exame;
 	}
-	
+
+	public String getNrCarta() {
+		return nrCarta;
+	}
+
+	public void setNrCarta(String nrCarta) {
+		this.nrCarta = nrCarta;
+	}
+
+	public String getNrLivroCarta() {
+		return nrLivroCarta;
+	}
+
+	public void setNrLivroCarta(String nrLivroCarta) {
+		this.nrLivroCarta = nrLivroCarta;
+	}
+
+	public String getNrFolhasCarta() {
+		return nrFolhasCarta;
+	}
+
+	public void setNrFolhasCarta(String nrFolhasCarta) {
+		this.nrFolhasCarta = nrFolhasCarta;
+	}
+
+	public String getMotivo() {
+		return motivo;
+	}
+
+	public void setMotivo(String motivo) {
+		this.motivo = motivo;
+	}
+
+	public String getNrCedula() {
+		return nrCedula;
+	}
+
+	public void setNrCedula(String nrCedula) {
+		this.nrCedula = nrCedula;
+	}
+
+	public Delegacao getDelegacao() {
+		return delegacao;
+	}
+
+	public void setDelegacao(Delegacao delegacao) {
+		this.delegacao = delegacao;
+	}
+
+	public String getNomeEmbarcacao() {
+		return nomeEmbarcacao;
+	}
+
+	public void setNomeEmbarcacao(String nomeEmbarcacao) {
+		this.nomeEmbarcacao = nomeEmbarcacao;
+	}
+
+	public String getNomeMaritimo() {
+		return nomeMaritimo;
+	}
+
+	public void setNomeMaritimo(String nomeMaritimo) {
+		this.nomeMaritimo = nomeMaritimo;
+	}
+
+	public String getNomeProprietario() {
+		return nomeProprietario;
+	}
+
+	public void setNomeProprietario(String nomeProprietario) {
+		this.nomeProprietario = nomeProprietario;
+	}
 	
 }

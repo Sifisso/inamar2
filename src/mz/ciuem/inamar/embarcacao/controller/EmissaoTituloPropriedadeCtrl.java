@@ -52,7 +52,7 @@ public class EmissaoTituloPropriedadeCtrl extends GenericForwardComposer{
 	private Include inc_main;
 	private Combobox cbx_local;
 	private Button btn_proximo, btn_imprimir, btn_terminar, btn_voltarUtente, btn_voltar, btn_validar, btn_recusar, btn_prevalidar;
-	private Textbox tbx_denominacao,tbx_nr_registo;
+	private Textbox tbx_denominacao,tbx_nr_registo, tbx_proprietario, tbx_matricula;
 	
 	@WireVariable
 	private PeticaoEmbarcacaoService _peticaoEmbarcacaoService;
@@ -159,6 +159,8 @@ public class EmissaoTituloPropriedadeCtrl extends GenericForwardComposer{
 				_peticaoEmbarcacao.setLocal_registo(cbx_local.getValue());
 				_peticaoEmbarcacao.setNumero_registo(tbx_nr_registo.getValue());
 				_peticaoEmbarcacao.setDenominacao(tbx_denominacao.getValue());
+				_peticaoEmbarcacao.setProprietario(tbx_proprietario.getValue());
+				_peticaoEmbarcacao.setMatricula(tbx_matricula.getValue());
 		        _peticaoEmbarcacaoService.saveOrUpdate(_peticaoEmbarcacao);
 		       //visibilidades();
 			}
@@ -252,7 +254,7 @@ public class EmissaoTituloPropriedadeCtrl extends GenericForwardComposer{
 					btn_validar.setVisible(false);
 					btn_prevalidar.setVisible(false);
 					btn_recusar.setVisible(true);
-					showNotifications("PetiÃ§Ã£o prÃ©-validada com sucesso.", "info");
+					showNotifications("Petição pré-validada com sucesso.", "info");
 				}
 				win_titulo.detach();
 			}
@@ -266,7 +268,7 @@ public class EmissaoTituloPropriedadeCtrl extends GenericForwardComposer{
 					_peticaoService.update(pet);
 					btn_validar.setVisible(false);
 					btn_recusar.setVisible(true);
-					showNotifications("PetiÃ§Ã£o Validada com sucesso.", "info");
+					showNotifications("Petição Validada com sucesso.", "info");
 				}
 			}
 			
@@ -278,7 +280,7 @@ public class EmissaoTituloPropriedadeCtrl extends GenericForwardComposer{
 					_peticaoService.update(pet);
 					btn_validar.setVisible(true);
 					btn_recusar.setVisible(false);
-					showNotifications("PetiÃ§Ã£o Recusada com sucesso.", "error");
+					showNotifications("Petição Recusada com sucesso.", "error");
 					ocultarCampos();
 				}
 			}
@@ -287,11 +289,12 @@ public class EmissaoTituloPropriedadeCtrl extends GenericForwardComposer{
 				if(_peticaoEmbarcacao!=null && _peticaoEmbarcacao.getLocal_registo()!=null){
 				    _peticaoEmbarcacao = _peticaoEmbarcacaoService.findOneWithEager(_peticaoEmbarcacao.getId());
 				    tbx_denominacao.setValue(_peticaoEmbarcacao.getDenominacao());
+				    tbx_proprietario.setValue(_peticaoEmbarcacao.getProprietario());
+				    tbx_matricula.setValue(_peticaoEmbarcacao.getMatricula());
 				    tbx_nr_registo.setValue(_peticaoEmbarcacao.getNumero_registo());
 					cbx_local.setValue(_peticaoEmbarcacao.getLocal_registo());
 				}
 			}
-
 			
 			public void showNotifications(String message, String type) {
 		   		Clients.showNotification(message, type, btn_terminar,"before_center", 4000, true);

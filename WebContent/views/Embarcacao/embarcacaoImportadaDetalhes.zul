@@ -1,4 +1,5 @@
 <zk xmlns:x="xhtml" xmlns:zk="zk">
+
 <style>
 .z-notification .z-notification-content {
 background: none repeat scroll 0 center transparent;
@@ -13,43 +14,93 @@ position: center;
 min-height: 53px;
 </style>
 
-
-	<window apply="mz.ciuem.inamar.embarcacao.controller.EmissaoTituloPropriedadeCtrl" id="win_titulo">
+	<window apply="mz.ciuem.inamar.embarcacao.controller.EmbarcacaoImportadaDetalhesCtrl" id="win_embarcacaoImportada">
 
 		<div class="row" id="div_content_out">
 			<div zclass="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-				<div zclass="box box-default">
+				<div zclass="box box-default ">
+				
+				<div zclass="box-header" align="center" style="background: #32d15a">
+				
+						<x:label class="box-title"
+							style="text-align: center; margin-left:450px; color: black; weight: bold;">
+							Detalhes do pedido
+						</x:label>
+					</div>
+					
+					<div zclass="box-body" style="margin-top:15px;" class="row">
+							<div zclass="col-lg-6 col-md-6 col-sm-12">
+								<div>
+									<x:label>Nome:</x:label>
+									<label id="lbl_nome" value=" Sifisso"></label>
+								</div>
+							</div>
+							
+							<div style="margin-top:5px;" zclass="col-lg-6 col-md-6 col-sm-12">
+								<div>
+									<x:label>Contacto:</x:label>
+									<label id="lbl_contacto" value=" sasasasas"></label>
+								</div>
+							</div>
+							<div style="margin-top:5px;" zclass="col-lg-6 col-md-6 col-sm-12">
+								<div>
+									<x:label>Província:</x:label>
+									<label id="lbl_provincia" value=" asadaxsxa"></label>
+								</div>
+							</div>
+							<div style="margin-top:5px;" zclass="col-lg-6 col-md-6 col-sm-12">
+								<div>
+									<x:label>Distrito:</x:label>
+									<label id="lbl_distrito" value=" fvftbfbfgbf"></label>
+								</div>
+							</div>
+							<div style="margin-top:5px;" zclass="col-lg-6 col-md-6 col-sm-12">
+								<div>
+									<x:label>Tipo de Documento:</x:label>
+									<label id="lbl_tipoDoc" value=" xcv ffv"></label>
+								</div>
+							</div>
+							
+							<div style="margin-top:5px;" zclass="col-lg-6 col-md-6 col-sm-12">
+								<div>
+									<x:label>Nr de Documento:</x:label>
+									<label id="lbl_nrDoc" value=" 4342545"></label>
+								</div>
+							</div>
+							
+							<div style="margin-top:5px;" zclass="col-lg-6 col-md-6 col-sm-12">
+								<div>
+									<x:label>Bairro:</x:label>
+									<label id="lbl_bairro" value=" 10.05.21"></label>
+								</div>
+							</div>
+							
+							<div style="margin-top:5px;" zclass="col-lg-6 col-md-6 col-sm-12">
+								<div>
+									<x:label>Local de Emissão:</x:label>
+									<label id="lbl_localEmissao" value=" fdvdfv"></label>
+								</div>
+							</div>
+							
+							
+					</div>
+					
+				
 						<div zclass="box-header" align="center">
 						<x:label class="box-title"
 							style="font-family:Georgia,serif;color:#4E443C; font-variant: small-caps; text-transform: none; font-weight: 100; margin-bottom: 0;">
-							REGISTO DE TERMO OU TÍTULO DE PROPRIEDADE
+							PEDIDO DE REGISTO DE UMA EMBARCAÇÃO IMPORTADA
 						</x:label>
 					</div>
 					<div zclass="box-body" id="div_dados">
 
 						<div class="row">
-						
-							   
-							<div zclass="col-lg-12 col-md-12 col-sm-24">
-							<div class="form-group">
-									<x:label>Denominação da Embarcação</x:label>
-									<div class="input-group">
-									<textbox zclass="form-control"
-										placeholder="Denominação da Embarcação"
-										constraint="no empty : Não pode ser vazio nem conter apenas espaços em branco!"
-										id="tbx_denominacao" />
-								  <x:span class="input-group-addon"><x:i class="fa fa-edit"></x:i></x:span>
-										</div>
-								</div>
-							</div>
-							
-						
-									<div zclass="col-lg-6 col-md-6 col-sm-12">
+							<div zclass="col-lg-6 col-md-6 col-sm-12">
 									<div class="form-group">
-									<x:label>Local de Registo</x:label>
+									<x:label>País de importação</x:label>
 									<combobox width="100%"
-										id="cbx_local" constraint="no empty"
-										placeholder="Selecione o Local" readonly="true">
+										id="cbx_pais"
+										placeholder="Selecione o País" readonly="true">
 										<template name="model">
 											<comboitem
 												label="${each.designacao}" />
@@ -59,14 +110,41 @@ min-height: 53px;
 							</div>
 						
 							<div zclass="col-lg-6 col-md-6 col-sm-12">
+								<div class="form-group">
+									<x:label>Classe da Embarcação</x:label>
+									<combobox width="100%"
+										id="cbx_classeEmbarcacao" constraint="no empty"
+										placeholder="Selecione a Classe da Embarcação" readonly="true">
+										<template name="model">
+											<comboitem
+												label="${each.nome}" />
+										</template>
+									</combobox>
+								</div>
+							</div>
+							
+						<div zclass="col-lg-6 col-md-6 col-sm-12">
+								<div class="form-group">
+									<x:label>Destinada ao Serviço de:</x:label>
+									<combobox width="100%"
+										id="cbx_servico" constraint="no empty" readonly="true"
+										placeholder="Selecione o Serviço de Destino" >
+										<template name="model">
+											<comboitem
+												label="${each.nome}" />
+										</template>
+									</combobox>
+								</div>
+							</div>
+							
+							<div zclass="col-lg-6 col-md-6 col-sm-12">
 							<div class="form-group">
-									<x:label>Número de Registo</x:label>
+									<x:label>Nova denominação</x:label>
 									<div class="input-group">
 									<textbox zclass="form-control"
-										placeholder="Número de Registo"
-										constraint="no empty : Não pode ser vazio nem conter apenas espaços em branco!"
-										id="tbx_nr_registo" />
-										  <x:span class="input-group-addon"><x:i class="fa fa-edit"></x:i></x:span>
+										placeholder="Denominação"
+										id="tbx_denominacao" />
+								  <x:span class="input-group-addon"><x:i class="fa fa-edit"></x:i></x:span>
 										</div>
 								</div>
 							</div>
@@ -85,29 +163,23 @@ min-height: 53px;
 							</div>
 							
 							<div zclass="col-lg-6 col-md-6 col-sm-12">
-							<div class="form-group">
-									<x:label>Matrícula</x:label>
-									<div class="input-group">
-									<textbox zclass="form-control"
-										placeholder="Matrícula"
-										constraint="no empty : Não pode ser vazio nem conter apenas espaços em branco!"
-										id="tbx_matricula" />
-								  <x:span class="input-group-addon"><x:i class="fa fa-edit"></x:i></x:span>
-										</div>
+								<div class="form-group">
+								<x:label>Tipo de Importação</x:label>
+									<hlayout style="margin-top:5px">
+									  <radiogroup>
+									     <radio label="Temporária" id="rdx_temporaria"/>
+									     <radio label="Definitiva" id="rdx_definitiva" style="margin-left:40px" checked="true"/>
+									  </radiogroup>
+									</hlayout>
 								</div>
-							</div>
-							
-							
-						
+						</div>
 						</div>
 					</div>
 					<div zclass="box-footer" align="center"
 						style="margin-right:10px">
-						<button zclass="btn btn-info btn-sm" label="Finalizar" onClick="@command('registarExpediente')" forward="onClick=onClick$btn_prevalidar()"
+						<button zclass="btn btn-info btn-sm" label="Finalizar" onClick="@command('registarExpediente')"  forward="onClick=onClick$btn_prevalidar()"
 						id="btn_voltar" iconSclass="fa fa-chevron-right" dir="reverse">
 					    </button>
-					 
-				      
 					</div>
 					
 					
@@ -166,7 +238,7 @@ min-height: 53px;
 						id="btn_terminar" iconSclass="fa fa-print">
 					</button>
 					
-					  <button zclass="btn btn-success btn-sm" label="Pré-Validar Petição"
+					  <button  zclass="btn btn-success btn-sm" label="Pré-Validar Petição"
 						id="btn_prevalidar" iconSclass="fa fa-check" visible="false">
 					</button>
 					
@@ -182,9 +254,9 @@ min-height: 53px;
 						id="btn_voltarUtente" iconSclass="fa fa-chevron-right" dir="reverse" onClick="@command('registarExpedienteUtente')" visible="false">
 						</button>
 						
-						<!-- <button zclass="btn btn-info btn-sm" label="Voltar"
-						id="btn_voltar" iconSclass="fa fa-chevron-right" dir="reverse" onClick="@command('registarExpediente')" visible="false">
-						</button> -->
+<!-- 						<button zclass="btn btn-info btn-sm" label="Voltar" -->
+<!-- 						id="btn_voltar" iconSclass="fa fa-chevron-right" dir="reverse" onClick="@command('registarExpediente')" visible="false"> -->
+<!-- 						</button> -->
 					</div>
 					<x:hr/>
 							</div>

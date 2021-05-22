@@ -262,7 +262,7 @@ public class RegistoEmbarcacaoAcabadaComprarCtrl extends GenericForwardComposer{
 					btn_validar.setVisible(false);
 					btn_prevalidar.setVisible(false);
 					btn_recusar.setVisible(true);
-					showNotifications("PetiÃ§Ã£o prÃ©-validada com sucesso.", "info");
+					showNotifications("Petição pré-validada com sucesso.", "info");
 				}
 				win_embarcacaoAcabadaConstruir.detach();
 			}
@@ -276,7 +276,7 @@ public class RegistoEmbarcacaoAcabadaComprarCtrl extends GenericForwardComposer{
 					_peticaoService.update(pet);
 					btn_validar.setVisible(false);
 					btn_recusar.setVisible(true);
-					showNotifications("PetiÃ§Ã£o Validada com sucesso.", "info");
+					showNotifications("Petição Validada com sucesso.", "info");
 				}
 				
 			}
@@ -289,7 +289,7 @@ public class RegistoEmbarcacaoAcabadaComprarCtrl extends GenericForwardComposer{
 					_peticaoService.update(pet);
 					btn_validar.setVisible(true);
 					btn_recusar.setVisible(false);
-					showNotifications("PetiÃ§Ã£o Recusada com sucesso.", "error");
+					showNotifications("Petição Recusada com sucesso.", "error");
 					ocultarCampos();
 				}
 			}

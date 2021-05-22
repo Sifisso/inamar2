@@ -30,7 +30,7 @@ min-height: 53px;
 						<div class="row">
 						
 							   
-							<div zclass="col-lg-12 col-md-12 col-sm-24">
+							<div zclass="col-lg-6 col-md-6 col-sm-12">
 							<div class="form-group">
 									<x:label>Denominação da Embarcação</x:label>
 									<div class="input-group">
@@ -44,7 +44,7 @@ min-height: 53px;
 							</div>
 							
 						
-										<div zclass="col-lg-4 col-md-4 col-sm-8">
+								<div zclass="col-lg-6 col-md-6 col-sm-12">
 									<div class="form-group">
 									<x:label>Local de Registo</x:label>
 									<combobox width="100%"
@@ -58,7 +58,7 @@ min-height: 53px;
 								</div>
 							</div>
 						
-							<div zclass="col-lg-4 col-md-4 col-sm-8">
+							<div zclass="col-lg-6 col-md-6 col-sm-12">
 							<div class="form-group">
 									<x:label>Número de Registo</x:label>
 									<div class="input-group">
@@ -72,7 +72,7 @@ min-height: 53px;
 							</div>
 							
 							
-							<div zclass="col-lg-4 col-md-4 col-sm-8">
+							<div zclass="col-lg-6 col-md-6 col-sm-12">
 									<div class="form-group">
 													<x:label>Motivo do Pedido</x:label>
 													<combobox width="100%" readonly="true" id="cbx_motivo" value="Extravio">
@@ -81,6 +81,59 @@ min-height: 53px;
 														<comboitem label="Outro" />
 													</combobox>
 											</div>
+							</div>
+							
+							<div zclass="col-lg-6 col-md-6 col-sm-12">
+							<div class="form-group">
+									<x:label>Do Livro</x:label>
+									<div class="input-group">
+									<textbox zclass="form-control"
+										placeholder="Do livro"
+										constraint="no empty : Não pode ser vazio nem conter apenas espaços em branco!"
+										id="tbx_livro" />
+										  <x:span class="input-group-addon"><x:i class="fa fa-edit"></x:i></x:span>
+										</div>
+								</div>
+							</div>
+							
+							<div zclass="col-lg-6 col-md-6 col-sm-12">
+							<div class="form-group">
+									<x:label>A Folhas</x:label>
+									<div class="input-group">
+									<textbox zclass="form-control"
+										placeholder="A Folhas"
+										constraint="no empty : Não pode ser vazio nem conter apenas espaços em branco!"
+										id="tbx_folhas" />
+										  <x:span class="input-group-addon"><x:i class="fa fa-edit"></x:i></x:span>
+										</div>
+								</div>
+							</div>
+							
+							<div zclass="col-lg-6 col-md-6 col-sm-12">
+								<div class="form-group">
+									<x:label>Destinada ao Serviço de:</x:label>
+									<combobox width="100%"
+										id="cbx_servico" constraint="no empty" readonly="true"
+										placeholder="Selecione o Serviço de Destino" >
+										<template name="model">
+											<comboitem
+												label="${each.nome}" />
+										</template>
+									</combobox>
+								</div>
+							</div>
+							
+							<div zclass="col-lg-6 col-md-6 col-sm-12">
+							<div class="form-group">
+									<x:label>Nome do Proprietário</x:label>
+									<div class="input-group">
+									<textbox zclass="form-control"
+										placeholder="Nome do Proprietário"
+										constraint="no empty : Não pode ser vazio nem conter apenas espaços em branco!"
+										id="tbx_propretario" />
+										  <x:span class="input-group-addon"><x:i class="fa fa-edit"></x:i></x:span>
+										</div>
+								</div>
 							</div>
 							
 							

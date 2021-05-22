@@ -1,5 +1,5 @@
 <zk xmlns:x="xhtml" xmlns:zk="zk">
-	<window apply="mz.ciuem.inamar.maritimo.controller.EmissaoCedulaMaritimaCtrl" id="win_emissaoCedula">
+	<window apply="mz.ciuem.inamar.maritimo.controller.SegundaViaEmissaoCedulaMaritimaCtrl" id="win_emissaoCedula">
 
 		<div class="row" id="div_content_out">
 			<div zclass="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -13,45 +13,38 @@
 					<div zclass="box-body" id="div_dados">
 
 						<div class="row">
-							<div zclass="col-lg-12 col-md-12 col-sm-12">
+							<div zclass="col-lg-6 col-md-6 col-sm-12">
 								<div class="form-group">
-									<x:label>Cor dos Olhos</x:label>
-									<combobox width="100%"
-										id="cbx_olhos" constraint="no empty"
-										placeholder="Selecione a cor dos olhos" readonly="true">
-											<comboitem label="Preto" />
-											<comboitem label="Castanho" />
-											<comboitem label="Azul" />
-											<comboitem label="Verde" />
-											<comboitem label="Outra" />
-									</combobox>
+									<x:label>Número de Cédula</x:label>
+									 <textbox zclass="form-control" placeholder="Número de Cédula" id="tbx_nrCedula" />  
 								</div>
 							</div>
-							<div zclass="col-lg-12 col-md-12 col-sm-12">
+							
+							<div zclass="col-lg-6 col-md-6 col-sm-12">
 								<div class="form-group">
-									<x:label>Altura  (</x:label><x:label style="color:red">Informe a sua altura em metros</x:label><x:label>)</x:label>
-									<div class="input-group">
-									<doublebox zclass="form-control"
-										placeholder="Altura"
-										constraint="no empty : Não pode ser vazio nem conter apenas espaços em branco!"
-										id="dbx_altura" />
-								  <x:span class="input-group-addon"><x:i class="fa  fa-edit"></x:i></x:span>
-										</div>
+									<x:label>Número de Livro</x:label>
+									 <textbox zclass="form-control" placeholder="Número de Livro" id="tbx_livro" />  
 								</div>
 							</div>
-							<div zclass="col-lg-12 col-md-12 col-sm-12">
+							
+							<div zclass="col-lg-6 col-md-6 col-sm-12">
 								<div class="form-group">
-									<x:label>Categoria</x:label>
+									<x:label>Número de Folhas</x:label>
+									 <textbox zclass="form-control" placeholder="Número de Folhas" id="tbx_folhas" />  
+								</div>
+							</div>
+							<div zclass="col-lg-6 col-md-6 col-sm-12">
+									<x:label>Delegação</x:label>
 									<combobox width="100%"
-										id="cbx_categoria" constraint="no empty"
-										placeholder="Selecione a Categoria na qual pretende se inscrever" readonly="true">
+										id="cbx_delegacao" placeholder="Selecione a Delegação"
+										readonly="true"
+										constraint="no empty : Não pode ser vazio nem conter apenas espaços em branco!">
 										<template name="model">
 											<comboitem
 												label="${each.nome}" />
 										</template>
 									</combobox>
 								</div>
-							</div>
 						</div>
 					</div>
 					<div zclass="box-footer" align="center"

@@ -1,13 +1,10 @@
 package mz.ciuem.inamar.entity;
 
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -45,6 +42,7 @@ private static final long serialVersionUID = 1L;
 	
 	private String denominacao;
 	private String servico;
+	private String proprietario;
 	private boolean ehTemporario;
 	// Fim 
 	
@@ -76,7 +74,25 @@ private static final long serialVersionUID = 1L;
     
     //Titulo de Propriedade
     private String motivo;
+    private String aFolhas;
+    private String doLivro;
+    private String matricula;
     //Fim
+    
+    //Licenciamento de Encalhe
+    private String nrMpt;
+    
+    //Averbamento
+    private String marcaMotor;
+    private String nrMotor;
+    //Fim
+    
+    //Transferencia
+    private String tranferencia;
+    private String duracao;
+    private String finalidade;
+    //Fim
+    
     
     
 	
@@ -332,6 +348,83 @@ private static final long serialVersionUID = 1L;
 		this.nova_denominacao = nova_denominacao;
 	}
 
-	
-	
+	public String getProprietario() {
+		return proprietario;
+	}
+
+	public void setProprietario(String proprietario) {
+		this.proprietario = proprietario;
+	}
+
+	public String getaFolhas() {
+		return aFolhas;
+	}
+
+	public void setaFolhas(String aFolhas) {
+		this.aFolhas = aFolhas;
+	}
+
+	public String getDoLivro() {
+		return doLivro;
+	}
+
+	public void setDoLivro(String doLivro) {
+		this.doLivro = doLivro;
+	}
+
+	public String getMatricula() {
+		return matricula;
+	}
+
+	public void setMatricula(String matricula) {
+		this.matricula = matricula;
+	}
+
+	public String getNrMpt() {
+		return nrMpt;
+	}
+
+	public void setNrMpt(String nrMpt) {
+		this.nrMpt = nrMpt;
+	}
+
+	public String getMarcaMotor() {
+		return marcaMotor;
+	}
+
+	public void setMarcaMotor(String marcaMotor) {
+		this.marcaMotor = marcaMotor;
+	}
+
+	public String getNrMotor() {
+		return nrMotor;
+	}
+
+	public void setNrMotor(String nrMotor) {
+		this.nrMotor = nrMotor;
+	}
+
+	public String getTranferencia() {
+		return tranferencia;
+	}
+
+	public void setTranferencia(String tranferencia) {
+		this.tranferencia = tranferencia;
+	}
+
+	public String getDuracao() {
+		return duracao;
+	}
+
+	public void setDuracao(String duracao) {
+		this.duracao = duracao;
+	}
+
+	public String getFinalidade() {
+		return finalidade;
+	}
+
+	public void setFinalidade(String finalidade) {
+		this.finalidade = finalidade;
+	}
 }

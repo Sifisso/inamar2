@@ -8,31 +8,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import mz.ciuem.inamar.comps.MasterRep;
-import mz.ciuem.inamar.entity.CategoriaMaritimo;
-import mz.ciuem.inamar.entity.Contagem;
-import mz.ciuem.inamar.entity.Departamento;
-import mz.ciuem.inamar.entity.EtapaFluxo;
-import mz.ciuem.inamar.entity.Pedido;
-import mz.ciuem.inamar.entity.Permission;
-import mz.ciuem.inamar.entity.Peticao;
-import mz.ciuem.inamar.entity.PeticaoCategoriaMaritimo;
-import mz.ciuem.inamar.entity.PeticaoMaritimo;
-import mz.ciuem.inamar.entity.PeticaoMaritimoTaxaPedido;
-import mz.ciuem.inamar.entity.User;
-import mz.ciuem.inamar.entity.Utente;
-import mz.ciuem.inamar.service.CategoriaMaritimoService;
-import mz.ciuem.inamar.service.DepartamentoService;
-import mz.ciuem.inamar.service.EtapaFluxoService;
-import mz.ciuem.inamar.service.PeticaoCategoriaMaritimoService;
-import mz.ciuem.inamar.service.PeticaoMaritimoService;
-import mz.ciuem.inamar.service.PeticaoMaritimoTaxaPedidoService;
-import mz.ciuem.inamar.service.PeticaoService;
-import mz.ciuem.inamar.service.UserService;
-import mz.ciuem.inamar.service.UtenteService;
-import mz.ciuem.inamar.vm.MainVM;
-import net.sf.jasperreports.engine.JRException;
-
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.zkoss.spring.SpringUtil;
@@ -40,7 +15,6 @@ import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Execution;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
-import org.zkoss.zk.ui.event.ForwardEvent;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
@@ -53,15 +27,37 @@ import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 
+import mz.ciuem.inamar.comps.MasterRep;
+import mz.ciuem.inamar.entity.CategoriaMaritimo;
+import mz.ciuem.inamar.entity.Contagem;
+import mz.ciuem.inamar.entity.Permission;
+import mz.ciuem.inamar.entity.Peticao;
+import mz.ciuem.inamar.entity.PeticaoCategoriaMaritimo;
+import mz.ciuem.inamar.entity.PeticaoMaritimo;
+import mz.ciuem.inamar.entity.PeticaoMaritimoTaxaPedido;
+import mz.ciuem.inamar.entity.User;
+import mz.ciuem.inamar.entity.Utente;
+import mz.ciuem.inamar.service.CategoriaMaritimoService;
+import mz.ciuem.inamar.service.DelegacaoService;
+import mz.ciuem.inamar.service.DepartamentoService;
+import mz.ciuem.inamar.service.EtapaFluxoService;
+import mz.ciuem.inamar.service.PeticaoCategoriaMaritimoService;
+import mz.ciuem.inamar.service.PeticaoMaritimoService;
+import mz.ciuem.inamar.service.PeticaoMaritimoTaxaPedidoService;
+import mz.ciuem.inamar.service.PeticaoService;
+import mz.ciuem.inamar.service.UserService;
+import mz.ciuem.inamar.service.UtenteService;
+import net.sf.jasperreports.engine.JRException;
+
 public class EmissaoCedulaMaritimaCtrl extends GenericForwardComposer{
 	
 	private Window win_emissaoCedula;
 	private Div div_content_out, div_terminar, div_utente, div_secretario, myModal, div_dados;
 	private Include inc_main;
-	private Combobox cbx_olhos, cbx_categoria;
+	private Combobox cbx_olhos, cbx_categoria, cbx_delegacao;
 	private Doublebox dbx_altura;
 	private Button btn_proximo, btn_imprimir, btn_terminar, btn_voltarUtente, btn_voltar, btn_validar, btn_recusar, btn_prevalidar;
-	private Textbox tbx_user, tbx_pass;
+	private Textbox tbx_user, tbx_pass, tbx_nrCedula, tbx_nrLivro, tbx_nrFolhas, tbx_nrInscricao;
 	
 	@WireVariable
 	private PeticaoMaritimoService _peticaoMaritimoService;
@@ -81,6 +77,8 @@ public class EmissaoCedulaMaritimaCtrl extends GenericForwardComposer{
 	private EtapaFluxoService _etapaFluxoService;
 	@WireVariable
 	private PeticaoService _peticaoService;
+	@WireVariable
+	private DelegacaoService _delegacaoService;
 	
 	private PeticaoMaritimo _peticaoMaritimo;
 	
@@ -101,6 +99,7 @@ public class EmissaoCedulaMaritimaCtrl extends GenericForwardComposer{
 		_deService = (DepartamentoService) SpringUtil.getBean("departamentoService");
 		_peticaoMaritimoTaxaPedidoService = (PeticaoMaritimoTaxaPedidoService) SpringUtil.getBean("peticaoMaritimoTaxaPedidoService");
 		_peticaoService = (PeticaoService) SpringUtil.getBean("peticaoService");
+		_delegacaoService = (DelegacaoService) SpringUtil.getBean("delegacaoService");
 		//Teste
 		_etapaFluxoService = (EtapaFluxoService) SpringUtil.getBean("etapaFluxoService");
 		
@@ -116,6 +115,7 @@ public class EmissaoCedulaMaritimaCtrl extends GenericForwardComposer{
 		super.doAfterCompose(comp);
 		listarCategoria();
 		preencherCampos();
+		
 	}
 	
     private void ocultarCampos() {
@@ -161,25 +161,31 @@ public class EmissaoCedulaMaritimaCtrl extends GenericForwardComposer{
    	}
 	
 	private void gravar() {
-       _peticaoMaritimo.setCorOlhos(cbx_olhos.getValue());
-       _peticaoMaritimo.setAltura(dbx_altura.getValue());
-       _peticaoMaritimoService.saveOrUpdate(_peticaoMaritimo);
-       
-       CategoriaMaritimo _cm = (CategoriaMaritimo) cbx_categoria.getSelectedItem().getValue();
-       PeticaoCategoriaMaritimo _pcm = _peticaoCategoriaMaritimoService.findByPeticaoMaritimo(_peticaoMaritimo);
-       if(_pcm==null){
-	       _pcm = new PeticaoCategoriaMaritimo();
-	       _pcm.setPeticaoMaritimo(_peticaoMaritimo);
-	       _pcm.setCategoriaMaritimo(_cm);
-	       _peticaoCategoriaMaritimoService.saveOrUpdate(_pcm);
-       }else{
-    	    _pcm = _peticaoCategoriaMaritimoService.findByPeticaoMaritimo(_peticaoMaritimo);;
-    	   _pcm.setPeticaoMaritimo(_peticaoMaritimo);
-    	   _pcm.setCategoriaMaritimo(_cm);
-           _peticaoCategoriaMaritimoService.saveOrUpdate(_pcm);
-       }
+		 _peticaoMaritimo.setCorOlhos(cbx_olhos.getValue());
+	       _peticaoMaritimo.setAltura(dbx_altura.getValue());
+	       _peticaoMaritimoService.saveOrUpdate(_peticaoMaritimo);
+		
+		 CategoriaMaritimo _cm = (CategoriaMaritimo) cbx_categoria.getSelectedItem().getValue();
+	      PeticaoCategoriaMaritimo _pcm = _peticaoCategoriaMaritimoService.findByPeticaoMaritimo(_peticaoMaritimo);
+	      if(_pcm==null){
+		       _pcm = new PeticaoCategoriaMaritimo();
+		       _pcm.setPeticaoMaritimo(_peticaoMaritimo);
+		       _pcm.setCategoriaMaritimo(_cm);
+		       _peticaoCategoriaMaritimoService.saveOrUpdate(_pcm);
+	      }else{
+	   	    _pcm = _peticaoCategoriaMaritimoService.findByPeticaoMaritimo(_peticaoMaritimo);;
+	   	   _pcm.setPeticaoMaritimo(_peticaoMaritimo);
+	   	   _pcm.setCategoriaMaritimo(_cm);
+	          _peticaoCategoriaMaritimoService.saveOrUpdate(_pcm);
+	      }
        
        visibilidades();
+	}
+	
+	private void listarCategoria() {
+		List<CategoriaMaritimo> listCategoria = _categoriaMaritimoService.getAll();
+		cbx_categoria.setModel(new ListModelList<CategoriaMaritimo>(listCategoria));
+		
 	}
 	
 	
@@ -278,7 +284,7 @@ public class EmissaoCedulaMaritimaCtrl extends GenericForwardComposer{
 			btn_validar.setVisible(false);
 			btn_prevalidar.setVisible(false);
 			btn_recusar.setVisible(true);
-			showNotifications("PetiÃ§Ã£o prÃ©-validada com sucesso.", "info");
+			showNotifications("Petição pré-validada com sucesso.", "info");
 		}
 	}
 	
@@ -291,7 +297,7 @@ public class EmissaoCedulaMaritimaCtrl extends GenericForwardComposer{
 			_peticaoService.update(pet);
 			btn_validar.setVisible(false);
 			btn_recusar.setVisible(true);
-			showNotifications("PetiÃ§Ã£o validada com sucesso.", "info");
+			showNotifications("Petição validada com sucesso.", "info");
 		}
 	}
 	
@@ -303,26 +309,21 @@ public class EmissaoCedulaMaritimaCtrl extends GenericForwardComposer{
 			_peticaoService.update(pet);
 			btn_validar.setVisible(true);
 			btn_recusar.setVisible(false);
-			showNotifications("PetiÃ§Ã£o Recusada com sucesso.", "error");
+			showNotifications("Petição Recusada com sucesso.", "error");
 			ocultarCampos();
 		}
 	}
 
 	private void preencherCampos() {
+		
 			if(_peticaoMaritimo!=null && _peticaoMaritimo.getPeticao()!=null){
 				cbx_olhos.setValue(_peticaoMaritimo.getCorOlhos());
 				dbx_altura.setValue(_peticaoMaritimo.getAltura());
 				if(_peticaoCategoriaMaritimoService.findByPeticaoMaritimo(_peticaoMaritimo)!=null)
-				cbx_categoria.setValue(_peticaoCategoriaMaritimoService.findByPeticaoMaritimo(_peticaoMaritimo).getCategoriaMaritimo().getNome());
-			}
+					cbx_categoria.setValue(_peticaoCategoriaMaritimoService.findByPeticaoMaritimo(_peticaoMaritimo).getCategoriaMaritimo().getNome());
+				}
 		}
 
-	private void listarCategoria() {
-		List<CategoriaMaritimo> listCategoria = _categoriaMaritimoService.getAll();
-		cbx_categoria.setModel(new ListModelList<CategoriaMaritimo>(listCategoria));
-		
-	}
-	
 	public void showNotifications(String message, String type) {
    		Clients.showNotification(message, type, btn_terminar,"before_center", 4000, true);
    	}

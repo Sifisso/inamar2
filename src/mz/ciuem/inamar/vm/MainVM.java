@@ -131,7 +131,7 @@ public class MainVM extends PagVM {
 		agente = new Agente();*/
 		
 		
-	//Messagebox.show(loggeduser.getFuncionario().getNome()+"-"+delegacao);
+//	Messagebox.show(loggeduser.getFuncionario().getNome()+"-"+delegacao);
 
 	}
 
@@ -725,6 +725,22 @@ public class MainVM extends PagVM {
 		map.put("breadcrumb", ol);
 		target.getChildren().clear();
 		Executions.createComponents("views/Parametrizacao/registar_LocalPratica.zul", target, map);
+
+		links = new ArrayList<String>();
+		links.add("Inicio");
+		drawnBreadcrumb("fa fa-sort", "Mais", links);
+
+		menuReset();
+		setMorePage("active");
+	}
+	
+	@Command
+	public void registarActividade() {
+		final HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("target", target);
+		map.put("breadcrumb", ol);
+		target.getChildren().clear();
+		Executions.createComponents("views/Parametrizacao/registar_actividadeLicenca.zul", target, map);
 
 		links = new ArrayList<String>();
 		links.add("Inicio");

@@ -124,7 +124,7 @@ public class ExameCtrl extends GenericForwardComposer{
 	
 	private void preencherCampos() {
 		if(_peticaoMaritimo!=null && _peticaoMaritimo.getPeticao()!=null){
-			cbx_exame.setValue(_peticaoMaritimo.getExame().getDescricao());
+			cbx_exame.setValue(_peticaoMaritimo.getExame()==null?"":_peticaoMaritimo.getExame().getDescricao());
 		}
 	}
 	
