@@ -237,6 +237,19 @@
         					</h:form>
         				</div>
         				
+        				<div class="col-md-12 col-lg-12 col-xs-12 col-sm-12">
+        					<h:form role="form">
+        						<div class="box-body">
+        						
+        								<div class="form-group">
+        								<h:label >Endereço</h:label><h:label style="color:red">*</h:label>
+                                    <textbox zclass="form-control"
+							           placeholder="Objecto Social"
+							               constraint="no empty : Não deve estar vazio ou conter espaços em branco apenas !"
+						               	id="tbx_endereco"/>        							
+						               	</div>
+        						</div>
+        						</h:form>
         				
         				
         				
@@ -256,7 +269,7 @@
         					
         					</h:form>
         				</div>
-        		   
+        		   </div>
         		   </groupbox>
 					</div>
 				</div>

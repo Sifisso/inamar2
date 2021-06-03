@@ -62,6 +62,11 @@ public class User extends IdEntity implements UserDetails {
 	
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@Fetch(FetchMode.JOIN)
+	@JoinColumn(name = "maritimo_id")
+	private Maritimo maritimo;
+	
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@Fetch(FetchMode.JOIN)
 	@JoinColumn(name = "funcionario_id")
 	private Funcionario funcionario;
 	
@@ -233,6 +238,14 @@ public class User extends IdEntity implements UserDetails {
 
 	public void setFuncionario(Funcionario funcionario) {
 		this.funcionario = funcionario;
+	}
+
+	public Maritimo getMaritimo() {
+		return maritimo;
+	}
+
+	public void setMaritimo(Maritimo maritimo) {
+		this.maritimo = maritimo;
 	}
 
 }

@@ -3,6 +3,7 @@ package mz.ciuem.inamar.dao.imlp;
 import java.util.List;
 
 import mz.ciuem.inamar.dao.UtenteDao;
+import mz.ciuem.inamar.entity.Acontecimento;
 import mz.ciuem.inamar.entity.Embarcacao;
 import mz.ciuem.inamar.entity.User;
 import mz.ciuem.inamar.entity.Utente;
@@ -44,6 +45,14 @@ public class UtenteDaoImpl extends GenericDaoImpl<Utente> implements UtenteDao{
 		query.setParameter("nome", "%"+nome+"%");
 		return query.list();
 
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Utente> findByIsEmpresa(){
+		org.hibernate.Query query = getCurrentSession().createQuery("select u from Utente u where u.isEmpresa=true order by u.updated desc");
+		
+		return query.list();
 	}
 
 }

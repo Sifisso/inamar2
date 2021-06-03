@@ -175,7 +175,7 @@
         					<h:form role="form">
         						<div class="box-body">
         									<div class="form-group">
-        								 <h:label for="exampleInputEmail1">Tipo de Utente</h:label><h:label style="color:red">*</h:label>
+        								 <h:label for="exampleInputEmail1">Maritimo</h:label><h:label style="color:red">*</h:label>
         										<combobox id="cbx_tipoUtente" readonly="true" constraint="no empty:Campo de preenchimento Obrigatório."
         										width="100%" disabled="true" value="Singular">
         											<comboitem label="Singular" />

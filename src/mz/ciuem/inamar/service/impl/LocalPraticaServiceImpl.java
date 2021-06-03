@@ -21,4 +21,9 @@ public class LocalPraticaServiceImpl extends GenericServiceImpl<LocalPratica> im
 		return _lpDao.findNotInPedido(pedido);
 	}
 
+	@Override
+	public List<LocalPratica> findLocalPraticaByActivo() {
+		return _lpDao.findLocalPraticaByActivo();
+	}
+
 }

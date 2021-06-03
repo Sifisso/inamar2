@@ -31,7 +31,7 @@ public class EmpresaCtrl extends GenericForwardComposer{
 	private Textbox tbx_email;
 	private Textbox tbx_certidao;
 	private Textbox tbx_registoNotarial;
-	private Textbox tbx_objectoSocial;
+	private Textbox tbx_objectoSocial, tbx_endereco;
 	
 	@WireVariable
 	private UtenteService _utenteService;
@@ -84,7 +84,9 @@ public class EmpresaCtrl extends GenericForwardComposer{
 		u.setCertidao_comercial(tbx_certidao.getValue());
 		u.setRegisto_notarial(tbx_registoNotarial.getValue());
 		u.setObjecto_social(tbx_objectoSocial.getValue());
+		u.setEndereco(tbx_endereco.getValue());
 		u.setEmpresa(true);
+		u.setTipo("Empresa");
 		_utenteService.saveOrUpdate(u);
 	}
 	
@@ -97,6 +99,7 @@ public class EmpresaCtrl extends GenericForwardComposer{
 			tbx_certidao.setValue(u.getCertidao_comercial());
 			tbx_registoNotarial.setValue(u.getRegisto_notarial());
 			tbx_objectoSocial.setValue(u.getObjecto_social());
+			tbx_endereco.setValue(u.getEndereco());
 		}
 	}
 	

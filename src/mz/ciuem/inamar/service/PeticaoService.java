@@ -33,10 +33,11 @@ public interface PeticaoService extends GenericService<Peticao>{
 	public List<Peticao> utente2();
 	public Peticao findEgerPedido(Peticao peticao);
 	public void gravarRedicionar(Pedido pd, Utente utente, Delegacao del, User loggedUser, Listbox lbx_requisitos,Listbox lbx_instrumentoLegal, Listbox lbx_taxasPedido,Listbox lbx_etapasFluxo,Include inc_main, Div div_content_out);
+	
 	public void onClickDetalhes(Peticao pet, Include inc_main, Div div_content_out);
 	public void onClickRecusa(Peticao pet, Include inc_main, Div div_content_out);
 	
-	public void onClickVerFactura(Peticao p, Window win) throws JRException;
+	public void onClickVerFactura(Peticao p, Window win) throws JRException; 
 	public void onClickVerFacturaa(Peticao p, Window win) throws JRException;
 	public void onClickVerRecibo(Peticao p, Window win) throws JRException;
 	

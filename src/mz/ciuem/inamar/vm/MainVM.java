@@ -814,6 +814,22 @@ public class MainVM extends PagVM {
 		setMorePage("active");
 	}
 	
+	@Command
+	public void registarMotivo() {
+		final HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("target", target);
+		map.put("breadcrumb", ol);
+		target.getChildren().clear();
+		Executions.createComponents("views/Parametrizacao/registar_motivo.zul", target, map);
+
+		links = new ArrayList<String>();
+		links.add("Inicio");
+		drawnBreadcrumb("fa fa-sort", "Mais", links);
+
+		menuReset();
+		setMorePage("active");
+	}
+	
 	
 	@Command
 	public void registarContagem() {
@@ -1549,12 +1565,44 @@ public class MainVM extends PagVM {
 	}
 	
 	@Command
+	public void registarLicenca() {
+		final HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("target", target);
+		map.put("breadcrumb", ol);
+		target.getChildren().clear();
+		Executions.createComponents("/views/SeccaoTecnica/gerir_utentes.zul", target,map);
+
+		links = new ArrayList<String>();
+		links.add("Inicio");
+		drawnBreadcrumb("fa fa-sort", "Mais", links);
+
+		menuReset();
+		setMorePage("active");
+	}
+	
+	@Command
 	public void registarMaritimo() {
 		final HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("target", target);
 		map.put("breadcrumb", ol);
 		target.getChildren().clear();
-		Executions.createComponents("views/expediente/gerir_maritimo.zul", target,map);
+		Executions.createComponents("views/SeccaoTecnica/gerir_maritimo.zul", target,map);
+
+		links = new ArrayList<String>();
+		links.add("Inicio");
+		drawnBreadcrumb("fa fa-sort", "Mais", links);
+
+		menuReset();
+		setMorePage("active");
+	}
+	
+	@Command
+	public void registarEmbaracao() {
+		final HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("target", target);
+		map.put("breadcrumb", ol);
+		target.getChildren().clear();
+		Executions.createComponents("views/SeccaoTecnica/gerir_embaracoes.zul", target,map);
 
 		links = new ArrayList<String>();
 		links.add("Inicio");
@@ -1603,6 +1651,38 @@ public class MainVM extends PagVM {
 		map.put("breadcrumb", ol);
 		target.getChildren().clear();
 		Executions.createComponents("views/expediente/registar_maritimo.zul", target,map);
+
+		links = new ArrayList<String>();
+		links.add("Inicio");
+		drawnBreadcrumb("fa fa-sort", "Mais", links);
+
+		menuReset();
+		setMorePage("active");
+	}
+	
+	@Command
+	public void adicionarEmbarcacao() {
+		final HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("target", target);
+		map.put("breadcrumb", ol);
+		target.getChildren().clear();
+		Executions.createComponents("views/SeccaoTecnica/registar_embarcacao.zul", target,map);
+
+		links = new ArrayList<String>();
+		links.add("Inicio");
+		drawnBreadcrumb("fa fa-sort", "Mais", links);
+
+		menuReset();
+		setMorePage("active");
+	}
+	
+	@Command
+	public void adicionarMaritimoGCC() {
+		final HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("target", target);
+		map.put("breadcrumb", ol);
+		target.getChildren().clear();
+		Executions.createComponents("/views/SeccaoTecnica/registar_maritimoGCC.zul", target,map);
 
 		links = new ArrayList<String>();
 		links.add("Inicio");

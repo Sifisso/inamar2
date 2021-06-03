@@ -23,6 +23,10 @@ private static final long serialVersionUID = 1L;
 	@Column(name="entidade")
 	private String entidade;
 	
+	@Column(name="nrExpediente")
+	private String nrExpediente;
+	
+	
 	@Column(name="valor")
 	private double valor;
 	private boolean ehEmbarcacao;
@@ -427,4 +431,14 @@ private static final long serialVersionUID = 1L;
 	public void setFinalidade(String finalidade) {
 		this.finalidade = finalidade;
 	}
+
+	public String getNrExpediente() {
+		return nrExpediente;
+	}
+
+	public void setNrExpediente(String nrExpediente) {
+		this.nrExpediente = nrExpediente;
+	}
+	
+	
 }

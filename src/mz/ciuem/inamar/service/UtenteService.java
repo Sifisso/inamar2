@@ -11,5 +11,6 @@ public interface UtenteService extends GenericService<Utente>{
 	public List<Utente> findUtentesNotMaritimos();
 	public List<Utente> findUtentesMaritimos();
 	public List<Utente> findAllByMaritimoOuUtente(String nome);
+	public List<Utente> findByIsEmpresa();
 
 }

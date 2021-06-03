@@ -31,6 +31,9 @@ public class Utente extends IdEntity{
 	@Column(name = "nome")
 	private String nome;
 	
+	@Column(name = "endereco")
+	private String endereco;
+	
 	@Column(name = "codigo")
 	private String codigo;
 
@@ -575,9 +578,13 @@ public class Utente extends IdEntity{
 	public void setIdade(int idade) {
 		this.idade = idade;
 	}
-	
-	
-	
-	
+
+	public String getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(String endereco) {
+		this.endereco = endereco;
+	}
 
 }

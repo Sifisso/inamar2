@@ -8,6 +8,8 @@ import mz.ciuem.inamar.entity.Pedido;
 public interface LocalPraticaService extends GenericService<LocalPratica>{
 	
 	public List<LocalPratica> findNotInPedido(Pedido pedido);
+	
+	public List<LocalPratica> findLocalPraticaByActivo();
 
 
 }

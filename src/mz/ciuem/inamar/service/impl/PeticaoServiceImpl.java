@@ -321,7 +321,7 @@ public class PeticaoServiceImpl extends GenericServiceImpl<Peticao> implements P
 	
 	// ----------------------------------------------GRAVAR E REDICIONAR----------------------------------------------//
 	@Override
-	public  void gravarRedicionar(Pedido pd, Utente utente, Delegacao del, User loggedUser, Listbox lbx_requisitos,Listbox lbx_instrumentoLegal, Listbox lbx_taxasPedido,Listbox lbx_etapasFluxo,Include inc_main, Div div_content_out) {
+	public  void gravarRedicionar(Pedido pd ,Utente utente, Delegacao del, User loggedUser, Listbox lbx_requisitos,Listbox lbx_instrumentoLegal, Listbox lbx_taxasPedido,Listbox lbx_etapasFluxo,Include inc_main, Div div_content_out) {
 		User u = utente.getUserLogin();
 		
 		if(pd.getTipoPedido().getArea().getId()==5) {
@@ -392,6 +392,9 @@ public class PeticaoServiceImpl extends GenericServiceImpl<Peticao> implements P
 							Executions.getCurrent().getSession().setAttribute("ss_peticaoLicenca", pl);
 							div_content_out.detach();
 							inc_main.setSrc("/views/Licenca/emissaoLicencaAgenciamento.zul");
+						
+							
+							//Emissao de Licenca de Transporte Maritimo
 							
 						}else if(pd != null && pd.getId() == 166){
 							PeticaoLicenca pl = new PeticaoLicenca();
@@ -459,6 +462,8 @@ public class PeticaoServiceImpl extends GenericServiceImpl<Peticao> implements P
 							div_content_out.detach();
 							inc_main.setSrc("/views/Licenca/emissaoLicencaDeTransporteMaritimo.zul");
 						}
+						
+						//Emissao de Licenca de Estiva
 						else if(pd != null && pd.getId() == 169){
 							PeticaoLicenca pl = new PeticaoLicenca();
 							pl.setPedido(pd);
@@ -525,6 +530,7 @@ public class PeticaoServiceImpl extends GenericServiceImpl<Peticao> implements P
 							div_content_out.detach();
 							inc_main.setSrc("/views/Licenca/emissaoLicencaEstiva.zul");
 						}
+						//Emissao de Licenca de Mergulho
 						else if(pd != null && pd.getId() == 172){
 							PeticaoLicenca pl = new PeticaoLicenca();
 							pl.setPedido(pd);
@@ -591,6 +597,8 @@ public class PeticaoServiceImpl extends GenericServiceImpl<Peticao> implements P
 							div_content_out.detach();
 							inc_main.setSrc("/views/Licenca/emissaoLicencaMergulho.zul");
 						}
+						
+						//Emissao de Licenca Ship Chandling
 							else if(pd != null && pd.getId() == 174){
 								PeticaoLicenca pl = new PeticaoLicenca();
 								pl.setPedido(pd);
@@ -657,6 +665,8 @@ public class PeticaoServiceImpl extends GenericServiceImpl<Peticao> implements P
 								div_content_out.detach();
 								inc_main.setSrc("/views/Licenca/emissaoLicencaShipChandling.zul");
 						}
+						
+						//Emissao de Licenca de Gestao de Navios e Tripulantes
 							else if(pd != null && pd.getId() == 176){
 								PeticaoLicenca pl = new PeticaoLicenca();
 								pl.setPedido(pd);
@@ -723,6 +733,8 @@ public class PeticaoServiceImpl extends GenericServiceImpl<Peticao> implements P
 								div_content_out.detach();
 								inc_main.setSrc("/views/Licenca/emissaoLicencaGestaoNaviosTripulantes.zul");
 							}
+						
+						//Emissao de Licenca de Dragagem
 								else if(pd != null && pd.getId() == 173){
 									PeticaoLicenca pl = new PeticaoLicenca();
 									pl.setPedido(pd);
@@ -788,7 +800,76 @@ public class PeticaoServiceImpl extends GenericServiceImpl<Peticao> implements P
 									Executions.getCurrent().getSession().setAttribute("ss_peticaoLicenca", pl);
 									div_content_out.detach();
 									inc_main.setSrc("/views/Licenca/emissaoLicencaDragagem.zul");
-							}else{
+							}
+								//Emissao de Licenca d Transporte Comercial
+								else if(pd != null && pd.getId() == 167){
+									PeticaoLicenca pl = new PeticaoLicenca();
+									pl.setPedido(pd);
+									pl.setUser(u);
+
+									// Gerar Peticao (temporario)
+									Peticao peticao = new Peticao();
+									peticao.setDelegacao(del);
+									peticao.setUserLoggado(loggedUser);
+									peticao.setPeticaoLicenca(pl);
+									peticao.setUser(u);
+									//peticao.setUtente(u.getUtente().getNome() + " " + u.getUtente().getApelido());
+									if (u.getUtente() != null){
+										peticao.setUtente(u.getUtente().getNome() +" "+ u.getUtente().getApelido());
+										peticao.setContactoUtente(u.getUtente().getCelular());
+										peticao.setNrDocUtente(u.getUtente().getNumeroDocumento());
+										peticao.setTipDocUtente(u.getUtente().getTipoDocumento());
+										peticao.setProvincia(u.getUtente().getProvinciaResidencia());
+										peticao.setDistritoUtente(u.getUtente().getDistritoResidencia());
+										peticao.setLocalEmissaoUtente(u.getUtente().getLocalEmissao());
+										peticao.setDataNascUtente(u.getUtente().getBairro());
+									}
+									peticao.setTipo("1");
+									peticao.setDescricao(pd.getDescricao());
+									peticao.setValor(pl.getValor());
+									peticao.setLocalizacao("Secretaria");
+									peticao.setEntidade(pl.getEntidade());
+									peticao.setPedido(pl.getPedido());
+									
+
+									_peticaoService.saveOrUpdate(peticao);
+									long nr = peticao.getId() + 10000;
+
+									pl.setReferencia(Gerador.gerarReferencia(pd.getTipoPedido().getArea().getCodigo(), pd.getTipoPedido().getCodigo(),""+ nr, "08"));
+									pl.setEntidade(Gerador.gerarEntidade("700", pd.getTipoPedido().getCodigo()));
+									
+									// Gerar REquisitos
+									gerarPedidoRequisitos(lbx_requisitos.getItems(), peticao);
+									
+									// Gerar Instrumentos Legais
+									gerarPedidoInstrumentosLegais(lbx_instrumentoLegal.getItems(), peticao);
+									
+									// Gerar Taxas
+									gerarPedidoTaxas(lbx_taxasPedido.getItems(), peticao);
+									
+									//Gerar PeticaoEtapa
+									gerarPeticaoEtapa(lbx_etapasFluxo.getItems(), peticao);
+
+									Date data = new Date();
+									SimpleDateFormat formatador = new SimpleDateFormat("ddMMyy");
+									String f = formatador.format(data);
+									String nrFact = "" + nr + "" + f;
+									peticao.setNrFactura("" + nrFact);
+									peticao.setNrExpediente("" + nr);
+									peticao.setReferencia(pl.getReferencia());
+									peticao.setEntidade(pl.getEntidade());
+									peticao.setPedido(pl.getPedido());
+									_peticaoService.saveOrUpdate(peticao);
+
+									pl.setPeticao(peticao);
+									_peticaoLicencaService.saveOrUpdate(pl);
+
+									Executions.getCurrent().getSession().setAttribute("ss_peticaoLicenca", pl);
+									div_content_out.detach();
+									inc_main.setSrc("/views/Licenca/emissaoLicencaTransporteComercial.zul");
+							}
+								
+								else{
 								PeticaoLicenca pl = new PeticaoLicenca();
 								pl.setPedido(pd);
 								pl.setUser(u);
@@ -2537,7 +2618,14 @@ public class PeticaoServiceImpl extends GenericServiceImpl<Peticao> implements P
 	    		div_content_out.detach();
 	    		inc_main.setSrc("/views/Licenca/emissaoLicencaDragagemDetalhes.zul");
 	    		
-				}else{
+				}else if(pet.getPedido().getId()==(167)){
+					PeticaoLicenca petLic = pet.getPeticaoLicenca();
+					Executions.getCurrent().getSession().setAttribute("ss_peticaoLicenca", petLic);
+		    		div_content_out.detach();
+		    		inc_main.setSrc("/views/Licenca/emissaoLicencaTransporteComercialDetalhes.zul");
+				}
+			
+			else{
 				PeticaoLicenca petLic = pet.getPeticaoLicenca();
 				Executions.getCurrent().getSession().setAttribute("ss_peticaoLicenca", petLic);
 	    		div_content_out.detach();

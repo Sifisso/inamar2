@@ -255,7 +255,6 @@
 								<div class="input-group">
 									<doublebox zclass="form-control"
 										placeholder="0.00"
-										constraint="no empty : Não pode ser vazio nem conter apenas espaços em branco!"
 										id="txb_emolumentos" />
 									<x:span class="input-group-addon">
 										<x:i class="fa  fa-edit"></x:i>

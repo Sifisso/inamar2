@@ -3,11 +3,13 @@ package mz.ciuem.inamar.utente.controller;
 import java.util.List;
 
 import mz.ciuem.inamar.entity.Distrito;
+import mz.ciuem.inamar.entity.Maritimo;
 import mz.ciuem.inamar.entity.Pedido;
 import mz.ciuem.inamar.entity.Provincia;
 import mz.ciuem.inamar.entity.User;
 import mz.ciuem.inamar.entity.Utente;
 import mz.ciuem.inamar.service.DistritoService;
+import mz.ciuem.inamar.service.MaritimoService;
 import mz.ciuem.inamar.service.ProvinciaService;
 import mz.ciuem.inamar.service.UtenteService;
 
@@ -53,10 +55,10 @@ public class MaritimoCtrlUm extends GenericForwardComposer{
 	@WireVariable
 	private DistritoService _distritoService;
 	@WireVariable
-	private UtenteService _utenteService;
+	private MaritimoService _maritimoService;
 	private Session _session;
 	
-	Utente _utente;
+	Maritimo _maritimo;
 	private User _loggedUser;
 	
 	@SuppressWarnings("unchecked")
@@ -66,8 +68,8 @@ public class MaritimoCtrlUm extends GenericForwardComposer{
 		
 		_provinciaService = (ProvinciaService) SpringUtil.getBean("provinciaService");
 		_distritoService = (DistritoService) SpringUtil.getBean("distritoService");
-		_utenteService = (UtenteService) SpringUtil.getBean("utenteService");
-		_utente = (Utente) Executions.getCurrent().getSession().getAttribute("ss_utente");
+		_maritimoService = (MaritimoService) SpringUtil.getBean("maritimoService");
+		_maritimo = (Maritimo) Executions.getCurrent().getSession().getAttribute("ss_maritimo");
 		//verificarLogado();
 	}
 	
@@ -77,13 +79,13 @@ public class MaritimoCtrlUm extends GenericForwardComposer{
 		super.doAfterCompose(comp);
 		
 		preencherProvincias();
-		preencherCampos(_utente);
+		preencherCampos(_maritimo);
 	}
 	
 	private void verificarLogado() {
-		if(_utente==null){
+		if(_maritimo==null){
 			_loggedUser = (User) _session.getAttribute("ss_utilizador");
-			_utente = _loggedUser.getUtente();
+			_maritimo = _loggedUser.getMaritimo();
 		}
 	}
 
@@ -103,25 +105,25 @@ public class MaritimoCtrlUm extends GenericForwardComposer{
 	
 	public void proximo(){
 	saveOrUpdade();
-	Executions.getCurrent().getSession().setAttribute("ss_utente", _utente);
+	Executions.getCurrent().getSession().setAttribute("ss_maritimo", _maritimo);
 	div_content_out.detach();
-	inc_main.setSrc("/views/expediente/registar_maritimoDois.zul");
+	inc_main.setSrc("/views/SeccaoTecnica/registar_maritimoDois.zul");
 	}
 	
 	public void anterior(){
 		//Include inc  = (Include) win_regDados.getParent();
 		saveOrUpdade();
-		Executions.getCurrent().getSession().setAttribute("ss_utente", _utente);
+		Executions.getCurrent().getSession().setAttribute("ss_maritimo", _maritimo);
 		div_content_out.detach();
-		inc_main.setSrc("/views/expediente/registar_maritimo.zul");
+		inc_main.setSrc("/views/SeccaoTecnica/registar_maritimoUm.zul");
 	}
 	
 	public void saveOrUpdade(){
-		if(_utente==null){
-			_utente = new Utente();
-			gravar(_utente);
+		if(_maritimo==null){
+			_maritimo = new Maritimo();
+			gravar(_maritimo);
 		}else{
-			gravar(_utente);
+			gravar(_maritimo);
 		}
 //		_utentePass = new Utente();
 //		_utentePass = _utente;
@@ -130,40 +132,38 @@ public class MaritimoCtrlUm extends GenericForwardComposer{
 		
 	}
 	
-	public void gravar(Utente u){
-		u.setNome(tbx_nome.getValue());
-		u.setApelido(tbx_apelido.getValue());
-		u.setDataNascimento(dtb_dataNascimento.getValue());
-		u.setNuit(tbx_nuit.getValue());
-		u.setProvinciaResidencia(cbx_provincia.getValue());
-		u.setDistritoResidencia(cbx_distrito.getValue());
-		u.setBairro(tbx_bairro.getValue());
-		u.setRua(tbx_rua.getValue());
-		u.setNrCasa(tbx_nrCasa.getValue());
-		u.setQuarteirao(tbx_quarteirao.getValue());
-		u.setCelular(tbx_celular.getValue());
-		u.setCelularAlternativo(tbx_celular2.getValue());
-		u.setEmail(tbx_email.getValue());
-		u.setEmpresa(false);
-		u.setTipo("Singular");
-		_utenteService.saveOrUpdate(u);
+	public void gravar(Maritimo m){
+		m.setNome(tbx_nome.getValue());
+		m.setApelido(tbx_apelido.getValue());
+		m.setDataNascimento(dtb_dataNascimento.getValue());
+		m.setNuit(tbx_nuit.getValue());
+		m.setProvinciaResidencia(cbx_provincia.getValue());
+		m.setDistritoResidencia(cbx_distrito.getValue());
+		m.setBairro(tbx_bairro.getValue());
+		m.setRua(tbx_rua.getValue());
+		m.setNrCasa(tbx_nrCasa.getValue());
+		m.setQuarteirao(tbx_quarteirao.getValue());
+		m.setCelular(tbx_celular.getValue());
+		m.setCelularAlternativo(tbx_celular2.getValue());
+		m.setEmail(tbx_email.getValue());
+		_maritimoService.saveOrUpdate(m);
 	}
 	
-	public void preencherCampos(Utente u){
-		if(u!=null){
-			tbx_nome.setValue(u.getNome());
-			tbx_apelido.setValue(u.getApelido());
-			dtb_dataNascimento.setValue(u.getDataNascimento());
-			tbx_nuit.setValue(u.getNuit());
-			cbx_provincia.setValue(u.getProvinciaResidencia());
-			cbx_distrito.setValue(u.getDistritoResidencia());
-			tbx_bairro.setValue(u.getBairro());
-			tbx_rua.setValue(u.getRua());
-			tbx_nrCasa.setValue(u.getNrCasa());
-			tbx_quarteirao.setValue(u.getQuarteirao());
-			tbx_celular.setValue(u.getCelular());
-			tbx_celular2.setValue(u.getCelularAlternativo());
-			tbx_email.setValue(u.getEmail());
+	public void preencherCampos(Maritimo m){
+		if(m!=null){
+			tbx_nome.setValue(m.getNome());
+			tbx_apelido.setValue(m.getApelido());
+			dtb_dataNascimento.setValue(m.getDataNascimento());
+			tbx_nuit.setValue(m.getNuit());
+			cbx_provincia.setValue(m.getProvinciaResidencia());
+			cbx_distrito.setValue(m.getDistritoResidencia());
+			tbx_bairro.setValue(m.getBairro());
+			tbx_rua.setValue(m.getRua());
+			tbx_nrCasa.setValue(m.getNrCasa());
+			tbx_quarteirao.setValue(m.getQuarteirao());
+			tbx_celular.setValue(m.getCelular());
+			tbx_celular2.setValue(m.getCelularAlternativo());
+			tbx_email.setValue(m.getEmail());
 		}
 	}
 

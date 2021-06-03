@@ -35,5 +35,9 @@ public class UtenteServiceImpl extends GenericServiceImpl<Utente> implements Ute
 	public List<Utente> findAllByMaritimoOuUtente(String nome){
 		return _uDao.findAllByMaritimoOuUtente(nome);
 	}
+	
+	public List<Utente> findByIsEmpresa(){
+		return _uDao.findByIsEmpresa();
+	}
 
 }

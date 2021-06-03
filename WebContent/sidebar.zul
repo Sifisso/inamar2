@@ -56,7 +56,8 @@
 						<x:li if="${sec:isAnyGranted('PARAM_FLUXO,E_SUPER_ADMINISTRADOR')}"><x:a href="#" onClick="@command('registarInsLegal')"><x:i class="fa fa-dot-circle-o"></x:i>Instrumento Legal</x:a></x:li>	
 						<x:li if="${sec:isAnyGranted('PARAM_LICENCA,E_SUPER_ADMINISTRADOR')}"><x:a href="#" onClick="@command('registarLocaisPratica')"><x:i class="fa fa-dot-circle-o"></x:i>Locais de Prática</x:a></x:li>
 						<x:li if="${sec:isAnyGranted('PARAM_EMBARCACOES,E_SUPER_ADMINISTRADOR')}"><x:a href="#" onClick="@command('registarMeioEsgoto')"><x:i class="fa fa-dot-circle-o"></x:i>Meio de Esgoto</x:a></x:li>
-				       <x:li if="${sec:isAnyGranted('PARAM_LICENCA,E_SUPER_ADMINISTRADOR')}"><x:a href="#" onClick="@command('registarMeioTransporte')"><x:i class="fa fa-dot-circle-o"></x:i>Meio de Transporte</x:a></x:li> 
+				       <x:li if="${sec:isAnyGranted('PARAM_LICENCA,E_SUPER_ADMINISTRADOR')}"><x:a href="#" onClick="@command('registarMeioTransporte')"><x:i class="fa fa-dot-circle-o"></x:i>Meio de Transporte</x:a></x:li>
+				       <x:li if="${sec:isAnyGranted('REGISTAR_EMBARCACOES,E_SUPER_ADMINISTRADOR')}"><x:a href="#" onClick="@command('registarMotivo')"><x:i class="fa fa-dot-circle-o"></x:i>Motivos</x:a></x:li> 
 				       <x:li if="${sec:isAnyGranted('PARAM_PEDIDO,E_SUPER_ADMINISTRADOR')}"><x:a href="#" onClick="@command('registarAreaPerfil')"><x:i class="fa fa-dot-circle-o"></x:i>Perfis de uma Área</x:a></x:li>
 						<x:li if="${sec:isAnyGranted('PARAM_EMBARCACOES,E_SUPER_ADMINISTRADOR')}"><x:a href="#" onClick="@command('registarPorto')"><x:i class="fa fa-dot-circle-o"></x:i>Porto</x:a></x:li>
 						<x:li if="${sec:isAnyGranted('GESTÃO_DE_PROVINCIAS,E_SUPER_ADMINISTRADOR')}"><x:a href="#" onClick="@command('registarProvincia')"><x:i class="fa fa-dot-circle-o"></x:i>Provincias</x:a></x:li>
@@ -218,6 +219,45 @@
 					</x:ul>
 			       </x:li>
 			       
+			   <x:li if="${sec:isAnyGranted('REGISTAR_MARITIMOS,SECRETARIA,E_SUPER_ADMINISTRADOR')}" sclass="treeview ${vm.hoursPage}">
+					<x:a href="#" >
+						<x:i class="fa  fa-retweet"></x:i>
+						<x:span>Secção Técnica Marítimos</x:span>
+						<x:i class="fa fa-angle-left pull-right"></x:i>
+					</x:a>
+					<x:ul class="treeview-menu">
+						<x:li if="${sec:isAnyGranted('REGISTAR_MARITIMOS,SECRETARIA,E_SUPER_ADMINISTRADOR')}"><x:a href="#" onClick="@command('registarExpediente')"><x:i class="fa fa-dot-circle-o"></x:i>Entrada de Pedidos</x:a></x:li>
+						<x:li if="${sec:isAnyGranted('REGISTAR_MARITIMOS,SECRETARIA,E_SUPER_ADMINISTRADOR')}"><x:a href="#" onClick="@command('registarMaritimo')"><x:i class="fa fa-dot-circle-o"></x:i>Registo de Maritímos</x:a></x:li>
+					
+					</x:ul>
+			  </x:li>
+			  
+			  <x:li if="${sec:isAnyGranted('REGISTAR_EMBARCACOES,SECRETARIA,E_SUPER_ADMINISTRADOR')}" sclass="treeview ${vm.hoursPage}">
+					<x:a href="#" >
+						<x:i class="fa  fa-retweet"></x:i>
+						<x:span>Secção Técnica Embarcações</x:span>
+						<x:i class="fa fa-angle-left pull-right"></x:i>
+					</x:a>
+					<x:ul class="treeview-menu">
+						<x:li if="${sec:isAnyGranted('REGISTAR_EMBARCACOES,SECRETARIA,E_SUPER_ADMINISTRADOR')}"><x:a href="#" onClick="@command('registarExpediente')"><x:i class="fa fa-dot-circle-o"></x:i>Entrada de Pedidos</x:a></x:li>
+						<x:li if="${sec:isAnyGranted('REGISTAR_EMBARCACOES,SECRETARIA,E_SUPER_ADMINISTRADOR')}"><x:a href="#" onClick="@command('registarEmbaracao')"><x:i class="fa fa-dot-circle-o"></x:i>Registo de Embarcações</x:a></x:li>
+					
+					</x:ul>
+			  </x:li>
+			  
+			  <x:li if="${sec:isAnyGranted('REGISTAR_LICENCAS,SECRETARIA,E_SUPER_ADMINISTRADOR')}" sclass="treeview ${vm.hoursPage}">
+					<x:a href="#" >
+						<x:i class="fa  fa-retweet"></x:i>
+						<x:span>Secção Técnica Licenciamento</x:span>
+						<x:i class="fa fa-angle-left pull-right"></x:i>
+					</x:a>
+					<x:ul class="treeview-menu">
+						<x:li if="${sec:isAnyGranted('REGISTAR_LICENCAS,SECRETARIA,E_SUPER_ADMINISTRADOR')}"><x:a href="#" onClick="@command('registarExpediente')"><x:i class="fa fa-dot-circle-o"></x:i>Entrada de Pedidos</x:a></x:li>
+						<x:li if="${sec:isAnyGranted('REGISTAR_LICENCAS,SECRETARIA,E_SUPER_ADMINISTRADOR')}"><x:a href="#" onClick="@command('registarLicenca')"><x:i class="fa fa-dot-circle-o"></x:i>Emitir Licença</x:a></x:li>
+					
+					</x:ul>
+			  </x:li>
+			  
 			   <x:li if="${sec:isAnyGranted('SECRETARIA,E_SUPER_ADMINISTRADOR')}" sclass="treeview ${vm.hoursPage}">
 					<x:a href="#" >
 						<x:i class="fa  fa-retweet"></x:i>

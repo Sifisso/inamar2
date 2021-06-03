@@ -11,5 +11,6 @@ public interface UtenteDao extends GenericDao<Utente>{
 	public List<Utente> findUtentesNotMaritimos();
 	public List<Utente> findUtentesMaritimos();
 	public List<Utente> findAllByMaritimoOuUtente(String nome);
+	public List<Utente> findByIsEmpresa();
 
 }

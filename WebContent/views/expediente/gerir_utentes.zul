@@ -29,16 +29,19 @@
 								</div>
 							</div>
 							
-								<div zclass="col-lg-6 col-md-6 col-sm-12 col-xs-12" align="right">
-								<div class="input-group" align="right" style="margin-top:7px">
-<!-- 								<x:label>Utente</x:label> -->
-									<radiogroup>
-										<!-- <radio label="MARÍTIMO" style="margin-left:5px" id="rbx_SimMaritimoUtenteFind" forward="onCheck=onClickprcurar()"/>
-										<radio label="UTENTE" style="margin-left:15px" id="rbx_NaoMaritimoUtntenFind" forward="onCheck=onClickprcurar()"/>
-										<radio label="TODOS" style="margin-left:15px" checked="true" id="rbx_todos" forward="onCheck=onClickprcurarTodos()"/> -->
-									</radiogroup>
-								</div>
-							</div>
+								<div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+        						<div class="input-group">
+        									<div class="input-group">
+        										<combobox id="cbx_tipoUtentefind" readonly="true"
+        										cols="40" placeholder="Selecione o tipo de utente"
+        										width="100%">
+        											<comboitem label="Empresa" />
+        											<comboitem label="Singular" />
+        										</combobox>
+
+        									</div>
+        						</div>
+        						</div>
 							
 							</groupbox>
 							

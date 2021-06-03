@@ -8,5 +8,7 @@ import mz.ciuem.inamar.entity.Pedido;
 public interface LocalPraticaDao extends GenericDao<LocalPratica>{
 	
 	public List<LocalPratica> findNotInPedido(Pedido pedido);
+	
+	public List <LocalPratica> findLocalPraticaByActivo();
 
 }

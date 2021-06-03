@@ -43,6 +43,9 @@ public class Peticao extends IdEntity{
 	@Column(name="nrExpediente")
 	private String nrExpediente;
 	
+	@Column(name="nrExpedientee")
+	private String nrExpedientee;
+	
 	@Column(name="tipo")
 	private String tipo;
 	
@@ -762,6 +765,14 @@ public class Peticao extends IdEntity{
 
 	public void setPeticaoLicenca(PeticaoLicenca peticaoLicenca) {
 		this.peticaoLicenca = peticaoLicenca;
+	}
+
+	public String getNrExpedientee() {
+		return nrExpedientee;
+	}
+
+	public void setNrExpedientee(String nrExpedientee) {
+		this.nrExpedientee = nrExpedientee;
 	}
 
 }

@@ -7,7 +7,9 @@ import java.util.List;
 import java.util.Map;
 
 import mz.ciuem.inamar.comps.MasterRep;
+import mz.ciuem.inamar.entity.Maritimo;
 import mz.ciuem.inamar.entity.Utente;
+import mz.ciuem.inamar.service.MaritimoService;
 import mz.ciuem.inamar.service.UtenteService;
 import net.sf.jasperreports.engine.JRException;
 
@@ -35,21 +37,21 @@ public class GerirMaritimoCtrl extends GenericForwardComposer{
 	private Include inc_main;
 	private Div div_content_out;
 	
-	private Listbox lbx_utentes;
-	private Textbox txb_nomefind;
+	private Listbox lbx_maritimo;
+	private Textbox txb_nomefind, txb_nrfind;
 	private Radio rbx_Simfin, rbx_Naofin;
 	
 	@WireVariable
-	private UtenteService _utenteService;
+	private MaritimoService _maritimoService;
 	
-	private List<Utente> listMaritimo = new ArrayList<Utente>();
+	private List<Maritimo> listMaritimo = new ArrayList<Maritimo>();
 	
 	@SuppressWarnings("unchecked")
 	@Override
 	public void doBeforeComposeChildren(Component comp) throws Exception {
 		super.doBeforeComposeChildren(comp);
 		
-		_utenteService = (UtenteService) SpringUtil.getBean("utenteService");
+		_maritimoService = (MaritimoService) SpringUtil.getBean("maritimoService");
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -57,13 +59,25 @@ public class GerirMaritimoCtrl extends GenericForwardComposer{
 	public void doAfterCompose(Component comp) throws Exception {
 		super.doAfterCompose(comp);
 		
-		listUtente();
-		session.removeAttribute("ss_utente");
+		listMaritimo();
+		session.removeAttribute("ss_maritimo");
 	}
 
-	private void listUtente() {
-		listMaritimo = _utenteService.findUtentesMaritimos();
-		lbx_utentes.setModel(new ListModelList<Utente>(listMaritimo));
+	private void listMaritimo() {
+		listMaritimo = _maritimoService.getAll();
+		lbx_maritimo.setModel(new ListModelList<Maritimo>(listMaritimo));
+	}
+	
+	public void onClickprcurarNome(ForwardEvent e){
+		String nome = txb_nomefind.getValue();
+		listMaritimo = _maritimoService.findByNome(nome);
+		lbx_maritimo.setModel(new ListModelList<Maritimo>(listMaritimo));
+	}
+	
+	public void onClickprcurarNrInscricao(ForwardEvent e){
+		String nrInscricao = txb_nrfind.getValue();
+		listMaritimo = _maritimoService.findByNrInscricao(nrInscricao);
+		lbx_maritimo.setModel(new ListModelList<Maritimo>(listMaritimo));
 	}
 	
 	public void onClickSubmeter(ForwardEvent e){
@@ -92,10 +106,10 @@ public class GerirMaritimoCtrl extends GenericForwardComposer{
 			public void onEvent(Event event) throws Exception {
 				
 				if("onYes".equals(event.getName())){
-					Utente u = (Utente) e.getData();
+					Maritimo u = (Maritimo) e.getData();
 					
 					if(u!=null){
-						Executions.getCurrent().getSession().setAttribute("ss_utente", u);
+						Executions.getCurrent().getSession().setAttribute("ss_maritimo", u);
 						div_content_out.detach();
 						inc_main.setSrc("/views/expediente/registar_maritimo.zul");
 					}

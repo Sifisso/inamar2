@@ -83,7 +83,7 @@ public class GerirPeticaoCtrl extends GenericForwardComposer{
 	private Listbox lbx_requisitos, lbx_taxasPedido, lbx_instLegalPedido, lbx_peticao, lbx_etapaFluxo, lbx_taxaPedido;
 	private Button btn_proximo;
 	private Window win_regPedidoExpediente;
-	private Textbox txb_nomefind;
+	private Textbox txb_nomefind, tbx_nrExpediente;
 	private Button btn_imprimir;
 	private Label lbl_tete;
 	
@@ -157,7 +157,7 @@ public class GerirPeticaoCtrl extends GenericForwardComposer{
 	
 		utente = (Utente) Executions.getCurrent().getSession().getAttribute("ss_utente");
 		loggeduser = _userService.getUser(authentication.getName());
-		
+		peticao = (Peticao) Executions.getCurrent().getArg().get("peticao");
 		_peticaoService.iniciar();
 	}
 	
@@ -293,7 +293,10 @@ public class GerirPeticaoCtrl extends GenericForwardComposer{
 	}
 	
 	public void onClick$btn_proximo(){
+		//Peticao peticao = new Peticao();
 		gravar();
+		
+		//_peticaoService.saveOrUpdate(peticao);
 		Executions.getCurrent().getSession().removeAttribute("ss_utente");
 	}
 	public void onClickTratar(ForwardEvent e){
@@ -303,10 +306,13 @@ public class GerirPeticaoCtrl extends GenericForwardComposer{
 		Executions.createComponents("/views/expediente/tratar_peticaoGeral.zul", win_regPedidoExpediente, mapContaReceber);
 	}
 	private void gravar() {
+		
 		if(utente==null)utente = (Utente)cbx_utente.getSelectedItem().getValue();
 		_peticaoService.gravarRedicionar((Pedido)cbx_pedido.getSelectedItem().getValue(), utente, 
 				funcionario.getSector().getDelegacaoDepartamento().getDelegacao(), loggeduser, lbx_requisitos,lbx_instLegalPedido, lbx_taxasPedido,lbx_etapaFluxo , inc_main, div_content_out);
 	}
+	
+	
 
 	
 	public void onClickDetalhes(ForwardEvent e){

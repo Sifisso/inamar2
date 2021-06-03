@@ -20,4 +20,10 @@ public class LocalPraticaDaoImpl extends GenericDaoImpl<LocalPratica> implements
 		return query.list();
 	}
 
+	@Override
+	public List<LocalPratica> findLocalPraticaByActivo() {
+		Query query = getCurrentSession().createQuery("SELECT lp from LocalPratica lp where lp.isActivo=true");
+		return query.list();
+	}
+
 }

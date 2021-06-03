@@ -30,10 +30,12 @@ public class TipoUtenteCtrl extends GenericForwardComposer{
 	
 	public void onSelect$cbx_tipoUtente(){
 		String tipoUtente = cbx_tipoUtente.getValue();
+		
 		if(tipoUtente.equals("Singular")){
 			div_content_out.detach();
 			inc_main.setSrc("/views/expediente/registar_utente.zul");
 		}else
+		
 		     if(tipoUtente.equals("Empresa")){
 		 		div_content_out.detach();
 				inc_main.setSrc("/views/expediente/registar_empresa.zul");
