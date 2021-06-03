@@ -1,0 +1,283 @@
+<zk xmlns:x="xhtml" xmlns:zk="zk">
+	<style>
+
+
+
+
+		.stylish { display: block; width: 35px; height: 35px;
+		border-radius: 50%; border: 4px double #ccc; font-size: 25px;
+		color: #666; line-height: 20px; text-align: center;
+		text-decoration: none; text-shadow: 0 1px 0 #fff;
+		background:#ddd }
+
+		.stylishActive { display: block; width: 35px; height: 35px;
+		border-radius: 50%; border: 4px double #ccc; font-size: 25px;
+		color: #666; line-height: 20px; text-align: center;
+		text-decoration: none; text-shadow: 0 1px 0 #fff;
+
+
+		background: #009700
+
+		}
+
+		.stylish:hover { border: 4px double #bbb; color: #aaa;
+		text-decoration: none; background: #ddd }
+
+		.separator{
+
+		width:160%;
+
+		background: #ddd;
+
+		content: '';
+
+		height: 2px;
+
+
+		left: 0%; top: 35px; z-index: -1; }
+
+		.separatorD{
+
+		width:70%; background: #ddd;
+
+		content: '';
+
+		height: 2px;
+
+
+		left: 0%; top: 35px; z-index: -1; }
+
+		.separatorC{
+
+		width:100%;
+
+		background: #009700;
+
+		content: '';
+
+		height: 2px;
+
+
+		left: 50%; top: 35px; z-index: -1; }
+
+
+
+	</style>
+	<window apply="mz.ciuem.inamar.seccaoTecnica.controller.Embarcacaotrl" id="win_regEmbarcacoes">
+	
+
+		<div id="div_content_out">
+		      <div class="box-body" style="margin-right:1%">
+        <div sclass="alert alert-warning alert-dismissable">
+			<label value="Os campos marcados com"></label><x:label style="color:red">*</x:label><label value=" são de preenchimento obrigatório."></label>
+		</div>
+        </div>
+			<x:div class="row">
+
+				<div zclass="col-md-12 col-lg-12 col-sm-12 col-xs-12"
+					align="center">
+
+
+					<div class="form-group">
+						<div
+							zclass="col-md-4 col-lg-4 col-sm-3 col-xs-4">
+
+							<div class="stylishActive" style=" border: 4px double #ccc;">1</div>
+							<div class="separatorC"
+								style="margin-top:-17px; margin-left:50%; ">
+							</div>
+
+						</div>
+
+						<div
+							zclass="col-md-4 col-lg-4 col-sm-4 col-xs-4">
+							<div class="stylish">2</div>
+							<div class="separator" style="margin-top:-17px;margin-left:-5%">
+							</div>
+
+						</div>
+
+						<div
+							zclass="col-md-4 col-lg-4 col-sm-4 col-xs-4">
+							<div class="stylish">3</div>
+						</div>
+
+					</div>
+				</div>
+			</x:div>
+			<separator></separator>
+			<separator></separator>
+			<separator></separator>
+			<separator></separator>
+
+
+	
+	
+	
+
+			<x:div class="row">
+			
+			
+				<div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+        						<div class="box-body">
+        				<groupbox>
+        		   <caption>Dados da Embarcação</caption>
+        		   
+        		   			<div class="row">
+							   
+							  <div
+								zclass="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+	                               <div class="form-group">
+									<x:label>Nr de Expediente</x:label><x:label style="color:red">*</x:label>
+									<textbox zclass="form-control"
+										placeholder="Nr de Expediente"
+										id="tbx_nrExpediente" />
+								</div>
+							</div>
+							   
+							   <div zclass="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+								<div class="form-group">
+									<x:label>Nr de Registo</x:label><x:label style="color:red">*</x:label>
+									<div class="input-group">
+									<textbox zclass="form-control"
+										placeholder="Nr de Registo"
+										id="tbx_nrRegisto" />
+								  <x:span class="input-group-addon"><x:i class="fa fa-edit"></x:i></x:span>
+										</div>
+								</div>
+							</div>
+							
+							<div zclass="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+								<div class="form-group">
+									<x:label>Nome da Embarcação</x:label><x:label style="color:red">*</x:label>
+									<div class="input-group">
+									<textbox zclass="form-control"
+										placeholder="Nome da Embarcação"
+										id="tbx_nome" />
+								  <x:span class="input-group-addon"><x:i class="fa fa-edit"></x:i></x:span>
+										</div>
+								</div>
+							</div>
+							
+							   
+							   <div
+								zclass="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+	                               <div class="form-group">
+									<x:label>Local de registo</x:label><x:label style="color:red">*</x:label>
+									<combobox width="100%"
+										id="cbx_delegacao" constraint="no empty"
+										placeholder="Selecione a delegação" readonly="true">
+										<template name="model">
+											<comboitem
+												label="${each.nome}" />
+										</template>
+									</combobox>
+								</div>
+							</div>
+							
+							<div zclass="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+								<div class="form-group">
+									<x:label>Matrícula</x:label><x:label style="color:red">*</x:label>
+									<div class="input-group">
+									<textbox zclass="form-control"
+										placeholder="Matrícula"
+										id="tbx_matricula" />
+								  <x:span class="input-group-addon"><x:i class="fa fa-edit"></x:i></x:span>
+										</div>
+								</div>
+							</div>
+							
+							<div zclass="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+								<div class="form-group">
+									<x:label>Tonelagem</x:label><x:label style="color:red">*</x:label>
+									<div class="input-group">
+									<textbox zclass="form-control"
+										placeholder="Tonelagem"
+										id="tbx_tonelagem" />
+								  <x:span class="input-group-addon"><x:i class="fa fa-edit"></x:i></x:span>
+										</div>
+								</div>
+							</div>
+							
+							<div zclass="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+								<div class="form-group">
+									<x:label>Data de Registo</x:label><x:label style="color:red">*</x:label>
+									<div class="form-group">
+									<datebox format="dd/MM/yyyy" width="100%" constraint="no future"
+										placeholder="dd/MM/yyyy"
+										id="dtb_dataRegisto" />
+										</div>
+								</div>
+							</div>
+							
+							<div zclass="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+								<div class="form-group">
+									<x:label>Proprietário</x:label><x:label style="color:red">*</x:label>
+									<div class="input-group">
+									<textbox zclass="form-control"
+										placeholder="Propreitário"
+										id="tbx_proprietario" />
+								  <x:span class="input-group-addon"><x:i class="fa fa-edit"></x:i></x:span>
+										</div>
+								</div>
+							</div>
+							
+								   <div
+								zclass="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+	                               <div class="form-group">
+									<x:label>Classe</x:label><x:label style="color:red">*</x:label>
+									<combobox width="100%"
+										id="cbx_classe" constraint="no empty"
+										placeholder="Selecione a Classe" readonly="true">
+										<template name="model">
+											<comboitem
+												label="${each.nome}" />
+										</template>
+									</combobox>
+								</div>
+							</div>
+							
+								   <div
+								zclass="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+	                               <div class="form-group">
+									<x:label>Destinada a Serviço de:</x:label><x:label style="color:red">*</x:label>
+									<combobox width="100%"
+										id="cbx_servicoDestino" constraint="no empty"
+										placeholder="Selecione o destino do serviço" readonly="true">
+										<template name="model">
+											<comboitem
+												label="${each.nome}" />
+										</template>
+									</combobox>
+								</div>
+							</div>
+							
+							
+							
+							
+							
+        		   </div>
+        		   </groupbox>
+					</div>
+				</div>
+
+        				
+     
+
+
+			</x:div>
+			<x:div class="row">
+				<div align="center" style="margin-top:10px">
+					<label width="5%"></label>
+					<button zclass="btn btn-info btn-sm" label="Próximo"
+						id="btn_proximo" iconSclass="fa fa-chevron-right" dir="reverse">
+					</button>
+				</div>
+			</x:div>
+
+
+		</div>
+		<include id="inc_main"></include>
+
+	</window>
+</zk>
