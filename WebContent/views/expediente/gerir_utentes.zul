@@ -29,19 +29,31 @@
 								</div>
 							</div>
 							
-								<div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
-        						<div class="input-group">
-        									<div class="input-group">
-        										<combobox id="cbx_tipoUtentefind" readonly="true"
-        										cols="40" placeholder="Selecione o tipo de utente"
-        										width="100%">
-        											<comboitem label="Empresa" />
-        											<comboitem label="Singular" />
-        										</combobox>
+							<div zclass="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+								<div class="input-group">
+									<textbox zclass="form-control"
+										placeholder="Procurar pelo nuit do Utente"
+										id="txb_nuitfind" />
+											<x:span class="input-group-addon" forward="onClick=onClickprcurarNuit()">
+										<x:i class="fa  fa-search"></x:i>
+									</x:span>
+								
+								</div>
+							</div>
+							
+<!-- 								<div class="col-md-3 col-lg-3 col-sm-12 col-xs-12"> -->
+<!--         						<div class="input-group"> -->
+<!--         									<div class="input-group"> -->
+<!--         										<combobox id="cbx_tipoUtentefind" readonly="true" -->
+<!--         										cols="40" placeholder="Selecione o tipo de utente" -->
+<!--         										width="100%"> -->
+<!--         											<comboitem label="Empresa" /> -->
+<!--         											<comboitem label="Singular" /> -->
+<!--         										</combobox> -->
 
-        									</div>
-        						</div>
-        						</div>
+<!--         									</div> -->
+<!--         						</div> -->
+<!--         						</div> -->
 							
 							</groupbox>
 							
@@ -74,8 +86,7 @@
 									<listhead>
 										<listheader label="#" width="5%" />
 										<listheader label="Nome" sort="auto(nome)" />
-										<listheader label="Apelido" align="center"/>
-<!-- 										<listheader label="Marítimo ou Utente?" align="center" sort="auto(nome)" /> -->
+										<listheader label="Nuit?" align="center" sort="auto(nuit)" />
 										<listheader label="Celular" align="center"/>
 										<listheader label="Tipo" width="10%" align="center"/>
 										<listheader label="Pedido" width="10%" align="center"/>
@@ -85,8 +96,8 @@
 									<template name="model">
 										<listitem>
 											<listcell></listcell>
-											<listcell label="${each.nome}" />
-											 <listcell label="${each.apelido}" />
+											<listcell label="${each.nome} ${each.apelido}" />
+											<listcell label="${each.nuit}" />
 <!-- 											 <listcell> -->
 									       
 <!-- 									       <div align="center"> -->

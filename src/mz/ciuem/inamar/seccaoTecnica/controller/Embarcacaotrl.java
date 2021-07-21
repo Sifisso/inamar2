@@ -41,7 +41,7 @@ public class Embarcacaotrl extends GenericForwardComposer{
 	
 	private Button btn_proximo;
 	private Combobox cbx_tipoUtente;
-	private Combobox cbx_delegacao, cbx_classe, cbx_servicoDestino, cbx_peticaoEmbarcacao;
+	private Combobox cbx_delegacao, cbx_classe, cbx_servicoDestino;
 	private Include inc_main;
 	private Div div_content_out;
 	private Window win_regEmbarcacoes;
@@ -100,7 +100,6 @@ public class Embarcacaotrl extends GenericForwardComposer{
 	 private void preenchercampos(Embarcacoes _embarcacoes2) {
 		//cbx_delegacao.setValue(_embarcacoes.getDelegacao().getNome());
 		cbx_delegacao.setValue(_embarcacoes.getDelegacao()==null?"":_embarcacoes.getDelegacao().getNome());
-		cbx_peticaoEmbarcacao.setValue(_embarcacoes.getPeticaoEmbarcacao()==null?"":_embarcacoes.getPeticaoEmbarcacao().getNrExpediente());
 		//cbx_servicoDestino.setValue(_embarcacoes.getServicoDestino().getNome());
 		cbx_servicoDestino.setValue(_embarcacoes.getServicoDestino()==null?"":_embarcacoes.getServicoDestino().getNome());
 		//cbx_classe.setValue(_embarcacoes.getClasse().getNome());
@@ -131,11 +130,10 @@ public class Embarcacaotrl extends GenericForwardComposer{
 			_embarcacoes.setClasse(cbx_classe.getSelectedItem().getValue());
 			_embarcacoes.setTonelagem(tbx_tonelagem.getValue());
 			_embarcacoes.setServicoDestino(cbx_servicoDestino.getSelectedItem().getValue());
-			_embarcacoes.setPeticaoEmbarcacao(cbx_peticaoEmbarcacao.getSelectedItem().getValue());
 			_embarcacoesService.saveOrUpdate(_embarcacoes);
 			redirecionar(_embarcacoes);
 		} catch (NullPointerException e) {
-      System.out.println("Erro ");
+      System.out.println("Erro "+null);
 		}
 	}
 

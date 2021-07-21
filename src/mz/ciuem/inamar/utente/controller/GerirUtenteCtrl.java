@@ -41,6 +41,7 @@ public class GerirUtenteCtrl extends GenericForwardComposer{
 	
 	private Listbox lbx_utentes;
 	private Textbox txb_nomefind;
+	private Textbox txb_nuitfind;
 	private Radio rbx_SimMaritimoUtenteFind;
 	private Radio rbx_NaoMaritimoUtntenFind;
 	
@@ -78,6 +79,16 @@ public class GerirUtenteCtrl extends GenericForwardComposer{
 		String nome = txb_nomefind.getValue();
 		//boolean maritimo = (rbx_NaoMaritimoUtntenFind.isChecked() ? false : true);
 		findAllByMaritimoOuUtente(nome);
+	}
+	
+	public void onClickprcurarNuit(ForwardEvent e){
+		String nuit = txb_nuitfind.getValue();
+		findMaritimoOrUtenteByNuit(nuit);
+	}
+	
+	public void findMaritimoOrUtenteByNuit(String nuit){
+		listUtente = _utenteService.findByMaritimoOuUtenteByNuit(nuit);
+		lbx_utentes.setModel(new ListModelList<Utente>(listUtente));
 	}
 	
 	public void findAllByMaritimoOuUtente(String nome){

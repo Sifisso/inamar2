@@ -237,7 +237,7 @@
         					</h:form>
         				</div>
         				
-        				<div class="col-md-12 col-lg-12 col-xs-12 col-sm-12">
+        				<div class="col-md-6 col-lg-6 col-xs-12 col-sm-12">
         					<h:form role="form">
         						<div class="box-body">
         						
@@ -251,7 +251,23 @@
         						</div>
         						</h:form>
         				
+        				</div>
         				
+        				<div class="col-md-6 col-lg-6 col-xs-12 col-sm-12">
+        					<h:form role="form">
+        						<div class="box-body">
+        						
+        								<div class="form-group">
+        								<h:label >Nuit</h:label><h:label style="color:red">*</h:label>
+                                    <textbox zclass="form-control"
+							           placeholder="Nuit"
+							               constraint="no empty : Não deve estar vazio ou conter espaços em branco apenas !"
+						               	id="tbx_nuit"/>        							
+						               	</div>
+        						</div>
+        						</h:form>
+        				
+        				</div>
         				
         						<div class="col-md-12 col-lg-12 col-xs-12 col-sm-12">
         					<h:form role="form">
@@ -269,7 +285,7 @@
         					
         					</h:form>
         				</div>
-        		   </div>
+        		   
         		   </groupbox>
 					</div>
 				</div>

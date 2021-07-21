@@ -28,11 +28,11 @@ public class IdEntity implements Serializable, Entity {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	protected Long id;
 
-	@Temporal(TemporalType.TIMESTAMP)
+	@Temporal(TemporalType.DATE)
 	@Column(name = "created", nullable = false)
 	protected Date created;
 
-	@Temporal(TemporalType.TIMESTAMP)
+	@Temporal(TemporalType.DATE)
 	@Column(name = "updated", nullable = false)
 	protected Date updated;
 	

@@ -299,7 +299,10 @@ public class PeticaoServiceImpl extends GenericServiceImpl<Peticao> implements P
 		return _pDao.findByUtentePeticaoEntregues(list);
 	}
 
-	
+	@Override
+	public List<Peticao> filtrarPorDatas(Date dataInicio, Date dataFim) {
+		return _pDao.filtrarPorDatas(dataInicio, dataFim);
+	}
 	
 	
 	
@@ -3568,6 +3571,8 @@ public class PeticaoServiceImpl extends GenericServiceImpl<Peticao> implements P
 	public void procurarPeloNomePedidoEntregues(Listbox lbx_peticao, String utentepeticao, List<Peticao> list){
 		lbx_peticao.setModel(new ListModelList<Peticao>(_peticaoService.findByUtentePeticaoEntregues(list)));
 	}
+
+	
 
 	
 

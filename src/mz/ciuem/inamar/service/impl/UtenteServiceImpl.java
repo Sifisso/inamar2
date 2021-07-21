@@ -40,4 +40,9 @@ public class UtenteServiceImpl extends GenericServiceImpl<Utente> implements Ute
 		return _uDao.findByIsEmpresa();
 	}
 
+	@Override
+	public List<Utente> findByMaritimoOuUtenteByNuit(String nuit) {
+		return _uDao.findByMaritimoOuUtenteByNuit(nuit);
+	}
+
 }

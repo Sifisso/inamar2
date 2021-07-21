@@ -54,5 +54,15 @@ public class UtenteDaoImpl extends GenericDaoImpl<Utente> implements UtenteDao{
 		
 		return query.list();
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Utente> findByMaritimoOuUtenteByNuit (String nuit){
+		org.hibernate.Query query = getCurrentSession().createQuery("select u from Utente u where u.nuit like :nuit");
+		
+		query.setParameter("nuit", "%"+nuit+"%");
+		return query.list();
+
+	}
 
 }

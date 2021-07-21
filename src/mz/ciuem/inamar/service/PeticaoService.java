@@ -1,5 +1,6 @@
 package mz.ciuem.inamar.service;
 
+import java.util.Date;
 import java.util.List;
 
 import net.sf.jasperreports.engine.JRException;
@@ -81,6 +82,7 @@ public interface PeticaoService extends GenericService<Peticao>{
 	public void onClickDetalhess(Peticao pet, Include inc_main,Div div_content_out);
 	public List<Peticao> buscarPeticoesPorDelegacaoTesouraria(Delegacao delegacao);
 	public List<Peticao> buscarPeticoesPorDelegacaoSeccaoTecnica(Delegacao delegacao);
+	public List<Peticao> filtrarPorDatas(Date dataInicio, Date dataFim);
 	
 	
 	

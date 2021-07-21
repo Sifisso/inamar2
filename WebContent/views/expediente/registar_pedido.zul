@@ -359,8 +359,9 @@
                 <div class="box-header with-border">
                   <x:h3 class="box-title">Caixa de Entrada</x:h3>
                   <div class="box-tools pull-right">
+                 	 <div zclass="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                     	<div class="input-group">
-									<textbox zclass="form-control"
+									 <textbox zclass="form-control"
 										placeholder="Procurar pelo nome do utente ou pedido"
 										id="txb_nomefind" forward="onChanging=onClickProcuarPeticaoUtente()"/>
 											<x:span class="input-group-addon" forward="onClick=onClickProcuarPeticaoUtente()">
@@ -368,6 +369,28 @@
 									</x:span>
 								
 								</div>
+						</div>
+						
+						<div zclass="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+	                    	<div class="form-group">
+	                    		<datebox id="dtx_dataInicio" readonly="true" format="yyyy-MM-dd" weekOfYear="false" constraint="no future"
+									width="100%" placeholder="Selecione a Data Inicio">
+								</datebox>
+	                    	</div>
+                    	</div>
+                    	
+                    	<div zclass="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+	                    	<div class="form-group">
+	                    		<datebox id="dtx_dataFim" readonly="true" format="yyyy-MM-dd" weekOfYear="false" constraint="no future"
+									width="100%" placeholder="Selecione a Data Fim">
+								</datebox>
+								<div style="padding-top:10px;" align="right">
+                    	 		<button iconSclass="fa fa-search" zclass="btn btn-secondary" id="btn_procurar" >Filtrar Por Datas</button> 
+	                    		</div>
+	                    	</div>
+                    	</div>
+                    	
+                    	
                   </div><!-- /.box-tools -->
                 </div><!-- /.box-header -->
                 

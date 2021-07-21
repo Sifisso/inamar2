@@ -1,15 +1,18 @@
 package mz.ciuem.inamar.dao.imlp;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+
+import org.hibernate.Query;
+import org.springframework.stereotype.Repository;
 
 import mz.ciuem.inamar.dao.PeticaoDao;
 import mz.ciuem.inamar.entity.Delegacao;
 import mz.ciuem.inamar.entity.Peticao;
 import mz.ciuem.inamar.entity.User;
-
-import org.hibernate.Query;
-import org.springframework.stereotype.Repository;
-import org.zkoss.zul.Messagebox;
 
 @Repository
 public class PeticaoDaoImpl extends GenericDaoImpl<Peticao> implements PeticaoDao{
@@ -500,7 +503,24 @@ public class PeticaoDaoImpl extends GenericDaoImpl<Peticao> implements PeticaoDa
 	    return query.list();
 	}
 
-	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Peticao> filtrarPorDatas(Date dataInicio, Date dataFim){
+		
+		//Date date = Calendar.getInstance().getTime();  
+//		DateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");  
+//		String dInicio = format.format(dataInicio); 
+//		String dFim = format.format(dataFim);
+		
+		Query query = getCurrentSession().createQuery("SELECT p FROM Peticao p "
+				+ " WHERE p.created between :dataInicio and :dataFim "
+				+ " order by DATE(p.created) asc ");
+		
+		query.setParameter("dataInicio", dataInicio);
+		query.setParameter("dataFim", dataFim);
+		
+		return query.list();
+	}
 
 	
 

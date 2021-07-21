@@ -64,6 +64,7 @@ import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.Button;
 import org.zkoss.zul.Combobox;
+import org.zkoss.zul.Datebox;
 import org.zkoss.zul.Div;
 import org.zkoss.zul.Include;
 import org.zkoss.zul.Label;
@@ -84,8 +85,10 @@ public class GerirPeticaoCtrl extends GenericForwardComposer{
 	private Button btn_proximo;
 	private Window win_regPedidoExpediente;
 	private Textbox txb_nomefind, tbx_nrExpediente;
-	private Button btn_imprimir;
+	private Button btn_imprimir, btn_procurar;
 	private Label lbl_tete;
+	private Datebox dtx_dataInicio;
+	private Datebox dtx_dataTermino;
 	
 	@WireVariable
 	private AreaService _areaService;
@@ -125,6 +128,11 @@ public class GerirPeticaoCtrl extends GenericForwardComposer{
 	private Utente utente;
 	private  Area _area;
 	private List<Peticao> listPeticao = new ArrayList<Peticao>();
+	
+	
+	private List<Peticao> PeticaoList;
+	private ListModelList<Peticao>PeticaoListModel;
+	
 	private List<TaxaPedido> listTaxaPedido = new ArrayList<>();
 	private ListModel<TaxaPedido> listTaxaPedidoModel;
 	protected User loggeduser;
@@ -404,6 +412,16 @@ public class GerirPeticaoCtrl extends GenericForwardComposer{
 	
 	public void verificar(){
 		if(txb_nomefind.getValue()==null && txb_nomefind.getValue()=="")listarPeticao();
+	}
+	
+	public void onClick$btn_procurar(){
+		buscarPorData(dtx_dataInicio.getValue(), dtx_dataTermino.getValue());
+	}
+	
+	private void buscarPorData(Date dataInicio, Date dataFim){
+		PeticaoList = _peticaoService.filtrarPorDatas(dataInicio, dataFim);
+		PeticaoListModel = new ListModelList<Peticao>(PeticaoList);
+		lbx_peticao.setModel(PeticaoListModel);
 	}
 	
 	//***************************************FIM DAS PESQUISAS***************************************//

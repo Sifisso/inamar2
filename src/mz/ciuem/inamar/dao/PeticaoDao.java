@@ -1,5 +1,6 @@
 package mz.ciuem.inamar.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import mz.ciuem.inamar.entity.Delegacao;
@@ -48,6 +49,7 @@ public interface PeticaoDao extends GenericDao<Peticao>{
 	public List<Peticao> buscarPeticoesPorDelegacaoEmbarcacao(Delegacao delegacao);
 	public List<Peticao> buscarPeticoesPorDelegacaoMaritimos(Delegacao delegacao);
 	public List<Peticao> buscarPeticoesPorDelegacaoSeccaoTecnica(Delegacao delegacao);
+	public List<Peticao> filtrarPorDatas(Date dataInicio, Date dataFim);
 	
 	
 	
